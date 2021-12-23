@@ -7,6 +7,7 @@ import { Help } from "./HelpPage";
 import { Profile } from "./ProfilePage";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../data/dexieDatabase";
+import { NavBar } from "./NavBar";
 
 // ! Nav link may work
 export default function App() {
@@ -17,14 +18,7 @@ export default function App() {
 	return (
 		<div className="bg-gray-10 font-sans">
 			{/* Nav bar */}
-			<nav className="w-full bg-CTA-300 fixed bottom-0 border-b-2 font-sans text-2xl">
-				<ul className="flex justify-evenly">
-					<Link to="/">Home</Link>
-					<Link to="/profile">Profile</Link>
-					<Link to="/help">Help</Link>
-					<Link to="/team/select">Teams</Link>
-				</ul>
-			</nav>
+			<NavBar />
 			{/* Status */}
 			<section className="fixed top-0 w-full">
 				<div className="bg-CTA-100 flex justify-evenly">
