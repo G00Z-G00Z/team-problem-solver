@@ -8,13 +8,14 @@ import { Profile } from "./ProfilePage";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../data/dexieDatabase";
 
+// ! Nav link may work
 export default function App() {
 	const teams = useLiveQuery(async () => {
 		return await db.getTeams();
 	});
 
 	return (
-		<div className="">
+		<div className="bg-gray-10 font-sans">
 			{/* Nav bar */}
 			<nav className="w-full bg-CTA-300 fixed bottom-0 border-b-2 font-sans text-2xl">
 				<ul className="flex justify-evenly">
