@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes, Link, Outlet } from "react-router-dom";
-import { Home } from "./Home";
-import { SelectTeam } from "./SelectTeam";
+import { Home } from "./HomePage";
+import { SelectTeamPage } from "./SelectTeam/SelectTeamPage";
 import { EditTeam } from "./TeamBuilder/EditTeam";
-import { Help } from "./Help";
-import { Profile } from "./Profile";
+import { Help } from "./HelpPage";
+import { Profile } from "./ProfilePage";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../data/dexieDatabase";
 
 export default function App() {
+	const teams = useLiveQuery(async () => {
+		return await db.getTeams();
+	});
+
 	return (
 		<div className="">
 			{/* Nav bar */}
@@ -32,7 +38,10 @@ export default function App() {
 					<Route path="/profile" element={<Profile />} />
 
 					<Route path="/team" element={<Outlet />}>
-						<Route path="select" element={<SelectTeam />} />
+						<Route
+							path="select"
+							element={<SelectTeamPage teams={teams ?? []} />}
+						/>
 						<Route path="edit" element={<Outlet />}>
 							<Route path=":teamId" element={<EditTeam />} />
 						</Route>
