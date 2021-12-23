@@ -1,6 +1,10 @@
 import React from "react";
-import { Route, Routes, Link } from "react-router-dom";
+import { Route, Routes, Link, Outlet } from "react-router-dom";
 import { Home } from "./Home";
+import { SelectTeam } from "./SelectTeam";
+import { EditTeam } from "./TeamBuilder/EditTeam";
+import { Help } from "./Help";
+import { Profile } from "./Profile";
 
 export default function App() {
 	return (
@@ -11,7 +15,7 @@ export default function App() {
 					<Link to="/">Home</Link>
 					<Link to="/profile">Profile</Link>
 					<Link to="/help">Help</Link>
-					<Link to="/team">Teams</Link>
+					<Link to="/team/select">Teams</Link>
 				</ul>
 			</nav>
 			{/* Status */}
@@ -24,6 +28,15 @@ export default function App() {
 			<div className="p-8">
 				<Routes>
 					<Route path="/" element={<Home />} />
+					<Route path="/help" element={<Help />} />
+					<Route path="/profile" element={<Profile />} />
+
+					<Route path="/team" element={<Outlet />}>
+						<Route path="select" element={<SelectTeam />} />
+						<Route path="edit" element={<Outlet />}>
+							<Route path=":teamId" element={<EditTeam />} />
+						</Route>
+					</Route>
 				</Routes>
 			</div>
 		</div>
