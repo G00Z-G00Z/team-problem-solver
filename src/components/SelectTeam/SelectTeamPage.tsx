@@ -13,9 +13,8 @@ export const SelectTeamPage: FC<Props> = ({ teams }) => {
 
 	const navigate = useNavigate();
 
-	const handleNavigation = async () => {
-		const id = await db.addTeam();
-		navigate(`/team/edit/${id}`);
+	const handleNavigation = (id?: string) => {
+		navigate(`/team/edit/${id ?? "create"}`);
 	};
 
 	return (
@@ -30,7 +29,7 @@ export const SelectTeamPage: FC<Props> = ({ teams }) => {
 			<section>
 				<button
 					className="text-gray-80 border-dashed border-2 border-gray-80 p-8 bg-gray-20 w-full text-2xl font-bold hover:bg-gray-30 focus:bg-red-50"
-					onClick={handleNavigation}
+					onClick={(e) => handleNavigation()}
 				>
 					Add new team
 				</button>

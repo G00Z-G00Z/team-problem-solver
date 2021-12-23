@@ -3,8 +3,6 @@ import React from "react";
 import { db } from "../data/dexieDatabase";
 
 export const Home = () => {
-	const members = useLiveQuery(async () => await db.getMembers());
-
 	return (
 		<>
 			<h1 className="text-3xl font-serif">What's Your Problem ?</h1>
@@ -15,9 +13,7 @@ export const Home = () => {
 				>
 					Agregar alguien al equipo
 				</button>
-				<div>
-					{members && members.map((x) => <div>{JSON.stringify(x)}</div>)}
-				</div>
+
 				<div></div>
 			</section>
 		</>
