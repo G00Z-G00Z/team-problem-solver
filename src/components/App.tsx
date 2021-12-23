@@ -1,8 +1,13 @@
 import React from "react";
-import "../styles/App.css";
+import { Base } from "./Base";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
-	return <h1 className="text-9xl">Hola mundo estoy utilizando tailwind</h1>;
+export default function App() {
+	return (
+		<Router>
+			<Routes>
+				<Route path="/" element={<Base />}></Route>
+			</Routes>
+		</Router>
+	);
 }
-
-export default App;
