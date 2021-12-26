@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useRef } from "react";
+import React, {
+	useCallback,
+	useEffect,
+	useReducer,
+	useRef,
+	useState,
+} from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import { InputWithLabel } from "../utils/InputWithLabel";
@@ -18,11 +24,10 @@ export const EditTeam = () => {
 
 	const oldTeam = useRef<Team | null>(null);
 
+	const [colorr, setColorr] = useState("");
+	const [namee, setNamee] = useState("");
+
 	const [members, dispatch] = useReducer(editTeamateReducer, {});
-	const { color, name, onChange } = useForm({
-		color: oldTeam.current?.color ?? "",
-		name: oldTeam.current?.name ?? "",
-	});
 
 	// Use effect que graba y carga el equipo al principio
 	useEffect(() => {
@@ -30,8 +35,9 @@ export const EditTeam = () => {
 			db.getTeam(teamId)
 				.then((team) => {
 					if (team) {
-						onChange(team.color, "color");
-						onChange(team.name, "name");
+						setNamee(team.name ?? "no name");
+						setColorr(team.color ?? "no color");
+
 						oldTeam.current = team;
 					}
 
@@ -84,18 +90,18 @@ export const EditTeam = () => {
 					text="Color: "
 					type={"text"}
 					onChange={(value) => {
-						onChange(value, "color");
+						setColorr(value);
 					}}
-					value={color}
+					value={colorr}
 				/>
 				<InputWithLabel
 					name="name"
 					text="Name: "
 					type={"text"}
 					onChange={(value) => {
-						onChange(value, "name");
+						setNamee(value);
 					}}
-					value={name}
+					value={namee}
 				/>
 			</form>
 			<div>
@@ -138,11 +144,16 @@ export const EditTeam = () => {
 
 						let newId = isNewTeam
 							? db.addTeam({
-									color,
-									name,
+									color: colorr,
+									name: namee,
 									members: [],
 							  })
-							: teamId;
+							: db.addTeam({
+									color: colorr,
+									name: namee,
+									members: [],
+									id: Number(teamId),
+							  });
 
 						const membersId = Object.entries(members).map(([id, member]) => {
 							return db.addMember(member);
