@@ -112,7 +112,11 @@ export const EditTeam = () => {
 				<button
 					className="bg-CTA-400 text-gray-10"
 					onClick={async () => {
-						const id = db.addTeam();
+						const id = db.addTeam({
+							color,
+							name,
+							members: [],
+						});
 
 						const membersId = Object.entries(team).map(([id, member]) => {
 							return db.addMember(member);
