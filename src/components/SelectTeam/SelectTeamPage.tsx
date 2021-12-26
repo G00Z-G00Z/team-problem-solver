@@ -14,7 +14,7 @@ export const SelectTeamPage: FC<Props> = ({ teams }) => {
 	const navigate = useNavigate();
 
 	const handleNavigation = (id?: string) => {
-		navigate(`/team/edit/${id ?? "create"}`);
+		navigate(`/team/edit/${id ?? "new"}`);
 	};
 
 	return (

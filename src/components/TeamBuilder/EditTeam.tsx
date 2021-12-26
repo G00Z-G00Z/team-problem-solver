@@ -4,8 +4,8 @@ import useForm from "../../hooks/useForm";
 import { InputWithLabel } from "../utils/InputWithLabel";
 import { Member } from "../../types/interfaces";
 import { MemberBuilder } from "./MemberBuilder";
-import { db } from "../../data/dexieDatabase";
-import { editTeamReducer } from "./teamBuilderReducer";
+import { db, dbTest } from "../../data/dexieDatabase";
+import { editTeamateReducer } from "./teamBuilderReducer";
 
 export const EditTeam = () => {
 	const navigate = useNavigate();
@@ -16,7 +16,7 @@ export const EditTeam = () => {
 
 	!teamId && navigate("/");
 
-	const [team, dispatch] = useReducer(editTeamReducer, {});
+	const [team, dispatch] = useReducer(editTeamateReducer, {});
 
 	// Use effect que graba y carga el equipo al principio
 	useEffect(() => {
@@ -109,6 +109,22 @@ export const EditTeam = () => {
 						</li>
 					))}
 				</ul>
+				<button
+					className="bg-CTA-400 text-gray-10"
+					onClick={async () => {
+						const id = db.addTeam();
+
+						const membersId = Object.entries(team).map(([id, member]) => {
+							return db.addMember(member);
+						});
+
+						const [idTeam, ...idCosa] = await Promise.all([id, ...membersId]);
+
+						await db.addMemberToTeam(idTeam, ...idCosa);
+					}}
+				>
+					Save team
+				</button>
 			</div>
 		</>
 	);

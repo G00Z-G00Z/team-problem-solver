@@ -1,3 +1,4 @@
+import { db } from "../../data/dexieDatabase";
 import { Member } from "../../types/interfaces";
 import simpleIdGenerator from "../utils/simpleIdGenerator";
 
@@ -22,12 +23,6 @@ export type Action =
 			};
 	  }
 	| {
-			type: "Save team";
-			payload: {
-				id: string;
-			};
-	  }
-	| {
 			type: "Set team";
 			payload: {
 				members: State;
@@ -47,7 +42,7 @@ function getDefaultNewMember(): Member {
 	};
 }
 
-export function editTeamReducer(state: State, action: Action): State {
+export function editTeamateReducer(state: State, action: Action): State {
 	let newMember: Member;
 
 	switch (action.type) {
@@ -57,8 +52,7 @@ export function editTeamReducer(state: State, action: Action): State {
 		case "Delete Teamate":
 			delete state[action.payload.id];
 			return { ...state };
-		case "Save team":
-			return state;
+
 		case "Update Teamate":
 			return { ...state, [action.payload.id]: action.payload.updatedMember };
 		case "Set team":

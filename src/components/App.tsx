@@ -12,7 +12,7 @@ import { NavBar } from "./NavBar";
 // ! Nav link may work
 export default function App() {
 	const teams = useLiveQuery(async () => {
-		return await db.getTeams();
+		return await db.getAllTeams();
 	});
 
 	return (

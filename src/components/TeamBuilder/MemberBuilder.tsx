@@ -46,7 +46,9 @@ export const MemberBuilder: FC<Props> = ({
 				value={color}
 			/>
 
-			<button onClick={handleDelete}>Borrame a la chingada</button>
+			<button onClick={handleDelete} className="bg-danger-300 text-gray-10 ">
+				Borrame a la chingada
+			</button>
 		</>
 	);
 };
