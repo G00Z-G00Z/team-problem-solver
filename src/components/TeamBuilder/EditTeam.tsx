@@ -50,15 +50,6 @@ export const EditTeam = () => {
 		});
 	}, []);
 
-	const handleDeleting = (id: number) => {
-		dispatch({
-			type: "Delete Teamate",
-			payload: {
-				id,
-			},
-		});
-	};
-
 	const { color, name, onChange } = useForm({
 		color: "",
 		name: "",
@@ -95,7 +86,26 @@ export const EditTeam = () => {
 				<ul>
 					{Object.entries(team).map(([id, member]) => (
 						<li key={id}>
-							<MemberBuilder member={member} onDelete={handleDeleting} />
+							<MemberBuilder
+								member={member}
+								handleDelete={() =>
+									dispatch({
+										type: "Delete Teamate",
+										payload: {
+											id,
+										},
+									})
+								}
+								handleUpdate={(updatedMember) => {
+									dispatch({
+										type: "Update Teamate",
+										payload: {
+											id,
+											updatedMember,
+										},
+									});
+								}}
+							/>
 						</li>
 					))}
 				</ul>

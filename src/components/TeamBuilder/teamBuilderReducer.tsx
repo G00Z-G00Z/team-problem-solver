@@ -11,20 +11,20 @@ export type Action =
 	| {
 			type: "Delete Teamate";
 			payload: {
-				id: number;
+				id: string;
 			};
 	  }
 	| {
 			type: "Update Teamate";
 			payload: {
-				id: number;
+				id: string;
 				updatedMember: Member;
 			};
 	  }
 	| {
 			type: "Save team";
 			payload: {
-				id: number;
+				id: string;
 			};
 	  }
 	| {

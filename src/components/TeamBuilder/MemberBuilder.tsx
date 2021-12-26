@@ -1,19 +1,52 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useRef } from "react";
+import useForm from "../../hooks/useForm";
 import { Member } from "../../types/interfaces";
+import { InputWithLabel } from "../utils/InputWithLabel";
 
 interface Props {
 	member: Member;
-	onDelete: (id: number) => void;
+	handleDelete: () => void;
+	handleUpdate: (value: Member) => void;
 }
-export const MemberBuilder: FC<Props> = ({ member, onDelete }) => {
-	const { color, name, id = 1 } = member;
+export const MemberBuilder: FC<Props> = ({
+	member,
+	handleDelete,
+	handleUpdate,
+}) => {
+	const { name, color, onChange } = useForm({
+		name: member.name,
+		color: member.color,
+	});
+
+	const timeoutId = useRef<NodeJS.Timeout | null>(null);
+
+	// This updates the state every 200 seconds, instead of instant
+	useEffect(() => {
+		timeoutId.current && clearTimeout(timeoutId.current);
+
+		timeoutId.current = setTimeout(() => {
+			handleUpdate({ ...member, name, color });
+		}, 500);
+	}, [name, color]);
 
 	return (
 		<>
-			<h3>{name}</h3>
-			<h3>Id : {id}</h3>
-			<h3>mi color : {color}</h3>
-			<button onClick={(e) => onDelete(id)}>Borrame a la chingada</button>
+			<InputWithLabel
+				name="name"
+				onChange={(value) => onChange(value, "name")}
+				text="Name"
+				type={"text"}
+				value={name}
+			/>
+			<InputWithLabel
+				name="color"
+				onChange={(value) => onChange(value, "color")}
+				text="Color"
+				type={"color"}
+				value={color}
+			/>
+
+			<button onClick={handleDelete}>Borrame a la chingada</button>
 		</>
 	);
 };
