@@ -1,11 +1,11 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useCallback, useEffect, useReducer } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import { InputWithLabel } from "../utils/InputWithLabel";
-import { Member, Team } from "../../types/interfaces";
+import { Member } from "../../types/interfaces";
 import { MemberBuilder } from "./MemberBuilder";
 import { db } from "../../data/dexieDatabase";
-import { Action, editTeamReducer } from "./teamBuilderReducer";
+import { editTeamReducer } from "./teamBuilderReducer";
 
 export const EditTeam = () => {
 	const navigate = useNavigate();
@@ -44,13 +44,12 @@ export const EditTeam = () => {
 		}
 	}, []);
 
-	const handleAdding = () => {
+	const handleAdding = useCallback(() => {
 		dispatch({
 			type: "Add Teamate",
 		});
-	};
+	}, []);
 
-	// Memoize ?
 	const handleDeleting = (id: number) => {
 		dispatch({
 			type: "Delete Teamate",

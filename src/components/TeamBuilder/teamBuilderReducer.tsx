@@ -61,9 +61,7 @@ export function editTeamReducer(state: State, action: Action): State {
 			return state;
 		case "Update Teamate":
 			return { ...state, [action.payload.id]: action.payload.updatedMember };
-		default:
-			throw new Error(
-				`"${action.type} is not a valid action for edit team reducer"`
-			);
+		case "Set team":
+			return action.payload.members;
 	}
 }
