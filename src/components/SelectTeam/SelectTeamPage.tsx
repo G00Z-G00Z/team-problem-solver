@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../data/dexieDatabase";
+import { createTeamSeeds } from "../../seeds/teamSeeds";
 import { Team } from "../../types/interfaces";
 import { TeamDisplay } from "./TeamDisplay";
 
@@ -20,6 +21,17 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
 	return (
 		<div>
 			<h1 className="w-full text-5xl font-serif text-center">Select a Team</h1>
+			<button
+				className="block text-4xl p-2 text-gray-10 bg-slate-500"
+				onClick={() => {
+					createTeamSeeds(db, {
+						teams: 10,
+						maxPersonsPerTeam: 4,
+					});
+				}}
+			>
+				Make new Seeds
+			</button>
 			<input
 				type="text"
 				placeholder="Search"
