@@ -3,37 +3,32 @@ import Dexie, { Table } from "dexie";
 import { DataBaseHandler, Member, Team } from "../types/interfaces";
 
 class AppDatabase extends Dexie implements DataBaseHandler {
-	people!: Table<Member>;
 	teams!: Table<Team>;
 
 	constructor() {
 		super("myDatabase");
-		this.version(1).stores({
-			people: "++id, name, color, photo",
+		this.version(5).stores({
 			teams: "++id, color, name, members",
 		});
 	}
 
-	async addMember(member?: Member | undefined): Promise<string> {
-		member ||= {
-			color: "",
-			name: "",
-			photo: "",
-		};
-
+	async createTeam() {
+		const team = { color: "", members: [], name: "" };
 		try {
-			const id = await db.people.add(member);
-			return id as string;
+			const id = await this.teams.add(team);
+			return Number(id);
 		} catch (error) {
 			throw error;
 		}
 	}
 
-	async addTeam(team?: Team | undefined) {
-		team ||= { color: "", members: [], name: "" };
+	async updateTeam(
+		id: string | number,
+		team: Team
+	): Promise<number | undefined> {
 		try {
-			const id = await db.teams.add(team);
-			return id as string;
+			let idNumber = Number(id);
+			return await this.teams.update(idNumber, team);
 		} catch (error) {
 			throw error;
 		}
@@ -41,10 +36,11 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 
 	async addMemberToTeam(
 		teamId: string | number,
-		...memberIds: string[]
+		...memberIds: Member[]
 	): Promise<boolean> {
 		teamId = Number(teamId);
-		const team = await this.teams.get(teamId);
+
+		const team = await this.getTeam(teamId);
 
 		if (!team) return false;
 
@@ -54,12 +50,16 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 	}
 
 	async deleteTeam(id: string | number): Promise<boolean> {
-		const team = await this.teams.get(Number(id));
-
-		const deleteTeamate = this.people.delete(id);
-
-		await Promise.all([deleteAllReferencesInTeams, deleteTeamate]);
+		await this.teams.delete(id);
 		return true;
+	}
+
+	async getAllTeams(): Promise<Team[]> {
+		return await this.teams.toArray();
+	}
+
+	async getTeam(id: string | number): Promise<Team | undefined> {
+		return await this.teams.get(Number(id));
 	}
 }
 

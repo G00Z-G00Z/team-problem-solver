@@ -5,6 +5,7 @@ import { InputWithLabel } from "../utils/InputWithLabel";
 
 interface Props {
 	member: Member;
+	id: number | string;
 	handleDelete: () => void;
 	handleUpdate: (value: Member) => void;
 }
@@ -12,6 +13,7 @@ export const MemberBuilder: FC<Props> = ({
 	member,
 	handleDelete,
 	handleUpdate,
+	id,
 }) => {
 	const { name, color, onChange } = useForm({
 		name: member.name,
@@ -47,7 +49,7 @@ export const MemberBuilder: FC<Props> = ({
 			/>
 
 			<button onClick={handleDelete} className="bg-danger-300 text-gray-10 ">
-				Borrame a la chingada el id {member.id}
+				Borrame a la chingada el id {id}
 			</button>
 		</>
 	);

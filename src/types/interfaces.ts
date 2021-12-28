@@ -1,14 +1,14 @@
 export interface Member {
     color: string,
     name: string,
-    id?: number,
-    photo: string,
+    // Profile seed for generating abatar
+    profileSeed: string,
 }
 
 export interface Team {
     color: string,
     name: string,
-    members: string[],
+    members: Member[],
     id?: number
 }
 
@@ -17,15 +17,17 @@ export interface Team {
  */
 export interface DataBaseHandler {
 
-    addTeam(team: Team | undefined): Promise<string>
-    addMember(member: Member | undefined): Promise<string>
-    addMemberToTeam(teamId: string | number, ...memberIds: string[]): Promise<boolean>
+    // Adders
+    createTeam(): Promise<number>
+    addMemberToTeam(teamId: string | number, ...memberIds: Member[]): Promise<boolean>
+
+    // Deleters
     deleteTeam(id: string | number): Promise<boolean>
 
-    getTeams(): Promise<Team[]>
-    getMembers(): Promise<Member[]>
+    // Update
+    updateTeam(id: string | number, team: Team): Promise<number | undefined>
 
-    getTeamMembers(teamId: string | number): Promise<Member[] | undefined>
+    // Getters
+    getAllTeams(): Promise<Team[]>
     getTeam(id: string | number): Promise<Team | undefined>
-
 }

@@ -1,4 +1,3 @@
-import { db } from "../../data/dexieDatabase";
 import { Member } from "../../types/interfaces";
 import simpleIdGenerator from "../utils/simpleIdGenerator";
 
@@ -25,7 +24,7 @@ export type Action =
 	| {
 			type: "Set team";
 			payload: {
-				members: State;
+				members: Member[];
 			};
 	  };
 
@@ -35,7 +34,7 @@ const idGenrator = simpleIdGenerator();
 function getDefaultNewMember(): Member {
 	return {
 		color: "",
-		photo: "",
+		profileSeed: "",
 		name: "",
 	};
 }
@@ -46,15 +45,11 @@ export function editTeamateReducer(state: State, action: Action): State {
 	switch (action.type) {
 		case "Add Teamate":
 			newMember = getDefaultNewMember();
-
 			let id: string;
 			do {
 				// @ts-ignore
 				id = String(idGenrator.next().value);
-			} while (Object.keys(state).includes(id));
-
-			newMember.id = Number(id);
-
+			} while (state[id]);
 			return { ...state, [id]: newMember };
 		case "Delete Teamate":
 			delete state[action.payload.id];
@@ -63,6 +58,11 @@ export function editTeamateReducer(state: State, action: Action): State {
 		case "Update Teamate":
 			return { ...state, [action.payload.id]: action.payload.updatedMember };
 		case "Set team":
-			return action.payload.members;
+			const newMembers: State = {};
+
+			action.payload.members.forEach((member) => {
+				newMembers[idGenrator.next().value ?? 1] = member;
+			});
+			return newMembers;
 	}
 }

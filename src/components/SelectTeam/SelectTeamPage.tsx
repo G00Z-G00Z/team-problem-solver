@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { db } from "../../data/dexieDatabase";
 import { Team } from "../../types/interfaces";
 import { TeamDisplay } from "./TeamDisplay";
@@ -36,7 +36,17 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
 			</section>
 			<section>
 				{teams.map((t, idx) => (
-					<TeamDisplay team={t} key={idx} />
+					<div>
+						<TeamDisplay team={t} key={idx} />
+						<button
+							className="text-danger-100 bg-danger-400"
+							onClick={() => {
+								db.deleteTeam(t.id ?? 0);
+							}}
+						>
+							Borrame
+						</button>
+					</div>
 				))}
 			</section>
 		</div>

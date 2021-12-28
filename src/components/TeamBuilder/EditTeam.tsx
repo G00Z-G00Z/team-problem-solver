@@ -6,9 +6,8 @@ import React, {
 	useState,
 } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import useForm from "../../hooks/useForm";
 import { InputWithLabel } from "../utils/InputWithLabel";
-import { Member, Team } from "../../types/interfaces";
+import { Team } from "../../types/interfaces";
 import { MemberBuilder } from "./MemberBuilder";
 import { db } from "../../data/dexieDatabase";
 import { editTeamateReducer } from "./teamBuilderReducer";
@@ -32,40 +31,19 @@ export const EditTeam = () => {
 	// Use effect que graba y carga el equipo al principio
 	useEffect(() => {
 		if (!isNewTeam) {
-			db.getTeam(teamId)
-				.then((team) => {
-					if (team) {
-						setNamee(team.name ?? "no name");
-						setColorr(team.color ?? "no color");
-
-						oldTeam.current = team;
-					}
-
-					return !!team;
-				})
-				.then(async (isTeam) => {
-					if (!isTeam) return;
-
-					const members = await db.getTeamMembers(teamId);
-
-					if (!members) return;
-
-					const teamMembers: { [key: string]: Member } = {};
-
-					members.forEach((member) => {
-						teamMembers[member?.id ?? "1"] = member;
-					});
-
+			db.getTeam(teamId).then((team) => {
+				if (team) {
+					setNamee(team.name ?? "no name");
+					setColorr(team.color ?? "no color");
+					oldTeam.current = team;
 					dispatch({
 						type: "Set team",
 						payload: {
-							members: teamMembers,
+							members: team.members,
 						},
 					});
-				})
-				.catch((e) => {
-					throw e;
-				});
+				}
+			});
 		}
 	}, []);
 
@@ -114,6 +92,7 @@ export const EditTeam = () => {
 						<li key={id}>
 							<MemberBuilder
 								member={member}
+								id={id}
 								handleDelete={() =>
 									dispatch({
 										type: "Delete Teamate",
@@ -142,31 +121,15 @@ export const EditTeam = () => {
 						if (savingButtonRef.current)
 							savingButtonRef.current.disabled = true;
 
-						
+						let id: number;
 
-						let newId = isNewTeam
-							? db.addTeam({
-									color: colorr,
-									name: namee,
-									members: [],
-							  })
-							: db.addTeam({
-									color: colorr,
-									name: namee,
-									members: [],
-									id: Number(teamId),
-							  });
+						id = isNewTeam ? await db.createTeam() : oldTeam.current?.id ?? 0;
 
-						const membersId = Object.entries(members).map(([id, member]) => {
-							return db.addMember(member);
+						await db.updateTeam(id, {
+							name: namee,
+							color: colorr,
+							members: Object.values(members),
 						});
-
-						const [idTeam, ...idCosa] = await Promise.all([
-							newId,
-							...membersId,
-						]);
-
-						await db.addMemberToTeam(idTeam, ...idCosa);
 
 						if (savingButtonRef.current)
 							savingButtonRef.current.disabled = false;
