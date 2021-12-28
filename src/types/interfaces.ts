@@ -18,11 +18,12 @@ export interface Team {
 export interface DataBaseHandler {
 
     // Adders
-    createTeam(): Promise<number>
+    createTeam(team?: Team): Promise<number>
     addMemberToTeam(teamId: string | number, ...memberIds: Member[]): Promise<boolean>
 
     // Deleters
     deleteTeam(id: string | number): Promise<boolean>
+    deleteAllTeams(): Promise<boolean>
 
     // Update
     updateTeam(id: string | number, team: Team): Promise<number | undefined>
@@ -30,4 +31,6 @@ export interface DataBaseHandler {
     // Getters
     getAllTeams(): Promise<Team[]>
     getTeam(id: string | number): Promise<Team | undefined>
+
+
 }

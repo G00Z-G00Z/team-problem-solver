@@ -12,14 +12,19 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 		});
 	}
 
-	async createTeam() {
-		const team = { color: "", members: [], name: "" };
+	async createTeam(team?: Team) {
+		team ||= { color: "", members: [], name: "" };
 		try {
 			const id = await this.teams.add(team);
 			return Number(id);
 		} catch (error) {
 			throw error;
 		}
+	}
+
+	async deleteAllTeams(): Promise<boolean> {
+		await this.teams.clear();
+		return true;
 	}
 
 	async updateTeam(
