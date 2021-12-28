@@ -142,6 +142,8 @@ export const EditTeam = () => {
 						if (savingButtonRef.current)
 							savingButtonRef.current.disabled = true;
 
+						
+
 						let newId = isNewTeam
 							? db.addTeam({
 									color: colorr,

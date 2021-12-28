@@ -42,12 +42,12 @@ export const MemberBuilder: FC<Props> = ({
 				name="color"
 				onChange={(value) => onChange(value, "color")}
 				text="Color"
-				type={"color"}
+				type={"text"}
 				value={color}
 			/>
 
 			<button onClick={handleDelete} className="bg-danger-300 text-gray-10 ">
-				Borrame a la chingada
+				Borrame a la chingada el id {member.id}
 			</button>
 		</>
 	);

@@ -37,8 +37,6 @@ function getDefaultNewMember(): Member {
 		color: "",
 		photo: "",
 		name: "",
-		// @ts-ignore
-		id: idGenrator.next().value,
 	};
 }
 
@@ -48,7 +46,16 @@ export function editTeamateReducer(state: State, action: Action): State {
 	switch (action.type) {
 		case "Add Teamate":
 			newMember = getDefaultNewMember();
-			return { ...state, [newMember.id ?? "1"]: newMember };
+
+			let id: string;
+			do {
+				// @ts-ignore
+				id = String(idGenrator.next().value);
+			} while (Object.keys(state).includes(id));
+
+			newMember.id = Number(id);
+
+			return { ...state, [id]: newMember };
 		case "Delete Teamate":
 			delete state[action.payload.id];
 			return { ...state };
