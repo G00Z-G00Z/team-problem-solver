@@ -8,12 +8,22 @@ import { Profile } from "./ProfilePage";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "../data/dexieDatabase";
 import { NavBar } from "./NavBar";
+import { createTeamSeeds } from "../seeds/teamSeeds";
 
-// ! Nav link may work
 export default function App() {
 	const teams = useLiveQuery(async () => {
 		return await db.getAllTeams();
 	});
+
+	useEffect(() => {
+		createTeamSeeds(db, {
+			teams: 10,
+			maxPersonsPerTeam: 5,
+		});
+		return () => {
+			db.deleteAllTeams();
+		};
+	}, []);
 
 	return (
 		<div className="bg-gray-10 font-sans h-full">
