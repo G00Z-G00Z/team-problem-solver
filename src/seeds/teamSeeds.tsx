@@ -1,5 +1,13 @@
 import { DataBaseHandler, Member, Team } from "../types/interfaces";
 import faker from "faker";
+/**
+ * Random hex color
+ * @returns string
+ * @reference https://css-tricks.com/snippets/javascript/random-hex-color/
+ */
+function randomHexColor() {
+	return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+}
 
 /**
  * Creates a fake member
@@ -7,7 +15,7 @@ import faker from "faker";
  */
 function createRandomPerson(): Member {
 	const name = faker.name.firstName(),
-		color = faker.commerce.color(),
+		color = randomHexColor(),
 		profileSeed = name + color;
 	return {
 		name,
@@ -23,7 +31,7 @@ function createRandomPerson(): Member {
 function createRandomTeam(people: number): Team {
 	const members = Array.from(new Array(people), createRandomPerson),
 		name = faker.internet.domainWord(),
-		color = faker.commerce.color();
+		color = randomHexColor();
 
 	return {
 		name,
