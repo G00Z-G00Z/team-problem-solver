@@ -1,28 +1,47 @@
-import React, { useCallback, useEffect, useReducer } from "react";
+import React, { useCallback, useEffect, useReducer, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import { InputWithLabel } from "../utils/InputWithLabel";
-import { Member } from "../../types/interfaces";
+import { Member, Team } from "../../types/interfaces";
 import { MemberBuilder } from "./MemberBuilder";
-import { db, dbTest } from "../../data/dexieDatabase";
+import { db } from "../../data/dexieDatabase";
 import { editTeamateReducer } from "./teamBuilderReducer";
 
 export const EditTeam = () => {
 	const navigate = useNavigate();
 
-	const { teamId } = useParams<{
+	const { teamId = "new" } = useParams<{
 		teamId: string;
 	}>();
 
-	!teamId && navigate("/");
+	const isNewTeam = teamId === "new";
 
-	const [team, dispatch] = useReducer(editTeamateReducer, {});
+	const oldTeam = useRef<Team | null>(null);
+
+	const [members, dispatch] = useReducer(editTeamateReducer, {});
+	const { color, name, onChange } = useForm({
+		color: oldTeam.current?.color ?? "",
+		name: oldTeam.current?.name ?? "",
+	});
 
 	// Use effect que graba y carga el equipo al principio
 	useEffect(() => {
-		if (teamId !== "new") {
-			db.getTeamMembers(teamId as string)
-				.then((members) => {
+		if (!isNewTeam) {
+			db.getTeam(teamId)
+				.then((team) => {
+					if (team) {
+						onChange(team.color, "color");
+						onChange(team.name, "name");
+						oldTeam.current = team;
+					}
+
+					return !!team;
+				})
+				.then(async (isTeam) => {
+					if (!isTeam) return;
+
+					const members = await db.getTeamMembers(teamId);
+
 					if (!members) return;
 
 					const teamMembers: { [key: string]: Member } = {};
@@ -50,15 +69,25 @@ export const EditTeam = () => {
 		});
 	}, []);
 
-	const { color, name, onChange } = useForm({
-		color: "",
-		name: "",
-	});
+	const savingButtonRef = useRef<HTMLButtonElement>(null);
 
 	return (
 		<>
 			<h2>Voy a editar el equipo con el id de: {teamId}</h2>
+			<div>Este es el equipo: </div>
+			<div>
+				<pre>{JSON.stringify(oldTeam.current)}</pre>
+			</div>
 			<form action="">
+				<InputWithLabel
+					name="color"
+					text="Color: "
+					type={"text"}
+					onChange={(value) => {
+						onChange(value, "color");
+					}}
+					value={color}
+				/>
 				<InputWithLabel
 					name="name"
 					text="Name: "
@@ -68,15 +97,6 @@ export const EditTeam = () => {
 					}}
 					value={name}
 				/>
-				<InputWithLabel
-					name="color"
-					text="Color: "
-					type={"color"}
-					onChange={(value) => {
-						onChange(value, "color");
-					}}
-					value={color}
-				/>
 			</form>
 			<div>
 				<h2>Members</h2>
@@ -84,7 +104,7 @@ export const EditTeam = () => {
 					Add a new Teamate
 				</button>
 				<ul>
-					{Object.entries(team).map(([id, member]) => (
+					{Object.entries(members).map(([id, member]) => (
 						<li key={id}>
 							<MemberBuilder
 								member={member}
@@ -110,21 +130,35 @@ export const EditTeam = () => {
 					))}
 				</ul>
 				<button
+					ref={savingButtonRef}
 					className="bg-CTA-400 text-gray-10"
 					onClick={async () => {
-						const id = db.addTeam({
-							color,
-							name,
-							members: [],
-						});
+						if (savingButtonRef.current)
+							savingButtonRef.current.disabled = true;
 
-						const membersId = Object.entries(team).map(([id, member]) => {
+						let newId = isNewTeam
+							? db.addTeam({
+									color,
+									name,
+									members: [],
+							  })
+							: teamId;
+
+						const membersId = Object.entries(members).map(([id, member]) => {
 							return db.addMember(member);
 						});
 
-						const [idTeam, ...idCosa] = await Promise.all([id, ...membersId]);
+						const [idTeam, ...idCosa] = await Promise.all([
+							newId,
+							...membersId,
+						]);
 
 						await db.addMemberToTeam(idTeam, ...idCosa);
+
+						if (savingButtonRef.current)
+							savingButtonRef.current.disabled = false;
+
+						navigate("/team/select");
 					}}
 				>
 					Save team

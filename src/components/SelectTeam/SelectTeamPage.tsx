@@ -8,7 +8,7 @@ interface Props {
 	teams: Team[];
 }
 
-export const SelectTeamPage: FC<Props> = ({ teams }) => {
+export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
 	const [query, setQuery] = useState("");
 
 	const navigate = useNavigate();
@@ -41,4 +41,4 @@ export const SelectTeamPage: FC<Props> = ({ teams }) => {
 			</section>
 		</div>
 	);
-};
+});

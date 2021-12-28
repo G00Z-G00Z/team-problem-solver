@@ -19,13 +19,13 @@ export interface DataBaseHandler {
 
     addTeam(team: Team | undefined): Promise<string>
     addMember(member: Member | undefined): Promise<string>
-    addMemberToTeam(teamId: string, ...memberIds: string[]): Promise<boolean>
-    deleteMember(id: string): Promise<boolean>
-    deleteTeam(id: string): Promise<boolean>
+    addMemberToTeam(teamId: string | number, ...memberIds: string[]): Promise<boolean>
+    deleteTeam(id: string | number): Promise<boolean>
 
     getTeams(): Promise<Team[]>
     getMembers(): Promise<Member[]>
 
-    getTeam(id: string): Promise<Team | undefined>
+    getTeamMembers(teamId: string | number): Promise<Member[] | undefined>
+    getTeam(id: string | number): Promise<Team | undefined>
 
 }

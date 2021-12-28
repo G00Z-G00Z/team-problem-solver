@@ -40,9 +40,10 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 	}
 
 	async addMemberToTeam(
-		teamId: string,
+		teamId: string | number,
 		...memberIds: string[]
 	): Promise<boolean> {
+		teamId = Number(teamId);
 		const team = await this.teams.get(teamId);
 
 		if (!team) return false;
@@ -52,46 +53,13 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 		}));
 	}
 
-	async deleteMember(id: string): Promise<boolean> {
-		try {
-			const cosa = this.transaction(
-				"rw",
-				[this.people, this.teams],
-				async () => {
-					const deleteAllReferencesInTeams = this.teams
-						.toCollection()
-						.modify((team) => {
-							const newIds = team.members.filter((i) => i !== id);
-							team.members = newIds;
-						});
+	async deleteTeam(id: string | number): Promise<boolean> {
+		const team = await this.teams.get(Number(id));
 
-					const deleteTeamate = this.people.delete(id);
+		const deleteTeamate = this.people.delete(id);
 
-					await Promise.all([deleteAllReferencesInTeams, deleteTeamate]);
-					return true;
-				}
-			);
-
-			return cosa;
-		} catch (error) {
-			throw error;
-		}
-	}
-
-	async deleteTeam(id: string): Promise<boolean> {
-		await this.teams.delete(id);
+		await Promise.all([deleteAllReferencesInTeams, deleteTeamate]);
 		return true;
-	}
-
-	async getTeams(): Promise<Team[]> {
-		return await this.teams.toArray();
-	}
-	async getMembers(): Promise<Member[]> {
-		return await this.people.toArray();
-	}
-
-	async getTeam(id: string): Promise<Team | undefined> {
-		return await this.teams.get(id);
 	}
 }
 
