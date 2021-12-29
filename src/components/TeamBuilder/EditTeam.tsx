@@ -53,6 +53,13 @@ export const EditTeam = () => {
 		});
 	}, []);
 
+	const handleDeleting = async () => {
+		console.log("Estoy borrando el equiop con el ide de ", teamId);
+		const seBorro = await db.deleteTeam(teamId);
+		seBorro && console.log("Se pudo borrar!!");
+		navigate("/team/select");
+	};
+
 	const savingButtonRef = useRef<HTMLButtonElement>(null);
 
 	return (
@@ -139,6 +146,14 @@ export const EditTeam = () => {
 				>
 					Save team
 				</button>
+				{!isNewTeam && (
+					<button
+						className="text-gray-100 bg-danger-300"
+						onClick={handleDeleting}
+					>
+						Borrar equipo
+					</button>
+				)}
 			</div>
 		</>
 	);
