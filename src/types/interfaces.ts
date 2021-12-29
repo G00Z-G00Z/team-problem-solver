@@ -1,12 +1,15 @@
+import appColors from './AppColors';
+
+export type AvailableColorNames = keyof typeof appColors
 export interface Member {
-    color: string,
+    color: AvailableColorNames,
     name: string,
     // Profile seed for generating abatar
     profileSeed: string,
 }
 
 export interface Team {
-    color: string,
+    color: AvailableColorNames,
     name: string,
     members: Member[],
     id?: number

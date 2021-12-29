@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { InputWithLabel } from "../utils/InputWithLabel";
-import { Team } from "../../types/interfaces";
+import { Team, AvailableColorNames } from "../../types/interfaces";
 import { MemberBuilder } from "./MemberBuilder";
 import { db } from "../../data/dexieDatabase";
 import { editTeamateReducer } from "./teamBuilderReducer";
@@ -23,7 +23,7 @@ export const EditTeam = () => {
 
 	const oldTeam = useRef<Team | null>(null);
 
-	const [colorr, setColorr] = useState("");
+	const [colorr, setColorr] = useState<AvailableColorNames>("gray");
 	const [namee, setNamee] = useState("");
 
 	const [members, dispatch] = useReducer(editTeamateReducer, {});
@@ -68,7 +68,7 @@ export const EditTeam = () => {
 					text="Color: "
 					type={"text"}
 					onChange={(value) => {
-						setColorr(value);
+						setColorr(value as AvailableColorNames);
 					}}
 					value={colorr}
 				/>
@@ -84,7 +84,7 @@ export const EditTeam = () => {
 			</form>
 			<div>
 				<h2>Members</h2>
-				<button className="bg-CTA-400 text-gray-10" onClick={handleAdding}>
+				<button className="bg-CTA-400 text-gray-100" onClick={handleAdding}>
 					Add a new Teamate
 				</button>
 				<ul>
@@ -116,7 +116,7 @@ export const EditTeam = () => {
 				</ul>
 				<button
 					ref={savingButtonRef}
-					className="bg-CTA-400 text-gray-10"
+					className="bg-CTA-400 text-gray-100"
 					onClick={async () => {
 						if (savingButtonRef.current)
 							savingButtonRef.current.disabled = true;

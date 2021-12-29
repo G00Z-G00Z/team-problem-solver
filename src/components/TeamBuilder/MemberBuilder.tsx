@@ -48,7 +48,7 @@ export const MemberBuilder: FC<Props> = ({
 				value={color}
 			/>
 
-			<button onClick={handleDelete} className="bg-danger-300 text-gray-10 ">
+			<button onClick={handleDelete} className="bg-danger-300 text-gray-100 ">
 				Borrame a la chingada el id {id}
 			</button>
 		</>

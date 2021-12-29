@@ -33,7 +33,7 @@ const idGenrator = simpleIdGenerator();
 
 function getDefaultNewMember(): Member {
 	return {
-		color: "",
+		color: "gray",
 		profileSeed: "",
 		name: "",
 	};

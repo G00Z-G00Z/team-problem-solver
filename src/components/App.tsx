@@ -26,7 +26,7 @@ export default function App() {
 	}, []);
 
 	return (
-		<div className="bg-gray-10 font-sans h-full">
+		<div className="bg-gray-100 font-sans h-full">
 			{/* Nav bar */}
 			<NavBar />
 			{/* Status */}

@@ -4,6 +4,7 @@ import { db } from "../../data/dexieDatabase";
 import { createTeamSeeds } from "../../seeds/teamSeeds";
 import { Team } from "../../types/interfaces";
 import { TeamDisplay } from "./TeamDisplay";
+import { ReactComponent as SearchLogo } from "../../assets/search.svg";
 
 interface Props {
 	teams: Team[];
@@ -20,45 +21,38 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
 
 	return (
 		<div>
-			<h1 className="w-full text-5xl font-serif text-center">Select a Team</h1>
-			<button
-				className="block text-4xl p-2 text-gray-10 bg-slate-500"
-				onClick={() => {
-					createTeamSeeds(db, {
-						teams: 10,
-						maxPersonsPerTeam: 4,
-					});
-				}}
-			>
-				Make new Seeds
-			</button>
-			<input
-				type="text"
-				placeholder="Search"
-				value={query}
-				onChange={(e) => setQuery(e.target.value)}
-			/>
+			<h1 className="w-full text-5xl font-serif text-center font-bold ">
+				Select a Team
+			</h1>
+			{/* Search bar */}
+			<div className="relative p-0">
+				<input
+					type="text"
+					placeholder="Search..."
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
+					className="text-CTA-400 
+					border-2 border-CTA-500 
+					bg-CTA-100 w-full rounded-lg my-2 px-8 py-1 text-lg"
+				/>
+				<div className="absolute top-4 left-2">
+					<SearchLogo />
+				</div>
+			</div>
+
 			<section>
+				{/* Add new team btn */}
 				<button
-					className="text-gray-80 border-dashed border-2 border-gray-80 p-8 bg-gray-20 w-full text-2xl font-bold hover:bg-gray-30 focus:bg-red-50"
+					className="text-gray-800 border-dashed border-2 border-gray-800 p-8 bg-gray-200 w-full text-2xl font-bold hover:bg-gray-300 focus:bg-red-50"
 					onClick={(e) => handleNavigation()}
 				>
 					Add new team
 				</button>
 			</section>
+			{/* Teams */}
 			<section>
 				{teams.map((t, idx) => (
-					<div>
-						<TeamDisplay team={t} key={idx} />
-						<button
-							className="text-danger-100 bg-danger-400"
-							onClick={() => {
-								db.deleteTeam(t.id ?? 0);
-							}}
-						>
-							Borrame
-						</button>
-					</div>
+					<TeamDisplay team={t} key={idx} />
 				))}
 			</section>
 		</div>

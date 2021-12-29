@@ -13,7 +13,7 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 	}
 
 	async createTeam(team?: Team) {
-		team ||= { color: "", members: [], name: "" };
+		team ||= { color: "gray", members: [], name: "" };
 		try {
 			const id = await this.teams.add(team);
 			return Number(id);

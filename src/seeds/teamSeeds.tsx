@@ -1,12 +1,20 @@
-import { DataBaseHandler, Member, Team } from "../types/interfaces";
+import {
+	AvailableColorNames,
+	DataBaseHandler,
+	Member,
+	Team,
+} from "../types/interfaces";
 import faker from "faker";
+import { appColorNamesInArray } from "../types/AppColors";
 /**
- * Random hex color
- * @returns string
- * @reference https://css-tricks.com/snippets/javascript/random-hex-color/
+ * Returns a theme color of the app
+ * @returns AvailableColorNames
  */
-function randomHexColor() {
-	return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+function randomAppColor() {
+	const len = appColorNamesInArray.length,
+		randomIdx = getRandomInt(0, len - 1),
+		color = appColorNamesInArray[randomIdx] as AvailableColorNames;
+	return color;
 }
 
 /**
@@ -15,7 +23,7 @@ function randomHexColor() {
  */
 function createRandomPerson(): Member {
 	const name = faker.name.firstName(),
-		color = randomHexColor(),
+		color = randomAppColor(),
 		profileSeed = name + color;
 	return {
 		name,
@@ -31,7 +39,7 @@ function createRandomPerson(): Member {
 function createRandomTeam(people: number): Team {
 	const members = Array.from(new Array(people), createRandomPerson),
 		name = faker.internet.domainWord(),
-		color = randomHexColor();
+		color = randomAppColor();
 
 	return {
 		name,
