@@ -41,11 +41,11 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
 	return (
 		<>
 			<div
-				className="border-dashed border-2 grid grid-cols-4 grid-rows-2 pb-2"
+				className="border-dashed hover:border-solid transition-all ease-in border-2 grid grid-cols-4 grid-rows-2 pb-2 cursor-pointer"
 				ref={teamContainer}
 			>
 				<header
-					className="mb-2 flex flex-row px-4 py-2 col-span-full"
+					className="mb-2 flex flex-row px-4 py-2 col-span-full "
 					ref={teamNameH1}
 				>
 					<h1

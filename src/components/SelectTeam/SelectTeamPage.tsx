@@ -44,7 +44,7 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
 			<section className="max-w-screen-md  w-full">
 				{/* Add new team btn */}
 				<button
-					className="text-gray-800 border-dashed border-2 border-gray-800 p-8 bg-gray-200 w-full text-2xl font-bold hover:bg-gray-300 focus:bg-red-50"
+					className="text-gray-800 border-dashed border-2 border-gray-800 p-8 bg-gray-200 w-full text-2xl font-bold hover:bg-gray-300 focus:bg-red-50 hover:border-solid transition-all ease-in"
 					onClick={(e) => handleNavigation()}
 				>
 					Add new team
