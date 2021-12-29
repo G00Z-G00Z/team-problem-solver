@@ -63,7 +63,7 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
 						<EyeIcon ref={eyeIcon} />
 					</button>
 				</header>
-				<p className="text-ellipsis px-4 col-span-3 text-gray-700">
+				<p className="truncate px-4 col-span-3 text-gray-700 text-sm">
 					{members.map(({ name }) => name).join(", ")}
 				</p>
 			</div>

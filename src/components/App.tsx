@@ -18,7 +18,7 @@ export default function App() {
 	useEffect(() => {
 		createTeamSeeds(db, {
 			teams: 10,
-			maxPersonsPerTeam: 5,
+			maxPersonsPerTeam: 10,
 		});
 		return () => {
 			db.deleteAllTeams();
