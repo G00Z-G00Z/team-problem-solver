@@ -7,7 +7,7 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 
 	constructor() {
 		super("myDatabase");
-		this.version(5).stores({
+		this.version(6).stores({
 			teams: "++id, color, name, members",
 		});
 	}

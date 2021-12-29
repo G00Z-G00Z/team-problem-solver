@@ -50,7 +50,7 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
 				</button>
 			</section>
 			{/* Teams */}
-			<section>
+			<section className="flex flex-col gap-2">
 				{teams.map((t, idx) => (
 					<TeamDisplay team={t} key={idx} />
 				))}
