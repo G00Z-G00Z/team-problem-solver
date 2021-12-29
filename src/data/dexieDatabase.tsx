@@ -55,7 +55,7 @@ class AppDatabase extends Dexie implements DataBaseHandler {
 	}
 
 	async deleteTeam(id: string | number): Promise<boolean> {
-		await this.teams.delete(id);
+		await this.teams.delete(Number(id));
 		return true;
 	}
 
