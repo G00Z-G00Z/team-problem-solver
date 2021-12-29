@@ -30,13 +30,13 @@ export default function App() {
 			{/* Nav bar */}
 			<NavBar />
 			{/* Status */}
-			<section className="fixed top-0 w-full">
+			<section className="fixed top-0 w-full z-10">
 				<div className="bg-CTA-100 flex justify-evenly">
 					No hay un equipo todavia
 				</div>
 			</section>
 			{/* Main content */}
-			<div className="p-8">
+			<div className="py-10 px-[10vw] md:px-[15vw]">
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/help" element={<Help />} />
