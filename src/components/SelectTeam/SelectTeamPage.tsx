@@ -5,6 +5,7 @@ import { createTeamSeeds } from "../../seeds/teamSeeds";
 import { Team } from "../../types/interfaces";
 import { TeamDisplay } from "./TeamDisplay";
 import { ReactComponent as SearchLogo } from "../../assets/search.svg";
+import { TeamList } from "./TeamList";
 
 interface Props {
   teams: Team[];
@@ -52,13 +53,7 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
       </section>
       {/* Teams */}
       <section className="grid grid-cols-1 sm:grid-col-1 md:grid-cols-2 lg:grid-cols-3  gap-5 my-3 w-full max-w-screen-md ">
-        {!query
-          ? teams.map((t, idx) => <TeamDisplay team={t} key={idx} />)
-          : teams.map((t, idx) => {
-              return t.name.toLowerCase().includes(query.toLowerCase()) ? (
-                <TeamDisplay team={t} key={idx} />
-              ) : null;
-            })}
+        <TeamList teamList={teams} nameQuery={query} />
       </section>
     </div>
   );
