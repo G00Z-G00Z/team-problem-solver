@@ -1,4 +1,4 @@
-import appColors from '../../types/AppColors'
+import { appColors } from '../../types/AppColors'
 import { AppColorSelector } from './AppColorSelector'
 import { AvailableColorNames } from '../../types/AppColors'
 import { db } from '../../data/dexieDatabase'

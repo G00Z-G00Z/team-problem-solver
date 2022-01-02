@@ -59,5 +59,3 @@ type AppColor = {
     [Property in AvailableColorIntensities]: string;
   };
 };
-
-export default appColors as AppColor;

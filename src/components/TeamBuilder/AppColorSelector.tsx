@@ -1,5 +1,6 @@
 import React, { FC, useCallback } from 'react'
-import appColors, {
+import {
+  appColors,
   AvailableColorIntensities,
   AvailableColorNames,
 } from "../../types/AppColors";
