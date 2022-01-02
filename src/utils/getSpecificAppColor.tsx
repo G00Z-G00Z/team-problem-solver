@@ -1,5 +1,5 @@
 import appColors from "../types/AppColors";
-import { AvailableColorNames } from "../types/interfaces";
+import { AvailableColorNames } from "../types/AppColors";
 
 /**
  * Gets the colors in the theme of the app
@@ -7,5 +7,5 @@ import { AvailableColorNames } from "../types/interfaces";
  * @returns Color Pallette
  */
 export function getSpecificAppColor(color: AvailableColorNames) {
-	return appColors[color] ?? appColors.CTA;
+  return appColors[color] ?? appColors.CTA;
 }

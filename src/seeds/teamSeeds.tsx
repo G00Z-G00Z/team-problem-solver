@@ -1,20 +1,17 @@
-import {
-	AvailableColorNames,
-	DataBaseHandler,
-	Member,
-	Team,
-} from "../types/interfaces";
+import { DataBaseHandler, Member, Team } from "../types/interfaces";
 import faker from "faker";
 import { appColorNamesInArray } from "../types/AppColors";
+
+import { AvailableColorNames } from "../types/AppColors";
 /**
  * Returns a theme color of the app
  * @returns AvailableColorNames
  */
 function randomAppColor() {
-	const len = appColorNamesInArray.length,
-		randomIdx = getRandomInt(0, len - 1),
-		color = appColorNamesInArray[randomIdx] as AvailableColorNames;
-	return color;
+  const len = appColorNamesInArray.length,
+    randomIdx = getRandomInt(0, len - 1),
+    color = appColorNamesInArray[randomIdx] as AvailableColorNames;
+  return color;
 }
 
 /**
@@ -22,14 +19,14 @@ function randomAppColor() {
  * @returns Member
  */
 function createRandomPerson(): Member {
-	const name = faker.name.firstName(),
-		color = randomAppColor(),
-		profileSeed = name + color;
-	return {
-		name,
-		color,
-		profileSeed,
-	};
+  const name = faker.name.firstName(),
+    color = randomAppColor(),
+    profileSeed = name + color;
+  return {
+    name,
+    color,
+    profileSeed,
+  };
 }
 /**
  * creates a fake team with no id
@@ -37,15 +34,15 @@ function createRandomPerson(): Member {
  * @returns Team
  */
 function createRandomTeam(people: number): Team {
-	const members = Array.from(new Array(people), createRandomPerson),
-		name = faker.internet.domainWord(),
-		color = randomAppColor();
+  const members = Array.from(new Array(people), createRandomPerson),
+    name = faker.internet.domainWord(),
+    color = randomAppColor();
 
-	return {
-		name,
-		color,
-		members,
-	};
+  return {
+    name,
+    color,
+    members,
+  };
 }
 
 /**
@@ -56,9 +53,9 @@ function createRandomTeam(people: number): Team {
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
  */
 function getRandomInt(min: number, max: number): number {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
@@ -67,22 +64,22 @@ function getRandomInt(min: number, max: number): number {
  * @param options options for seeds
  */
 export async function createTeamSeeds(
-	db: DataBaseHandler,
-	options: {
-		teams: number;
-		maxPersonsPerTeam: number;
-	}
+  db: DataBaseHandler,
+  options: {
+    teams: number;
+    maxPersonsPerTeam: number;
+  }
 ) {
-	await db.deleteAllTeams();
+  await db.deleteAllTeams();
 
-	const { teams: numberOfTeams = 10, maxPersonsPerTeam = 3 } = options;
+  const { teams: numberOfTeams = 10, maxPersonsPerTeam = 3 } = options;
 
-	const getRandomNumberInRange = () => getRandomInt(1, maxPersonsPerTeam);
+  const getRandomNumberInRange = () => getRandomInt(1, maxPersonsPerTeam);
 
-	const teams = Array.from(new Array(numberOfTeams), async () => {
-		const team = createRandomTeam(getRandomNumberInRange());
-		await db.createTeam(team);
-	});
+  const teams = Array.from(new Array(numberOfTeams), async () => {
+    const team = createRandomTeam(getRandomNumberInRange());
+    await db.createTeam(team);
+  });
 
-	await Promise.all(teams);
+  await Promise.all(teams);
 }

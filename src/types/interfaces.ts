@@ -1,39 +1,38 @@
-import appColors from './AppColors';
-
-export type AvailableColorNames = keyof typeof appColors
+import appColors from "./AppColors";
+import { AvailableColorNames } from "./AppColors";
 export interface Member {
-    color: AvailableColorNames,
-    name: string,
-    // Profile seed for generating abatar
-    profileSeed: string,
+  color: AvailableColorNames;
+  name: string;
+  // Profile seed for generating abatar
+  profileSeed: string;
 }
 
 export interface Team {
-    color: AvailableColorNames,
-    name: string,
-    members: Member[],
-    id?: number
+  color: AvailableColorNames;
+  name: string;
+  members: Member[];
+  id?: number;
 }
 
 /**
  * Database Handler for the teams
  */
 export interface DataBaseHandler {
+  // Adders
+  createTeam(team?: Team): Promise<number>;
+  addMemberToTeam(
+    teamId: string | number,
+    ...memberIds: Member[]
+  ): Promise<boolean>;
 
-    // Adders
-    createTeam(team?: Team): Promise<number>
-    addMemberToTeam(teamId: string | number, ...memberIds: Member[]): Promise<boolean>
+  // Deleters
+  deleteTeam(id: string | number): Promise<boolean>;
+  deleteAllTeams(): Promise<boolean>;
 
-    // Deleters
-    deleteTeam(id: string | number): Promise<boolean>
-    deleteAllTeams(): Promise<boolean>
+  // Update
+  updateTeam(id: string | number, team: Team): Promise<number | undefined>;
 
-    // Update
-    updateTeam(id: string | number, team: Team): Promise<number | undefined>
-
-    // Getters
-    getAllTeams(): Promise<Team[]>
-    getTeam(id: string | number): Promise<Team | undefined>
-
-
+  // Getters
+  getAllTeams(): Promise<Team[]>;
+  getTeam(id: string | number): Promise<Team | undefined>;
 }
