@@ -1,19 +1,18 @@
-import React, {
+import appColors from '../../types/AppColors'
+import { AppColorSelector } from './AppColorSelector'
+import { AvailableColorNames } from '../../types/AppColors'
+import { db } from '../../data/dexieDatabase'
+import { editTeamateReducer } from './teamBuilderReducer'
+import { MemberBuilder } from './MemberBuilder'
+import { Team } from '../../types/interfaces'
+import {
   useCallback,
   useEffect,
   useReducer,
   useRef,
-  useState,
-} from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { InputWithLabel } from "../utils/InputWithLabel";
-import { Team } from "../../types/interfaces";
-import { MemberBuilder } from "./MemberBuilder";
-import { db } from "../../data/dexieDatabase";
-import { editTeamateReducer } from "./teamBuilderReducer";
-import appColors from "../../types/AppColors";
-import { AvailableColorNames } from "../../types/AppColors";
-import { AppColorSelector } from "./AppColorSelector";
+  useState
+  } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export const EditTeam = () => {
   const navigate = useNavigate(),
@@ -46,6 +45,9 @@ export const EditTeam = () => {
     }
   }, []);
 
+  const handleChangingColor = (newColor: AvailableColorNames) =>
+    setColor(newColor);
+
   const handleAdding = useCallback(() => {
     dispatch({
       type: "Add Teamate",
@@ -59,16 +61,36 @@ export const EditTeam = () => {
     navigate("/team/select");
   };
 
+  const handleSaving = async () => {
+    if (savingButtonRef.current) savingButtonRef.current.disabled = true;
+
+    let id: number;
+
+    id = isNewTeam ? await db.createTeam() : oldTeam.current?.id ?? 0;
+
+    await db.updateTeam(id, {
+      name: name,
+      color: color,
+      members: Object.values(members),
+    });
+
+    if (savingButtonRef.current) savingButtonRef.current.disabled = false;
+
+    navigate("/team/select");
+  };
+
   const savingButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <>
+      {/* Team container */}
       <div
         className="border-dashed border-2 pb-2 "
         style={{
           borderColor: appColors[color][400],
         }}
       >
+        {/* Title */}
         <header
           className="mb-2 "
           style={{
@@ -83,99 +105,57 @@ export const EditTeam = () => {
           />
         </header>
         <div className="col-span-full">
-          <AppColorSelector value={color} />
+          <h2 className="font-serif font-bold text-2xl">Team color</h2>
+          <AppColorSelector value={color} onClick={handleChangingColor} />
         </div>
-      </div>
-      <h2>Voy a editar el equipo con el id de: {teamId}</h2>
-      <div>Este es el equipo: </div>
-      <div>
-        <pre>{JSON.stringify(oldTeam.current)}</pre>
-      </div>
-      <form action="">
-        <InputWithLabel
-          name="color"
-          text="Color: "
-          type={"text"}
-          onChange={(value) => {
-            setColor(value as AvailableColorNames);
-          }}
-          value={color}
-        />
-        <InputWithLabel
-          name="name"
-          text="Name: "
-          type={"text"}
-          onChange={(value) => {
-            setName(value);
-          }}
-          value={name}
-        />
-      </form>
-      <div>
-        <h2>Members</h2>
-        <button className="bg-CTA-400 text-gray-100" onClick={handleAdding}>
-          Add a new Teamate
-        </button>
-        <ul>
-          {Object.entries(members).map(([id, member]) => (
-            <li key={id}>
-              <MemberBuilder
-                member={member}
-                id={id}
-                handleDelete={() =>
-                  dispatch({
-                    type: "Delete Teamate",
-                    payload: {
-                      id,
-                    },
-                  })
-                }
-                handleUpdate={(updatedMember) => {
-                  dispatch({
-                    type: "Update Teamate",
-                    payload: {
-                      id,
-                      updatedMember,
-                    },
-                  });
-                }}
-              />
-            </li>
-          ))}
-        </ul>
-        <button
-          ref={savingButtonRef}
-          className="bg-CTA-400 text-gray-100"
-          onClick={async () => {
-            if (savingButtonRef.current)
-              savingButtonRef.current.disabled = true;
-
-            let id: number;
-
-            id = isNewTeam ? await db.createTeam() : oldTeam.current?.id ?? 0;
-
-            await db.updateTeam(id, {
-              name: name,
-              color: color,
-              members: Object.values(members),
-            });
-
-            if (savingButtonRef.current)
-              savingButtonRef.current.disabled = false;
-
-            navigate("/team/select");
-          }}
-        >
-          Save team
-        </button>
-        {!isNewTeam && (
-          <button
-            className="text-gray-100 bg-danger-300"
-            onClick={handleDeleting}
-          >
-            Borrar equipo
+        <div>
+          <h2 className="font-serif font-bold text-2xl">Teamates</h2>
+          <button className="bg-CTA-400 text-gray-100" onClick={handleAdding}>
+            Add a new Teamate
           </button>
-        )}
+          <ul>
+            {Object.entries(members).map(([id, member]) => (
+              <li key={id}>
+                <MemberBuilder
+                  member={member}
+                  id={id}
+                  handleDelete={() =>
+                    dispatch({
+                      type: "Delete Teamate",
+                      payload: {
+                        id,
+                      },
+                    })
+                  }
+                  handleUpdate={(updatedMember) => {
+                    dispatch({
+                      type: "Update Teamate",
+                      payload: {
+                        id,
+                        updatedMember,
+                      },
+                    });
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+          <button
+            ref={savingButtonRef}
+            className="bg-CTA-400 text-gray-100"
+            onClick={handleSaving}
+          >
+            Save team
+          </button>
+          {!isNewTeam && (
+            <button
+              className="text-gray-100 bg-danger-300"
+              onClick={handleDeleting}
+            >
+              Borrar equipo
+            </button>
+          )}
+        </div>
       </div>
     </>
   );
