@@ -27,8 +27,6 @@ export const EditTeam = () => {
     [members, dispatch] = useReducer(editTeamateReducer, {}),
     cosa = useRef<HTMLElement | null>(null);
 
-  getAvatarSVG("ohla", 10);
-
   // Use effect que graba y carga el equipo al principio
   useEffect(() => {
     if (!isNewTeam) {
@@ -85,10 +83,10 @@ export const EditTeam = () => {
   const savingButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <>
+    <div className="flex justify-center w-full h-full">
       {/* Team container */}
       <div
-        className="border-dashed border-2 pb-2 "
+        className="border-dashed border-2 pb-2 max-w-screen-md w-[80vw] lg:w-[50vw]"
         style={{
           borderColor: appColors[color][400],
         }}
@@ -103,25 +101,43 @@ export const EditTeam = () => {
         >
           <input
             className="w-full 
-					text-2xl font-bold text-left font-serif placeholder:italic bg-transparent"
+					text-2xl font-bold text-left font-serif placeholder:italic bg-transparent py-1 px-3"
             placeholder="Nombre del equipo"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </header>
-        <div className="col-span-full">
-          <h2 className="font-serif font-bold text-2xl">Team color</h2>
+        {/* Color selection */}
+        <div className="my-3 flex flex-col gap-5">
+          <h2
+            style={{
+              color: appColors[color][500],
+            }}
+            className="font-serif font-bold text-2xl text-center"
+          >
+            Team color
+          </h2>
           <AppColorSelector value={color} onClick={handleChangingColor} />
         </div>
-        <div>
-          <h2 className="font-serif font-bold text-2xl">Teamates</h2>
-          <button className="bg-CTA-400 text-gray-100" onClick={handleAdding}>
-            Add a new Teamate
-          </button>
-          <ul>
+
+        {/* Team selection */}
+        <div className="my-2 flex flex-col items-center px-5">
+          <h2
+            style={{
+              color: appColors[color][500],
+            }}
+            className="font-serif font-bold text-2xl "
+          >
+            Teamates
+          </h2>
+
+          <ul className="w-full flex flex-row flex-wrap px-10 gap-2 mb-2 justify-evenly">
+            {/* <ul className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center justify-center px-10 gap-2 mb-2"> */}
             {Object.entries(members).map(([id, member]) => (
-              <li key={id}>
+              <li className="max-w-[15ch] flex-shrink-1 " key={id}>
                 <MemberBuilder
                   member={member}
-                  id={id}
+                  teamColor={color}
                   handleDelete={() =>
                     dispatch({
                       type: "Delete Teamate",
@@ -143,23 +159,36 @@ export const EditTeam = () => {
               </li>
             ))}
           </ul>
+
           <button
-            ref={savingButtonRef}
-            className="bg-CTA-400 text-gray-100"
-            onClick={handleSaving}
+            className=" text-gray-100 rounded-md px-3 text-xl"
+            style={{
+              backgroundColor: appColors[color][300],
+            }}
+            onClick={handleAdding}
           >
-            Save team
+            + New member
           </button>
-          {!isNewTeam && (
+
+          <div className="grid grid-cols-2 mt-4 gap-5">
             <button
-              className="text-gray-100 bg-danger-300"
-              onClick={handleDeleting}
+              ref={savingButtonRef}
+              className="bg-CTA-400 text-gray-100  h-8 px-3 text-xl rounded-md"
+              onClick={handleSaving}
             >
-              Borrar equipo
+              Save team
             </button>
-          )}
+            {!isNewTeam && (
+              <button
+                className="text-gray-100 bg-danger-300 h-8 px-3 text-xl rounded-md"
+                onClick={handleDeleting}
+              >
+                Borrar equipo
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
