@@ -15,23 +15,10 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
 
   const navigate = useNavigate();
 
-  const teamContainer = useRef<HTMLDivElement | null>(null);
-  const teamNameH1 = useRef<HTMLElement | null>(null);
-  const eyeIcon = useRef<SVGSVGElement | null>(null);
-
-  useEffect(() => {
-    if (teamContainer.current) {
-      teamContainer.current.style.borderColor = appColors[color][400];
-    }
-    if (teamNameH1.current) {
-      teamNameH1.current.style.color = appColors[color][500];
-      teamNameH1.current.style.backgroundColor = appColors[color][100];
-    }
-    if (eyeIcon.current) {
-      eyeIcon.current.style.fill = appColors[color][400];
-      eyeIcon.current.style.strokeWidth = "0px";
-    }
-  }, []);
+  // html refs
+  const HTMLteamContainer = useRef<HTMLDivElement>(null);
+  const HTMLteamNameH1 = useRef<HTMLElement>(null);
+  const HTMLeyeIcon = useRef<SVGSVGElement>(null);
 
   if (!id) return <></>;
 
@@ -43,11 +30,16 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
     <>
       <div
         className="border-dashed hover:border-solid transition-all ease-in border-2 grid grid-cols-4 grid-rows-2 pb-2 cursor-pointer"
-        ref={teamContainer}
+        style={{
+          borderColor: appColors[color][400],
+        }}
       >
         <header
           className="mb-2 flex flex-row px-4 py-2 col-span-full "
-          ref={teamNameH1}
+          style={{
+            color: appColors[color][500],
+            backgroundColor: appColors[color][100],
+          }}
         >
           <h1
             className="w-full 
@@ -61,7 +53,12 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
             className="hover:scale-105 transition-all"
             onClick={handleEditing}
           >
-            <EyeIcon ref={eyeIcon} />
+            <EyeIcon
+              className="stroke-1"
+              style={{
+                fill: appColors[color][400],
+              }}
+            />
           </button>
         </header>
         <p className="truncate px-4 col-span-3 text-gray-700 text-sm">

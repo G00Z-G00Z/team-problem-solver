@@ -13,33 +13,27 @@ import { db } from "../../data/dexieDatabase";
 import { editTeamateReducer } from "./teamBuilderReducer";
 import appColors from "../../types/AppColors";
 import { AvailableColorNames } from "../../types/AppColors";
-import useAppColorRefs from "../../hooks/useAppColorRefs";
+import { AppColorSelector } from "./AppColorSelector";
 
 export const EditTeam = () => {
-  const navigate = useNavigate();
-
-  const { teamId = "new" } = useParams<{
-    teamId: string;
-  }>();
-
-  const isNewTeam = teamId === "new";
-
-  const oldTeam = useRef<Team | null>(null);
-
-  const [colorr, setColorr] = useState<AvailableColorNames>("gray");
-  const [namee, setNamee] = useState("");
-
-  const [members, dispatch] = useReducer(editTeamateReducer, {});
-
-  const cosa = useRef<HTMLElement | null>(null);
+  const navigate = useNavigate(),
+    { teamId = "new" } = useParams<{
+      teamId: string;
+    }>(),
+    isNewTeam = teamId === "new",
+    oldTeam = useRef<Team | null>(null),
+    [color, setColor] = useState<AvailableColorNames>("gray"),
+    [name, setName] = useState(""),
+    [members, dispatch] = useReducer(editTeamateReducer, {}),
+    cosa = useRef<HTMLElement | null>(null);
 
   // Use effect que graba y carga el equipo al principio
   useEffect(() => {
     if (!isNewTeam) {
       db.getTeam(teamId).then((team) => {
         if (team) {
-          setNamee(team.name ?? "no name");
-          setColorr(team.color ?? "no color");
+          setName(team.name ?? "no name");
+          setColor(team.color ?? "no color");
           oldTeam.current = team;
           dispatch({
             type: "Set team",
@@ -69,20 +63,28 @@ export const EditTeam = () => {
 
   return (
     <>
-      <div className="border-dashed hover:border-solid transition-all ease-in border-2 grid grid-cols-4 grid-rows-2 pb-2 cursor-pointer">
+      <div
+        className="border-dashed border-2 pb-2 "
+        style={{
+          borderColor: appColors[color][400],
+        }}
+      >
         <header
-          className="mb-2 flex flex-row px-4 py-2 col-span-full "
-          ref={cosa}
+          className="mb-2 "
+          style={{
+            color: appColors[color][500],
+            backgroundColor: appColors[color][100],
+          }}
         >
           <input
             className="w-full 
 					text-2xl font-bold text-left font-serif placeholder:italic bg-transparent"
             placeholder="Nombre del equipo"
           />
-
-          <button className="hover:scale-105 transition-all"></button>
         </header>
-        <p className="truncate px-4 col-span-3 text-gray-700 text-sm"></p>
+        <div className="col-span-full">
+          <AppColorSelector value={color} />
+        </div>
       </div>
       <h2>Voy a editar el equipo con el id de: {teamId}</h2>
       <div>Este es el equipo: </div>
@@ -95,18 +97,18 @@ export const EditTeam = () => {
           text="Color: "
           type={"text"}
           onChange={(value) => {
-            setColorr(value as AvailableColorNames);
+            setColor(value as AvailableColorNames);
           }}
-          value={colorr}
+          value={color}
         />
         <InputWithLabel
           name="name"
           text="Name: "
           type={"text"}
           onChange={(value) => {
-            setNamee(value);
+            setName(value);
           }}
-          value={namee}
+          value={name}
         />
       </form>
       <div>
@@ -153,8 +155,8 @@ export const EditTeam = () => {
             id = isNewTeam ? await db.createTeam() : oldTeam.current?.id ?? 0;
 
             await db.updateTeam(id, {
-              name: namee,
-              color: colorr,
+              name: name,
+              color: color,
               members: Object.values(members),
             });
 
