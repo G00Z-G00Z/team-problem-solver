@@ -1,5 +1,5 @@
-const gridy = require("gridy-avatars");
-
-export default function getAvatarSVG(seed: string, width: number) {
-  console.log(gridy(seed, width));
+export default function getRandomAvatarSVGUrl() {
+  const randomNumber = Math.ceil(Math.random() * 1000 + 1);
+  const url = `https://avatars.dicebear.com/api/gridy/${randomNumber}.svg`;
+  return url;
 }
