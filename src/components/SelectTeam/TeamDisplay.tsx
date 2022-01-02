@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import { db } from "../../data/dexieDatabase";
-import appColors from "../../types/AppColors";
-import { Team } from "../../types/interfaces";
-import { ReactComponent as EyeIcon } from "../../assets/eye.svg";
-import { getSpecificAppColor } from "../../utils/getSpecificAppColor";
+import React, { FC, useEffect, useRef } from 'react'
+import { appColors } from '../../types/AppColors'
+import { db } from '../../data/dexieDatabase'
+import { getSpecificAppColor } from '../../utils/getSpecificAppColor'
+import { ReactComponent as EyeIcon } from '../../assets/eye.svg'
+import { Team } from '../../types/interfaces'
+import { useNavigate } from 'react-router-dom'
 
 // todo falta poner cuantos integrantes tiene el equipo
 interface Props {

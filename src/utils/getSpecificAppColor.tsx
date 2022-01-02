@@ -1,5 +1,5 @@
-import appColors from "../types/AppColors";
-import { AvailableColorNames } from "../types/AppColors";
+import { appColors } from '../types/AppColors'
+import { AvailableColorNames } from '../types/AppColors'
 
 /**
  * Gets the colors in the theme of the app

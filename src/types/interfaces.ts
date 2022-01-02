@@ -1,5 +1,5 @@
-import appColors from "./AppColors";
-import { AvailableColorNames } from "./AppColors";
+import { appColors } from './AppColors'
+import { AvailableColorNames } from './AppColors'
 export interface Member {
   color: AvailableColorNames;
   name: string;

@@ -1,3 +1,4 @@
+import getAvatarSVG from '../utils/avatarCreation'
 import { appColors } from '../../types/AppColors'
 import { AppColorSelector } from './AppColorSelector'
 import { AvailableColorNames } from '../../types/AppColors'
@@ -25,6 +26,8 @@ export const EditTeam = () => {
     [name, setName] = useState(""),
     [members, dispatch] = useReducer(editTeamateReducer, {}),
     cosa = useRef<HTMLElement | null>(null);
+
+  getAvatarSVG("ohla", 10);
 
   // Use effect que graba y carga el equipo al principio
   useEffect(() => {
