@@ -82,6 +82,10 @@ export const EditTeam = () => {
 
   const savingButtonRef = useRef<HTMLButtonElement>(null);
 
+  const shoudlSavingBeDisabled = !(
+    name && Object.values(members).filter(({ name }) => name).length > 0
+  );
+
   return (
     <div className="flex justify-center w-full h-full">
       {/* Team container */}
@@ -170,20 +174,21 @@ export const EditTeam = () => {
             + New member
           </button>
 
-          <div className="grid grid-cols-2 mt-4 gap-5">
+          <div className="flex flex-wrap items-center justify-evenly mt-4 gap-5">
             <button
               ref={savingButtonRef}
-              className="bg-CTA-400 text-gray-100  h-8 px-3 text-xl rounded-md"
+              className="bg-CTA-400 text-gray-100 w-32 h-8 px-3 text-xl rounded-md disabled:opacity-75"
               onClick={handleSaving}
+              disabled={shoudlSavingBeDisabled}
             >
-              Save team
+              Save
             </button>
             {!isNewTeam && (
               <button
-                className="text-gray-100 bg-danger-300 h-8 px-3 text-xl rounded-md"
+                className="text-gray-100 bg-danger-300 w-32 h-8 px-3 text-xl rounded-md"
                 onClick={handleDeleting}
               >
-                Borrar equipo
+                Delete
               </button>
             )}
           </div>
