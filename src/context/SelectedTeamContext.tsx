@@ -7,7 +7,7 @@ import { Team } from '../types/interfaces'
  * Takes the info of the team, and some utilities function to change it
  */
 export const SelectedTeamContext = createContext<{
-  team?: Team;
+  selectedTeam?: Team;
   setTeam: (t: Team) => void;
   removeTeam: () => void;
 }>({

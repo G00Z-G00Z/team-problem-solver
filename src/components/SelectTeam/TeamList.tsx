@@ -1,6 +1,7 @@
-import React, { FC } from "react";
-import { Team } from "../../types/interfaces";
-import { TeamDisplay } from "./TeamDisplay";
+import React, { FC, useContext } from 'react'
+import { SelectedTeamContext } from '../../context/SelectedTeamContext'
+import { Team } from '../../types/interfaces'
+import { TeamDisplay } from './TeamDisplay'
 
 interface Props {
   nameQuery: string;

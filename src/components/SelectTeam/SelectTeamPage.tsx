@@ -1,11 +1,12 @@
-import React, { FC, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { db } from "../../data/dexieDatabase";
-import { createTeamSeeds } from "../../seeds/teamSeeds";
-import { Team } from "../../types/interfaces";
-import { TeamDisplay } from "./TeamDisplay";
-import { ReactComponent as SearchLogo } from "../../assets/search.svg";
-import { TeamList } from "./TeamList";
+import React, { FC, useContext, useState } from 'react'
+import { createTeamSeeds } from '../../seeds/teamSeeds'
+import { db } from '../../data/dexieDatabase'
+import { ReactComponent as SearchLogo } from '../../assets/search.svg'
+import { SelectedTeamContext } from '../../context/SelectedTeamContext'
+import { Team } from '../../types/interfaces'
+import { TeamDisplay } from './TeamDisplay'
+import { TeamList } from './TeamList'
+import { useNavigate } from 'react-router-dom'
 
 interface Props {
   teams: Team[];

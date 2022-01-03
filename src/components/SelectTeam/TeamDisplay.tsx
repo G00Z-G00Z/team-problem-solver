@@ -1,8 +1,14 @@
-import React, { FC, useEffect, useRef } from 'react'
+import React, {
+  FC,
+  useContext,
+  useEffect,
+  useRef
+  } from 'react'
 import { appColors } from '../../types/AppColors'
 import { db } from '../../data/dexieDatabase'
 import { getSpecificAppColor } from '../../utils/getSpecificAppColor'
 import { ReactComponent as EyeIcon } from '../../assets/eye.svg'
+import { SelectedTeamContext } from '../../context/SelectedTeamContext'
 import { Team } from '../../types/interfaces'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,6 +17,10 @@ interface Props {
   team: Team;
 }
 export const TeamDisplay: FC<Props> = ({ team }) => {
+  const { setTeam, selectedTeam } = useContext(SelectedTeamContext);
+
+  const selectedTeamId = selectedTeam?.id;
+
   const { color, members, name, id } = team;
 
   const navigate = useNavigate();
@@ -33,6 +43,10 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
         style={{
           borderColor: appColors[color][400],
         }}
+        onClick={(e) => {
+          setTeam(team);
+          navigate("/");
+        }}
       >
         <header
           className="mb-2 flex flex-row px-4 py-2 col-span-full "
@@ -51,7 +65,11 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
           </h1>
           <button
             className="hover:scale-105 transition-all"
-            onClick={handleEditing}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              handleEditing();
+            }}
           >
             <EyeIcon
               className="stroke-1"

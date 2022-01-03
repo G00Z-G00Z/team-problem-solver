@@ -3,6 +3,9 @@ import { useCallback, useEffect, useState } from 'react'
 export function useLocalStorage<T>(key: string, defaultValue: T) {
   return useStorage(key, defaultValue, window.localStorage);
 }
+export function useSessionStorage<T>(key: string, defaultValue: T) {
+  return useStorage(key, defaultValue, window.sessionStorage);
+}
 
 function useStorage<T>(
   key: string,
