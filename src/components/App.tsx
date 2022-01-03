@@ -6,20 +6,27 @@ import { Help } from './HelpPage'
 import { Home } from './HomePage'
 import { NavBar } from './NavBar'
 import {
-	Outlet,
-	Route,
-	Routes,
-	useNavigate
-	} from 'react-router-dom'
+  Outlet,
+  Route,
+  Routes,
+  useNavigate
+  } from 'react-router-dom'
 import { Profile } from './ProfilePage'
 import { SelectedTeamContext } from '../context/SelectedTeamContext'
 import { SelectTeamPage } from './SelectTeam/SelectTeamPage'
+import { Team } from '../types/interfaces'
 import { useLiveQuery } from 'dexie-react-hooks'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export default function App() {
   const teams = useLiveQuery(async () => {
     return await db.getAllTeams();
   });
+
+  const [selectedTeam, setTeam, removeTeam] = useLocalStorage<Team | undefined>(
+    "selected-team",
+    undefined
+  );
 
   const navigate = useNavigate();
 
@@ -34,7 +41,13 @@ export default function App() {
   }, []);
 
   return (
-    <SelectedTeamContext.Provider value={null}>
+    <SelectedTeamContext.Provider
+      value={{
+        team: selectedTeam ?? undefined,
+        setTeam,
+        removeTeam,
+      }}
+    >
       <div className="bg-gray-100 font-sans h-full">
         {/* Nav bar */}
         <NavBar />
