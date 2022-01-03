@@ -72,7 +72,8 @@ export const EditTeam = () => {
     await db.updateTeam(id, {
       name: name,
       color: color,
-      members: Object.values(members),
+      // No permite miebros vacios
+      members: Object.values(members).filter(({ name }) => name),
     });
 
     if (savingButtonRef.current) savingButtonRef.current.disabled = false;
@@ -137,31 +138,37 @@ export const EditTeam = () => {
 
           <ul className="w-full flex flex-row flex-wrap px-10 gap-2 mb-2 justify-evenly">
             {/* <ul className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-center justify-center px-10 gap-2 mb-2"> */}
-            {Object.entries(members).map(([id, member]) => (
-              <li className="max-w-[15ch] flex-shrink-1 " key={id}>
-                <MemberBuilder
-                  member={member}
-                  teamColor={color}
-                  handleDelete={() =>
-                    dispatch({
-                      type: "Delete Teamate",
-                      payload: {
-                        id,
-                      },
-                    })
-                  }
-                  handleUpdate={(updatedMember) => {
-                    dispatch({
-                      type: "Update Teamate",
-                      payload: {
-                        id,
-                        updatedMember,
-                      },
-                    });
-                  }}
-                />
-              </li>
-            ))}
+            {Object.entries(members)
+              .sort(([, m1], [, m2]) => {
+                if (m1.name === "") return 1;
+                if (m2.name === "") return -1;
+                return 0;
+              })
+              .map(([id, member]) => (
+                <li className="max-w-[15ch] flex-shrink-1 " key={id}>
+                  <MemberBuilder
+                    member={member}
+                    teamColor={color}
+                    handleDelete={() =>
+                      dispatch({
+                        type: "Delete Teamate",
+                        payload: {
+                          id,
+                        },
+                      })
+                    }
+                    handleUpdate={(updatedMember) => {
+                      dispatch({
+                        type: "Update Teamate",
+                        payload: {
+                          id,
+                          updatedMember,
+                        },
+                      });
+                    }}
+                  />
+                </li>
+              ))}
           </ul>
 
           <button
