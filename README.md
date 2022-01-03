@@ -17,4 +17,4 @@ You can check out the [webpage][homepage] and install it in your phone
 
 > This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[homepage]: http://g00z-g00z.io/team-problem-solver
+[homepage]: https://g00z-g00z.github.io/team-problem-solver/
