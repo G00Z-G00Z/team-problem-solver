@@ -11,6 +11,8 @@ export interface Team {
   color: AvailableColorNames;
   name: string;
   members: Member[];
+  // When was the last time it was used
+  lastTimeUsed?: number;
   id?: number;
 }
 
@@ -31,6 +33,7 @@ export interface DataBaseHandler {
 
   // Update
   updateTeam(id: string | number, team: Team): Promise<number | undefined>;
+  markTeamAsUsedNow(id: string | number, team?: Team): Promise<void>;
 
   // Getters
   getAllTeams(): Promise<Team[]>;
