@@ -14,8 +14,6 @@ export const TeamList: FC<Props> = ({ nameQuery, teamList }) => {
       <>
         {teamList
           .sort((t1, t2) => {
-            console.log(`Hola estoy trabajando con ${t1.name} y ${t2.name}`);
-
             if (t1?.lastTimeUsed && t2?.lastTimeUsed)
               return t2.lastTimeUsed - t1.lastTimeUsed;
 
@@ -39,6 +37,7 @@ export const TeamList: FC<Props> = ({ nameQuery, teamList }) => {
   if (filteredTeam.length === 0)
     return (
       <>
+        <img src="./assets/Goose-icon.png" alt="not found image" />
         <h1>No se encontro ningun equipo :(</h1>
       </>
     );

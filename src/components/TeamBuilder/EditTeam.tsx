@@ -115,7 +115,7 @@ export const EditTeam = () => {
           />
         </header>
         {/* Team Name Selection */}
-        <div className="my-3 flex flex-col gap-5 justify-center items-center">
+        <div className="my-3 flex flex-col gap-2 justify-center items-center">
           <h2
             style={{
               color: appColors[color][500],
@@ -138,8 +138,7 @@ export const EditTeam = () => {
               decoration-gray-200 p-1 transition-all focus-visible:outline-0 
               absolute top-1/2 left-1/2 transform -translate-x-1/2 
               -translate-y-1/2
-              
-              w-full"
+              w-fit"
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
