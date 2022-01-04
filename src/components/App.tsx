@@ -59,7 +59,7 @@ export default function App() {
             className="absolute w-20 h-20 top-0 left-0 
 					-translate-x-6 -translate-y-6
 					cursor-pointer"
-            src="./assets/Goose-icon.png"
+            src={process.env.PUBLIC_URL + "/assets/Goose-icon.png"}
             alt="icono"
             onClick={(e) => navigate("/")}
           />

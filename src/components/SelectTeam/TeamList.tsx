@@ -37,7 +37,10 @@ export const TeamList: FC<Props> = ({ nameQuery, teamList }) => {
   if (filteredTeam.length === 0)
     return (
       <>
-        <img src="./assets/Goose-icon.png" alt="not found image" />
+        <img
+          src={process.env.PUBLIC_URL + "/assets/not_found.png"}
+          alt="not found image"
+        />
         <h1>No se encontro ningun equipo :(</h1>
       </>
     );
