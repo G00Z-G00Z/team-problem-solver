@@ -30,16 +30,6 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    createTeamSeeds(db, {
-      teams: 10,
-      maxPersonsPerTeam: 10,
-    });
-    return () => {
-      db.deleteAllTeams();
-    };
-  }, []);
-
   return (
     <SelectedTeamContext.Provider
       value={{
