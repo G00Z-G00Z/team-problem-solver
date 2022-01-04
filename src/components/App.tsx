@@ -48,7 +48,7 @@ export default function App() {
         removeTeam,
       }}
     >
-      <div className="bg-gray-100 font-sans h-full">
+      <div className="bg-gray-100 font-sans min-h-screen">
         {/* Nav bar */}
         <NavBar />
         {/* Status */}
