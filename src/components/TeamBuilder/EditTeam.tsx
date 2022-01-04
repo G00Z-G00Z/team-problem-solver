@@ -108,12 +108,52 @@ export const EditTeam = () => {
         >
           <input
             className="w-full 
-					text-2xl font-bold text-left font-serif placeholder:italic bg-transparent py-1 px-3"
-            placeholder="Nombre del equipo"
+					text-2xl font-bold text-left font-serif placeholder:font-sans bg-transparent py-1 px-3"
+            placeholder="Sin nombre"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </header>
+        {/* Team Name Selection */}
+        <div className="my-3 flex flex-col gap-5 justify-center items-center">
+          <h2
+            style={{
+              color: appColors[color][500],
+            }}
+            className="font-serif font-bold text-2xl text-center"
+          >
+            Team name
+          </h2>
+          {/* Team name */}
+          <div
+            className="relative group hover:border-0   h-10 
+          w-full max-w-md"
+          >
+            <input
+              type="text"
+              name="name"
+              className="
+              text-xl text-center  
+             bg-transparent
+              decoration-gray-200 p-1 transition-all focus-visible:outline-0 
+              absolute top-1/2 left-1/2 transform -translate-x-1/2 
+              -translate-y-1/2
+              
+              w-full"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+
+            {/* underline active*/}
+            <div
+              style={{
+                backgroundColor: appColors[color][300],
+              }}
+              className="absolute w-0 group-hover:w-full h-[2px]  bottom-0 left-0 transition-all rounded-sm "
+            ></div>
+            <div className="absolute group-hover:w-0 w-full h-[2px] bg-gray-200 bottom-0 left-0  "></div>
+          </div>
+        </div>
         {/* Color selection */}
         <div className="my-3 flex flex-col gap-5">
           <h2
