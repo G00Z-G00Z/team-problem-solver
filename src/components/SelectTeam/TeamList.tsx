@@ -36,13 +36,17 @@ export const TeamList: FC<Props> = ({ nameQuery, teamList }) => {
 
   if (filteredTeam.length === 0)
     return (
-      <>
+      <div className="flex flex-col justify-center items-center col-span-full">
         <img
           src={process.env.PUBLIC_URL + "/assets/not_found.png"}
           alt="not found image"
+          className="w-40 h-40 rounded-lg"
         />
-        <h1>No se encontro ningun equipo :(</h1>
-      </>
+        <p className="text-gray-800 text-center">
+          No se encontro ningun con el nombre:
+        </p>
+        <p>"{nameQuery}"</p>
+      </div>
     );
 
   return (
