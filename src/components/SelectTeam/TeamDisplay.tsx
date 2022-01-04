@@ -44,6 +44,7 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
           borderColor: appColors[color][400],
         }}
         onClick={(e) => {
+          db.markTeamAsUsedNow(team.id ?? 1);
           setTeam(team);
           navigate("/");
         }}

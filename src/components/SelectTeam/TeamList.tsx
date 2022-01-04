@@ -12,9 +12,21 @@ export const TeamList: FC<Props> = ({ nameQuery, teamList }) => {
   if (!nameQuery)
     return (
       <>
-        {teamList.map((t, idx) => (
-          <TeamDisplay team={t} key={idx} />
-        ))}
+        {teamList
+          .sort((t1, t2) => {
+            console.log(`Hola estoy trabajando con ${t1.name} y ${t2.name}`);
+
+            if (t1?.lastTimeUsed && t2?.lastTimeUsed)
+              return t2.lastTimeUsed - t1.lastTimeUsed;
+
+            if (t1.lastTimeUsed) return -1;
+            if (t2.lastTimeUsed) return 1;
+
+            return 0;
+          })
+          .map((t, idx) => (
+            <TeamDisplay team={t} key={idx} />
+          ))}
       </>
     );
 
