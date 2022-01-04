@@ -54,8 +54,6 @@ export function editTeamateReducer(state: State, action: Action): State {
 
   switch (action.type) {
     case "Add Teamate":
-      // Deletes all the empty ones
-      for (const key in state) state[key].name === "" && delete state[key];
       return { ...state, [getUniqueId()]: getDefaultNewMember() };
 
     case "Delete Teamate":
