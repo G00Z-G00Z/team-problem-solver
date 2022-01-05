@@ -31,7 +31,7 @@ export const divideUpWork = (
   jobs: Job[]
 ): MemberWithJobs[] => {
   // Jobs sorted in descending order, to pop the last job
-  const sortedJobs = jobs.sort((a, b) => a.weight - b.weight);
+  const sortedJobs = jobs.sort((a, b) => b.weight - a.weight);
 
   // Shuffles the members
   const randomOrderMembers = shuffleArray(members);
