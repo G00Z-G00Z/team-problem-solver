@@ -1,12 +1,19 @@
 // Reference for heap
 // https://stackoverflow.com/questions/42919469/efficient-way-to-implement-priority-queue-in-javascript
 
+/**
+ * Priority queue
+ */
 export interface IPriorityQueue<T> {
   size(): number;
   isEmpty(): boolean;
   peek(): T | undefined;
   push(...values: T[]): number;
   pop(): T | undefined;
+  /**
+   * The min priority queue returns a sorted array
+   */
+  toArray(): T[];
 }
 
 const top = 0;
@@ -59,6 +66,17 @@ export class PriorityQueue<T> implements IPriorityQueue<T> {
     this._heap.pop();
     this._siftDown();
     return poppedValue;
+  }
+
+  toArray(): T[] {
+    const newArray: T[] = [];
+
+    while (this.peek()) {
+      // @ts-ignore
+      newArray.push(this.pop());
+    }
+
+    return newArray;
   }
 
   // Private methods

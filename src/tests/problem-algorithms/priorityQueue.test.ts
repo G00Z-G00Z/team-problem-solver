@@ -58,4 +58,11 @@ describe("Tests in priority queue", () => {
     minHeap.push(-1);
     expect(minHeap.peek()).toBe(-1);
   });
+
+  test("Should change into a sorted array", () => {
+    minHeap.push(10);
+    minHeap.push(20, 40, 70, 5);
+
+    expect(isSortedAscending(minHeap.toArray())).toBeTruthy();
+  });
 });
