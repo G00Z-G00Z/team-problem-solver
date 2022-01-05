@@ -1,8 +1,8 @@
-import { DataBaseHandler, Member, Team } from "../types/interfaces";
-import faker from "faker";
-import { appColorNamesInArray } from "../types/AppColors";
+import faker from 'faker'
+import { appColorNamesInArray } from '../types/AppColors'
+import { AvailableColorNames } from '../types/AppColors'
+import { DataBaseHandler, Member, Team } from '../types/interfaces'
 
-import { AvailableColorNames } from "../types/AppColors";
 /**
  * Returns a theme color of the app
  * @returns AvailableColorNames
@@ -33,7 +33,7 @@ function createRandomPerson(): Member {
  * @param people Number
  * @returns Team
  */
-function createRandomTeam(people: number): Team {
+export function createRandomTeam(people: number): Team {
   const members = Array.from(new Array(people), createRandomPerson),
     name = faker.internet.domainWord(),
     color = randomAppColor();
