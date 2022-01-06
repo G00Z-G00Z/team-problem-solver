@@ -4,17 +4,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ProblemList } from '../ProblemPages/ProblemList'
 import { SelectedTeamContext } from '../context/SelectedTeamContext'
 import { Team } from '../types/interfaces'
-import { useLiveQuery } from 'dexie-react-hooks'
 
 export const Home = () => {
-  const { selectedTeam } = useContext(SelectedTeamContext);
-  const navigate = useNavigate();
-
-  if (selectedTeam === undefined) {
-    navigate("/team/select");
-    return <></>;
-  }
-
   return (
     <>
       <h1 className="text-3xl font-serif mb-2 text-center">
