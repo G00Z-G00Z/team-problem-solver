@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Team } from '../types/interfaces'
 
 interface Props {
-  team: Team;
+  team?: Team;
 }
 /**
  * Type for making a page
@@ -14,5 +14,8 @@ export type ProblemPage = FC<Props>;
  */
 export interface ProblemPageInfo {
   imageUrl: string;
-  page: ProblemPage;
+  Component: ProblemPage;
+  route: string;
+  description: string;
+  name: string;
 }
