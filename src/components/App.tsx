@@ -11,6 +11,7 @@ import {
   Routes,
   useNavigate
   } from 'react-router-dom'
+import { ProblemList } from '../ProblemPages/ProblemList'
 import { Profile } from './ProfilePage'
 import { SelectedTeamContext } from '../context/SelectedTeamContext'
 import { SelectTeamPage } from './SelectTeam/SelectTeamPage'
@@ -69,6 +70,17 @@ export default function App() {
                 <Route path=":teamId" element={<EditTeam />} />
               </Route>
             </Route>
+            {ProblemList.map((info, idx) => {
+              const { route, Component: Page } = info;
+
+              return (
+                <Route
+                  path={`/${route}`}
+                  key={idx}
+                  element={<Page team={selectedTeam} />}
+                />
+              );
+            })}
           </Routes>
         </div>
       </div>
