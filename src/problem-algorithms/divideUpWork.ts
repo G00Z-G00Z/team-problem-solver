@@ -2,14 +2,14 @@ import { Member } from '../types/interfaces'
 import { PriorityQueue } from './priorityQueue'
 import { shuffleArray } from '../utils/shuffleArray'
 
-export interface Job {
+export interface Task {
   desc: string;
   weight: number;
 }
 
 export interface MemberWithJobs {
   member: Member;
-  jobs: Job[];
+  jobs: Task[];
   workload: number;
 }
 
@@ -28,7 +28,7 @@ export interface MemberWithJobs {
  */
 export const divideUpWork = (
   members: Member[],
-  jobs: Job[]
+  jobs: Task[]
 ): MemberWithJobs[] => {
   // Jobs sorted in descending order, to pop the last job
   const sortedJobs = jobs.sort((a, b) => b.weight - a.weight);

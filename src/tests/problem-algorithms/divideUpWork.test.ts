@@ -1,5 +1,5 @@
 import { createRandomTeam } from '../../seeds/teamSeeds'
-import { divideUpWork, Job } from '../../problem-algorithms/divideUpWork'
+import { divideUpWork, Task } from '../../problem-algorithms/divideUpWork'
 
 export {};
 
@@ -8,7 +8,7 @@ export {};
  * @param weight number
  * @returns Job
  */
-function randomJob(weight: number = 1): Job {
+function randomJob(weight: number = 1): Task {
   return {
     desc: "",
     weight,
@@ -19,7 +19,7 @@ describe("Tests in divide up work algorithm", () => {
   test("No member leaves with empty workload", () => {
     const team = createRandomTeam(4);
 
-    const jobs: Job[] = [
+    const jobs: Task[] = [
       randomJob(1),
       randomJob(2),
       randomJob(3),
@@ -38,7 +38,7 @@ describe("Tests in divide up work algorithm", () => {
     const team = createRandomTeam(persons);
 
     // List of 9 jobs with equal weight
-    const jobs: Job[] = Array.from(new Array(persons * 3), () => randomJob());
+    const jobs: Task[] = Array.from(new Array(persons * 3), () => randomJob());
 
     // Should divide those jobs evenly
     const result = divideUpWork(team.members, jobs);
@@ -52,7 +52,7 @@ describe("Tests in divide up work algorithm", () => {
 
     const team = createRandomTeam(persons);
 
-    const jobs: Job[] = Array.from(new Array(persons * 10), () =>
+    const jobs: Task[] = Array.from(new Array(persons * 10), () =>
       randomJob(Math.ceil(Math.random() * 10 + 1))
     );
 
@@ -69,7 +69,7 @@ describe("Tests in divide up work algorithm", () => {
     {
       const team = createRandomTeam(2);
 
-      const jobs: Job[] = [randomJob(3), randomJob(2), randomJob(1)];
+      const jobs: Task[] = [randomJob(3), randomJob(2), randomJob(1)];
 
       const result = divideUpWork(team.members, jobs);
 
@@ -80,7 +80,7 @@ describe("Tests in divide up work algorithm", () => {
       const team = createRandomTeam(4);
 
       // Jobs that can be splited into 4 groups of 4 work load
-      const jobs: Job[] = [
+      const jobs: Task[] = [
         // 1st
         randomJob(4),
         //2nd
@@ -104,7 +104,7 @@ describe("Tests in divide up work algorithm", () => {
   test("Splits workload with minimal diference (different weights, but cannot be splited evenly)", () => {
     function createCase(
       people: number,
-      jobs: Job[],
+      jobs: Task[],
       expectedMaxDiference: number
     ) {
       const team = createRandomTeam(people);
