@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Team } from '../types/interfaces'
 
 interface Props {
-  team?: Team;
+  team: Team;
 }
 /**
  * Type for making a page

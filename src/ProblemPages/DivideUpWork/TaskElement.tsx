@@ -25,22 +25,6 @@ export const TaskElement: FC<Props> = ({
 }) => {
   const HTMLtask = useRef<HTMLTableRowElement | null>(null);
 
-  useEffect(() => {
-    if (HTMLtask.current) {
-      const row = HTMLtask.current;
-
-      row.addEventListener("contextmenu", deleteContextMenu);
-    }
-
-    return () => {
-      if (HTMLtask.current) {
-        const row = HTMLtask.current;
-
-        row.removeEventListener("contextmenu", deleteContextMenu);
-      }
-    };
-  }, []);
-
   return (
     <tr className="" ref={HTMLtask}>
       <td>{idx + 1}.</td>
@@ -62,7 +46,7 @@ export const TaskElement: FC<Props> = ({
         >
           <option value="1">small</option>
           <option value="2">medium</option>
-          <option value="4">big</option>
+          <option value="3">big</option>
         </select>
       </td>
     </tr>

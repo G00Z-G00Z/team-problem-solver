@@ -1,7 +1,12 @@
 import React, { useReducer, useRef, useState } from 'react'
+import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
-import { Task } from '../../problem-algorithms/divideUpWork'
 import { TaskElement } from './TaskElement'
+import {
+  divideUpWork,
+  MemberWithJobs,
+  Task,
+} from "../../problem-algorithms/divideUpWork";
 
 const defaultTask: Task = {
   desc: "",
@@ -46,6 +51,8 @@ function divideUpWorkReducer(state: State, action: Actions): State {
 export const DivideUpWork: ProblemPage = ({ team }) => {
   const [tasks, dispatch] = useReducer(divideUpWorkReducer, []);
 
+  const [dividedTasks, setDividedTasks] = useState<MemberWithJobs[]>([]);
+
   const handleAddingTask = () => {
     dispatch({
       type: "Add",
@@ -71,8 +78,12 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     });
   };
 
+  const handleDividing = () => {
+    setDividedTasks(divideUpWork(team.members, [...tasks]));
+  };
+
   return (
-    <>
+    <div className="pb-10">
       <h1 className="w-full text-5xl font-serif text-center font-bold ">
         Divide Up Work
       </h1>
@@ -113,6 +124,15 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
           </tr>
         </tbody>
       </table>
-    </>
+
+      <button className="text-2xl bg-CTA-400 " onClick={handleDividing}>
+        Divide up Work
+      </button>
+      <section className="flex flex-wrap gap-3 justify-center my-2">
+        {dividedTasks.map((member, idx) => (
+          <MemberWithJobsDisplay key={idx} {...member} />
+        ))}
+      </section>
+    </div>
   );
 };

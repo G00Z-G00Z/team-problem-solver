@@ -80,7 +80,8 @@ export default function App() {
                   key={idx}
                   element={
                     <MustHaveTeamRoutes team={selectedTeam}>
-                      <Page />
+                      {/* @ts-ignore */}
+                      <Page team={selectedTeam} />
                     </MustHaveTeamRoutes>
                   }
                 />
