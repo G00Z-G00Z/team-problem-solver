@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useReducer, useRef, useState } from 'react'
 import { ProblemPage } from '../interface'
 import { Task } from '../../problem-algorithms/divideUpWork'
 import { TaskElement } from './TaskElement'
@@ -8,15 +8,67 @@ const defaultTask: Task = {
   weight: 1,
 };
 
+type State = Task[];
+
+type Actions =
+  | {
+      type: "Add";
+    }
+  | {
+      type: "Update";
+      payload: {
+        idx: number;
+        value: Task;
+      };
+    }
+  | {
+      type: "Delete";
+      payload: {
+        idx: number;
+      };
+    };
+
+function divideUpWorkReducer(state: State, action: Actions): State {
+  switch (action.type) {
+    case "Add":
+      return [...state, { ...defaultTask }];
+
+    case "Delete":
+      return state.filter((_, idx) => idx !== action.payload.idx);
+
+    case "Update":
+      let { idx, value } = action.payload;
+      state[idx] = value;
+      return [...state];
+  }
+}
+
 export const DivideUpWork: ProblemPage = ({ team }) => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, dispatch] = useReducer(divideUpWorkReducer, []);
 
   const handleAddingTask = () => {
-    setTasks((list) => [...list, { ...defaultTask }]);
+    dispatch({
+      type: "Add",
+    });
   };
 
   const handleDelete = (idx: number) => {
-    setTasks((list) => list.filter((_, idxTaks) => idxTaks !== idx));
+    dispatch({
+      type: "Delete",
+      payload: {
+        idx,
+      },
+    });
+  };
+
+  const handleUpdate = (idx: number, value: Task) => {
+    dispatch({
+      type: "Update",
+      payload: {
+        idx,
+        value,
+      },
+    });
   };
 
   return (
@@ -41,7 +93,8 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         <tbody>
           {tasks.map((task, idx) => (
             <TaskElement
-              handleDelete={() => handleDelete(idx)}
+              handleDelete={handleDelete}
+              handleUpdate={handleUpdate}
               idx={idx}
               task={task}
               key={idx}
