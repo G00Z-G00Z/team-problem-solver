@@ -1,25 +1,23 @@
-import { Navigate, Route, RouteProps } from 'react-router'
+import React from 'react'
+import { Navigate } from 'react-router-dom'
 import { Team } from '../types/interfaces'
-// https://stackoverflow.com/questions/47747754/how-to-rewrite-the-protected-private-route-using-typescript-and-react-router-4
-
-export type ProtectedRouteProps = {
-  team: Team | undefined;
-  noTeamPath: string;
-} & RouteProps;
 
 /**
- * Here you can put routes that must have teams
- * @param ProtectedRouteProps
- * @returns React.FC
+ * You put an element inside, and it can block whether or not is rendered
+ * <MustHaveTeamRoutes team={selectedTeam}>
+      <Page />
+    </MustHaveTeamRoutes>
+ * @param {children, team}
+ * @returns JSX.Element
  */
-export default function MustHaveTeamRoutes({
-  team: isAuthenticated,
-  noTeamPath: authenticationPath,
-  ...routeProps
-}: ProtectedRouteProps) {
-  if (isAuthenticated) {
-    return <Route {...routeProps} />;
-  } else {
-    return <Navigate to={{ pathname: authenticationPath }} />;
-  }
-}
+export const MustHaveTeamRoutes = ({
+  children,
+  team,
+}: {
+  children: JSX.Element;
+  team: Team | undefined;
+}) => {
+  if (!team) return <Navigate to="/team/select" />;
+
+  return children;
+};

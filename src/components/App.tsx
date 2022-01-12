@@ -4,6 +4,7 @@ import { db } from '../data/dexieDatabase'
 import { EditTeam } from './TeamBuilder/EditTeam'
 import { Help } from './HelpPage'
 import { Home } from './HomePage'
+import { MustHaveTeamRoutes } from '../routes/MustHaveTeamRoutes'
 import { NavBar } from './NavBar'
 import {
   Outlet,
@@ -77,7 +78,11 @@ export default function App() {
                 <Route
                   path={`/${route}`}
                   key={idx}
-                  element={<Page team={selectedTeam} />}
+                  element={
+                    <MustHaveTeamRoutes team={selectedTeam}>
+                      <Page />
+                    </MustHaveTeamRoutes>
+                  }
                 />
               );
             })}
