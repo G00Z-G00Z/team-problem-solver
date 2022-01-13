@@ -1,55 +1,16 @@
-import React, { useReducer, useRef, useState } from 'react'
+import React, { useCallback, useReducer, useState } from 'react'
 import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
 import { TaskElement } from './TaskElement'
+import { TaskReducer } from './TasksReducer'
 import {
   divideUpWork,
   MemberWithJobs,
   Task,
 } from "../../problem-algorithms/divideUpWork";
 
-const defaultTask: Task = {
-  desc: "",
-  weight: 1,
-};
-
-type State = Task[];
-
-type Actions =
-  | {
-      type: "Add";
-    }
-  | {
-      type: "Update";
-      payload: {
-        idx: number;
-        value: Task;
-      };
-    }
-  | {
-      type: "Delete";
-      payload: {
-        idx: number;
-      };
-    };
-
-function divideUpWorkReducer(state: State, action: Actions): State {
-  switch (action.type) {
-    case "Add":
-      return [...state, { ...defaultTask }];
-
-    case "Delete":
-      return state.filter((_, idx) => idx !== action.payload.idx);
-
-    case "Update":
-      let { idx, value } = action.payload;
-      state[idx] = value;
-      return [...state];
-  }
-}
-
 export const DivideUpWork: ProblemPage = ({ team }) => {
-  const [tasks, dispatch] = useReducer(divideUpWorkReducer, []);
+  const [tasksWithCheckbox, dispatch] = useReducer(TaskReducer, []);
 
   const [dividedTasks, setDividedTasks] = useState<MemberWithJobs[]>([]);
 
@@ -62,24 +23,36 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
   const handleDelete = (idx: number) => {
     dispatch({
       type: "Delete",
-      payload: {
-        idx,
-      },
     });
   };
 
-  const handleUpdate = (idx: number, value: Task) => {
+  const handleUpdate = (idx: number, { desc, weight }: Partial<Task>) => {
     dispatch({
       type: "Update",
       payload: {
         idx,
-        value,
+        desc,
+        weight,
+      },
+    });
+  };
+
+  const handleToggleCheck = (idx: number) => {
+    dispatch({
+      type: "Toggle Selection",
+      payload: {
+        idx,
       },
     });
   };
 
   const handleDividing = () => {
-    setDividedTasks(divideUpWork(team.members, [...tasks]));
+    setDividedTasks(
+      divideUpWork(
+        team.members,
+        tasksWithCheckbox.map(({ task }) => task)
+      )
+    );
   };
 
   return (
@@ -96,18 +69,28 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         </colgroup>
         <thead className="border-b-2 border-b-CTA-400 border-b-double">
           <tr className="">
-            <th className="">#</th>
+            <th className="">
+              <input
+                type="checkbox"
+                checked={tasksWithCheckbox.some(({ checked }) => checked)}
+                onChange={() =>
+                  dispatch({
+                    type: "Toggle Selection All",
+                  })
+                }
+              />
+            </th>
             <th className="">Descripcion</th>
             <th className="">Weight</th>
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task, idx) => (
+          {tasksWithCheckbox.map((element, idx) => (
             <TaskElement
-              handleDelete={handleDelete}
               handleUpdate={handleUpdate}
+              handleToggleCheck={handleToggleCheck}
               idx={idx}
-              task={task}
+              {...element}
               key={idx}
             />
           ))}
@@ -130,7 +113,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       </button>
       <section className="flex flex-wrap gap-3 justify-center my-2">
         {dividedTasks.map((member, idx) => (
-          <MemberWithJobsDisplay key={idx} {...member} />
+          <MemberWithJobsDisplay key={idx} {...member} color={team.color} />
         ))}
       </section>
     </div>

@@ -7,40 +7,47 @@ import React, {
 import { Task } from '../../problem-algorithms/divideUpWork'
 
 interface Props {
-  handleDelete: (idx: number) => void;
-  handleUpdate: (idx: number, newValue: Task) => void;
+  handleUpdate: (idx: number, newValue: Partial<Task>) => void;
+  handleToggleCheck: (idx: number) => void;
   idx: number;
   task: Task;
-}
-
-function deleteContextMenu(e: MouseEvent) {
-  e.preventDefault();
+  checked: boolean;
 }
 
 export const TaskElement: FC<Props> = ({
-  handleDelete,
   handleUpdate,
+  handleToggleCheck,
   idx,
   task,
+  checked,
 }) => {
   const HTMLtask = useRef<HTMLTableRowElement | null>(null);
 
   return (
     <tr className="" ref={HTMLtask}>
-      <td>{idx + 1}.</td>
+      <td>
+        <input
+          type="checkbox"
+          name="check"
+          checked={checked}
+          onChange={(e) => {
+            handleToggleCheck(idx);
+          }}
+        />
+      </td>
       <td>
         <input
           type="text"
           name="desc"
           value={task.desc}
-          onChange={(e) => handleUpdate(idx, { ...task, desc: e.target.value })}
+          onChange={(e) => handleUpdate(idx, { desc: e.target.value })}
         />
       </td>
       <td>
         <select
           value={task.weight}
           onChange={(e) =>
-            handleUpdate(idx, { ...task, weight: Number(e.target.value) })
+            handleUpdate(idx, { weight: Number(e.target.value) })
           }
           name="weight"
         >

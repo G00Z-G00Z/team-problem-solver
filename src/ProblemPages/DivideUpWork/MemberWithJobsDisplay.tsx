@@ -1,14 +1,26 @@
 import React, { FC } from 'react'
+import { appColors, AvailableColorNames } from '../../types/AppColors'
 import { MemberWithJobs } from '../../problem-algorithms/divideUpWork'
 
-export const MemberWithJobsDisplay: FC<MemberWithJobs> = ({
-  member,
-  jobs,
-  workload,
-}) => {
+export const MemberWithJobsDisplay: FC<
+  MemberWithJobs & { color: AvailableColorNames }
+> = ({ member, jobs, workload, color }) => {
   return (
-    <div className="w-full border-2 border-dashed border-CTA-500 max-w-sm">
-      <h2 className="text-center bg-CTA-100 font-bold ">{member.name}</h2>
+    <div
+      style={{
+        borderColor: appColors[color][400],
+      }}
+      className="w-full border-2 border-dashed  max-w-sm"
+    >
+      <h2
+        style={{
+          backgroundColor: appColors[color][100],
+          color: appColors[color][500],
+        }}
+        className="text-center font-bold "
+      >
+        {member.name}
+      </h2>
       <div className="p-4">
         <p>
           <b>Workload: </b>
