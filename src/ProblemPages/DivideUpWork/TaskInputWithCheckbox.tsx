@@ -30,7 +30,7 @@ export const TaskInputWithCheckbox: FC<Props> = ({
     }
   };
   return (
-    <section>
+    <section className="flex justify-center items-center gap-4 border-2 border-solid border-gray-200">
       <input
         type="checkbox"
         name="selected"

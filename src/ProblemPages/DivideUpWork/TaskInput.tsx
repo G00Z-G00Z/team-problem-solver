@@ -23,7 +23,7 @@ export const TaskInput: FC<Props> = ({
   weight,
 }) => {
   return (
-    <div className="w-full grid grid-cols-[70%_20%_10%] gap-4 p-4">
+    <>
       <InputWithUnderline
         onChange={onChangeDesc}
         value={desc}
@@ -31,6 +31,6 @@ export const TaskInput: FC<Props> = ({
         color={color}
       />
       <TaskWeightSelector onChange={onChangeWeight} weight={weight} />
-    </div>
+    </>
   );
 };

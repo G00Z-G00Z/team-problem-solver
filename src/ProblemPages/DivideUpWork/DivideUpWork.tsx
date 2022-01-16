@@ -115,35 +115,38 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         Divide Up Work
       </h1>
 
-      <TaskInput
-        onChangeDesc={(w) => onChange(w, "desc")}
-        onChangeWeight={(w) => onChange(w, "weight")}
-        handleOnKeyDownEvent={handleKeyDownEvent}
-        desc={desc}
-        weight={weight}
-        color={team.color}
-      />
-      <button
-        onClick={() => {
-          dispatch({
-            type: "Add",
-            payload: {
-              task: {
-                desc,
-                weight,
+      <div className="m-auto max-w-lg grid grid-cols-1 md:grid-cols-[70%_20%_10%] justify-center items-center gap-4 p-4">
+        <TaskInput
+          onChangeDesc={(w) => onChange(w, "desc")}
+          onChangeWeight={(w) => onChange(w, "weight")}
+          handleOnKeyDownEvent={handleKeyDownEvent}
+          desc={desc}
+          weight={weight}
+          color={team.color}
+        />
+        <button
+          onClick={() => {
+            dispatch({
+              type: "Add",
+              payload: {
+                task: {
+                  desc,
+                  weight,
+                },
               },
-            },
-          });
-        }}
-        className="flex justify-center items-center disabled:fill-gray-400 fill-CTA-400 transition-all hover:fill-CTA-500"
-        disabled={desc === ""}
-      >
-        <AddIcon className="fill-inherit stroke-1" />
-      </button>
+            });
+          }}
+          className="flex justify-center items-center disabled:fill-gray-400 fill-CTA-400 transition-all hover:fill-CTA-500"
+          disabled={desc === ""}
+        >
+          <AddIcon className="fill-inherit stroke-1" />
+        </button>
+      </div>
 
       {/* Controls */}
-      <header>
+      <header className="w-full max-w-lg m-auto grid grid-cols-12 justify-center items-center  h-10">
         <input
+          className="col-span-1"
           type="checkbox"
           checked={anyElementIsChecked}
           onChange={() =>
@@ -154,21 +157,23 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
           disabled={lenTasks === 0}
         />
 
-        {anyElementIsChecked && (
-          <button
-            onClick={() => {
-              dispatch({
-                type: "Delete",
-              });
-            }}
-            className="bg-danger"
-          >
-            <TrashIcon className="fill-inherit stroke-1" />
-          </button>
-        )}
+        <button
+          onClick={() => {
+            dispatch({
+              type: "Delete",
+            });
+          }}
+          className="bg-danger col-span-11 fill-danger-200 disabled:fill-gray-400 hover:fill-danger-300 "
+          disabled={!anyElementIsChecked}
+        >
+          <TrashIcon className="fill-inherit stroke-1" />
+        </button>
       </header>
 
-      <section>
+      <section
+        className="grid grid-cols-1 gap-4 max-w-lg 
+      justify-center items-center mx-auto my-2"
+      >
         {tasksWithCheckbox.map(({ checked, task }, idx) => {
           const handleWeightChange = (weight: string) =>
             dispatch({
@@ -190,6 +195,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
           return (
             <TaskInputWithCheckbox
+              key={idx}
               task={task}
               checked={checked}
               handleDescChange={handleDescChange}

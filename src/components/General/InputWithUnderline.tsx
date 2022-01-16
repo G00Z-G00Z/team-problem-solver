@@ -17,8 +17,10 @@ export const InputWithUnderline: FC<Props> = ({
 }) => {
   return (
     <div
-      className="relative group hover:border-0   h-10 
-          w-full max-w-md"
+      className="relative group 
+      hover:border-0   
+      h-10 
+      w-full max-w-md"
     >
       <input
         type="text"
