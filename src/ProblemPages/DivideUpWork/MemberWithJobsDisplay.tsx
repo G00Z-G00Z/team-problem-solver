@@ -22,20 +22,28 @@ export const MemberWithJobsDisplay: FC<
         {member.name}
       </h2>
       <div className="p-4">
-        <p>
-          <b>Workload: </b>
-          <span>{workload}</span>
-        </p>
-        <div>
-          <b>Tasks: </b>
-          <ul>
-            {jobs.map((job, idx) => (
-              <li key={idx}>
-                {job.desc} : {job.weight}{" "}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {jobs.length > 0 ? (
+          <>
+            <p>
+              <b>Workload: </b>
+              <span>{Number(workload)}</span>
+            </p>
+            <div>
+              <b>Tasks: </b>
+              <ul>
+                {jobs.map((job, idx) => (
+                  <li key={idx}>
+                    {job.desc} : {job.weight}{" "}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
+        ) : (
+          <div className="w-full text-center">
+            ¡Felicidades! No te tocó nada!
+          </div>
+        )}
       </div>
     </div>
   );
