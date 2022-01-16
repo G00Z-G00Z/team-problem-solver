@@ -5,6 +5,8 @@ import React, {
   useState
   } from 'react'
 import { Task } from '../../problem-algorithms/divideUpWork'
+import { TaskInput } from './TaskInput'
+import { TaskWeightSelector } from './TaskWeightSelector'
 
 interface Props {
   handleUpdate: (idx: number, newValue: Partial<Task>) => void;
@@ -42,23 +44,15 @@ export const TaskElement: FC<Props> = ({
           value={task.desc}
           onChange={(e) => handleUpdate(idx, { desc: e.target.value })}
           autoComplete="off"
-          onSubmit={() => {
-            console.log("presionno enter");
-          }}
         />
       </td>
       <td>
-        <select
-          value={task.weight}
-          onChange={(e) =>
-            handleUpdate(idx, { weight: Number(e.target.value) })
-          }
-          name="weight"
-        >
-          <option value="1">small</option>
-          <option value="2">medium</option>
-          <option value="3">big</option>
-        </select>
+        <TaskWeightSelector
+          weight={task.weight}
+          onChange={(newWeight) => {
+            handleUpdate(idx, { weight: Number(newWeight) });
+          }}
+        />
       </td>
     </tr>
   );

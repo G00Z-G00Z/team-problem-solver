@@ -8,6 +8,7 @@ import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
 import { ReactComponent as TrashIcon } from '../../assets/delete.svg'
 import { TaskElement } from './TaskElement'
+import { TaskInput } from './TaskInput'
 import { TaskReducer } from './TasksReducer'
 import {
   divideUpWork,
@@ -31,9 +32,13 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     setLenTasks(tasksWithCheckbox.length);
   }, [tasksWithCheckbox]);
 
-  const handleAddingTask = () => {
+  const handleAddingTask = (task: Task) => {
+    setDividedTasks([]);
     dispatch({
       type: "Add",
+      payload: {
+        task,
+      },
     });
   };
 
@@ -76,6 +81,9 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       <h1 className="w-full text-5xl font-serif text-center font-bold ">
         Divide Up Work
       </h1>
+
+      <TaskInput handleAdding={handleAddingTask} />
+
       {/* Controls */}
       <header>
         <input
@@ -127,17 +135,6 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
               key={idx}
             />
           ))}
-
-          <tr>
-            <td colSpan={3}>
-              <button
-                className="w-full bg-gray-200 p-4 hover:bg-gray-300"
-                onClick={handleAddingTask}
-              >
-                + New task
-              </button>
-            </td>
-          </tr>
         </tbody>
       </table>
 
@@ -149,9 +146,10 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         Divide up Work
       </button>
       <section className="flex flex-wrap gap-3 justify-center my-2">
-        {dividedTasks.map((member, idx) => (
-          <MemberWithJobsDisplay key={idx} {...member} color={team.color} />
-        ))}
+        {lenTasks !== 0 &&
+          dividedTasks.map((member, idx) => (
+            <MemberWithJobsDisplay key={idx} {...member} color={team.color} />
+          ))}
       </section>
     </div>
   );
