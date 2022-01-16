@@ -82,7 +82,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         Divide Up Work
       </h1>
 
-      <TaskInput handleAdding={handleAddingTask} />
+      <TaskInput handleAdding={handleAddingTask} color={team.color} />
 
       {/* Controls */}
       <header>
