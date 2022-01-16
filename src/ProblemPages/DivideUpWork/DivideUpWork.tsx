@@ -4,11 +4,14 @@ import React, {
   useReducer,
   useState
   } from 'react'
+import useForm from '../../hooks/useForm'
 import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
 import { ReactComponent as TrashIcon } from '../../assets/delete.svg'
+import { ReactComponent as AddIcon } from '../../assets/queue.svg'
 import { TaskElement } from './TaskElement'
 import { TaskInput } from './TaskInput'
+import { TaskInputWithCheckbox } from './TaskInputWithCheckbox'
 import { TaskReducer } from './TasksReducer'
 import {
   divideUpWork,
@@ -25,6 +28,11 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     tasksWithCheckbox.some(({ checked }) => checked)
   );
 
+  const { desc, onChange, reset, weight } = useForm({
+    desc: "",
+    weight: 2,
+  });
+
   const [lenTasks, setLenTasks] = useState(0);
 
   useEffect(() => {
@@ -40,6 +48,31 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         task,
       },
     });
+  };
+
+  const handleKeyDownEvent = (e: { key: string }) => {
+    switch (e.key) {
+      case "Enter":
+        if (!desc) break;
+        dispatch({
+          type: "Add",
+          payload: {
+            task: {
+              desc,
+              weight,
+            },
+          },
+        });
+        reset();
+        return;
+
+      case "ArrowUp":
+        onChange(String(Number(weight) + 1), "weight");
+        return;
+      case "ArrowDown":
+        onChange(String(Number(weight) - 1), "weight");
+        return;
+    }
   };
 
   const handleUpdate = (idx: number, { desc, weight }: Partial<Task>) => {
@@ -82,7 +115,31 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         Divide Up Work
       </h1>
 
-      <TaskInput handleAdding={handleAddingTask} color={team.color} />
+      <TaskInput
+        onChangeDesc={(w) => onChange(w, "desc")}
+        onChangeWeight={(w) => onChange(w, "weight")}
+        handleOnKeyDownEvent={handleKeyDownEvent}
+        desc={desc}
+        weight={weight}
+        color={team.color}
+      />
+      <button
+        onClick={() => {
+          dispatch({
+            type: "Add",
+            payload: {
+              task: {
+                desc,
+                weight,
+              },
+            },
+          });
+        }}
+        className="flex justify-center items-center disabled:fill-gray-400 fill-CTA-400 transition-all hover:fill-CTA-500"
+        disabled={desc === ""}
+      >
+        <AddIcon className="fill-inherit stroke-1" />
+      </button>
 
       {/* Controls */}
       <header>
@@ -111,40 +168,47 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         )}
       </header>
 
-      <table className="mt-2 w-full">
-        <colgroup>
-          <col span={1} className="w-1/12 " />
-          <col span={1} className="w-8/12" />
-          <col span={1} className="w-3/12" />
-        </colgroup>
-        <thead className="border-b-2 border-b-CTA-400 border-b-double">
-          <tr className="">
-            <th className="" colSpan={2}>
-              Descripcion
-            </th>
-            <th className="">Weight</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasksWithCheckbox.map((element, idx) => (
-            <TaskElement
-              handleUpdate={handleUpdate}
-              handleToggleCheck={handleToggleCheck}
-              idx={idx}
-              {...element}
-              key={idx}
-            />
-          ))}
-        </tbody>
-      </table>
+      <section>
+        {tasksWithCheckbox.map(({ checked, task }, idx) => {
+          const handleWeightChange = (weight: string) =>
+            dispatch({
+              type: "Update",
+              payload: {
+                idx,
+                weight: Number(weight),
+              },
+            });
 
-      <button
-        className="text-2xl bg-CTA-400 "
-        onClick={handleDividing}
-        disabled={lenTasks === 0}
-      >
-        Divide up Work
-      </button>
+          const handleDescChange = (desc: string) =>
+            dispatch({
+              type: "Update",
+              payload: {
+                idx,
+                desc,
+              },
+            });
+
+          return (
+            <TaskInputWithCheckbox
+              task={task}
+              checked={checked}
+              handleDescChange={handleDescChange}
+              handleToggleCheck={() => handleToggleCheck(idx)}
+              handleWeightChange={handleWeightChange}
+            />
+          );
+        })}
+      </section>
+
+      <div className="w-full flex justify-center items-center">
+        <button
+          className="bg-CTA-400 text-gray-100 w-32 h-8 px-3 text-xl rounded-md disabled:opacity-75"
+          onClick={handleDividing}
+          disabled={lenTasks === 0}
+        >
+          Divide up Work
+        </button>
+      </div>
       <section className="flex flex-wrap gap-3 justify-center my-2">
         {lenTasks !== 0 &&
           dividedTasks.map((member, idx) => (
