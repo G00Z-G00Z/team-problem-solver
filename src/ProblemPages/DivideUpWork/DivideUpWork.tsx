@@ -30,7 +30,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
   const { desc, onChange, reset, weight } = useForm({
     desc: "",
-    weight: 2,
+    weight: "2",
   });
 
   const [lenTasks, setLenTasks] = useState(0);
@@ -59,7 +59,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
           payload: {
             task: {
               desc,
-              weight,
+              weight: Number(weight),
             },
           },
         });
@@ -104,6 +104,8 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       .filter(({ task }) => task.desc !== "")
       .map(({ task }) => task);
 
+    console.log(tasksNormalized);
+
     tasksNormalized.length > 0
       ? setDividedTasks(divideUpWork(team.members, tasksNormalized))
       : setDividedTasks([]);
@@ -131,7 +133,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
               payload: {
                 task: {
                   desc,
-                  weight,
+                  weight: Number(weight),
                 },
               },
             });
