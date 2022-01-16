@@ -6,7 +6,7 @@ import {
 
 const defaultTask: Task = {
   desc: "",
-  weight: 1,
+  weight: 2,
 };
 
 type State = { checked: boolean; task: Task }[];
@@ -17,6 +17,9 @@ type Actions =
    */
   | {
       type: "Add";
+      payload?: {
+        task: Task;
+      };
     }
   /**
    * Deletes all the tasks chekcked
@@ -59,8 +62,11 @@ type Actions =
 
 export function TaskReducer(state: State, action: Actions): State {
   switch (action.type) {
-    case "Add":
-      return [...state, { checked: false, task: { ...defaultTask } }];
+    case "Add": {
+      let task = action?.payload?.task ?? { ...defaultTask };
+
+      return [...state, { checked: false, task }];
+    }
 
     case "Delete":
       return state.filter(({ checked }, _) => !checked);
