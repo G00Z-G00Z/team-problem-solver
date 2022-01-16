@@ -26,7 +26,7 @@ export const MemberWithJobsDisplay: FC<
           <b>Workload: </b>
           <span>{workload}</span>
         </p>
-        <p>
+        <div>
           <b>Tasks: </b>
           <ul>
             {jobs.map((job, idx) => (
@@ -35,7 +35,7 @@ export const MemberWithJobsDisplay: FC<
               </li>
             ))}
           </ul>
-        </p>
+        </div>
       </div>
     </div>
   );

@@ -41,6 +41,10 @@ export const TaskElement: FC<Props> = ({
           name="desc"
           value={task.desc}
           onChange={(e) => handleUpdate(idx, { desc: e.target.value })}
+          autoComplete="off"
+          onSubmit={() => {
+            console.log("presionno enter");
+          }}
         />
       </td>
       <td>

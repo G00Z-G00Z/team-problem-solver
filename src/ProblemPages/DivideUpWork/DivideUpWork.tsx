@@ -1,6 +1,12 @@
-import React, { useCallback, useReducer, useState } from 'react'
+import React, {
+  useCallback,
+  useEffect,
+  useReducer,
+  useState
+  } from 'react'
 import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
+import { ReactComponent as TrashIcon } from '../../assets/delete.svg'
 import { TaskElement } from './TaskElement'
 import { TaskReducer } from './TasksReducer'
 import {
@@ -14,15 +20,20 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
   const [dividedTasks, setDividedTasks] = useState<MemberWithJobs[]>([]);
 
+  const [anyElementIsChecked, setAnyElementIsChecked] = useState(
+    tasksWithCheckbox.some(({ checked }) => checked)
+  );
+
+  const [lenTasks, setLenTasks] = useState(0);
+
+  useEffect(() => {
+    setAnyElementIsChecked(tasksWithCheckbox.some(({ checked }) => checked));
+    setLenTasks(tasksWithCheckbox.length);
+  }, [tasksWithCheckbox]);
+
   const handleAddingTask = () => {
     dispatch({
       type: "Add",
-    });
-  };
-
-  const handleDelete = (idx: number) => {
-    dispatch({
-      type: "Delete",
     });
   };
 
@@ -47,12 +58,17 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
   };
 
   const handleDividing = () => {
-    setDividedTasks(
-      divideUpWork(
-        team.members,
-        tasksWithCheckbox.map(({ task }) => task)
-      )
-    );
+    dispatch({
+      type: "Clean up",
+    });
+
+    const tasksNormalized = tasksWithCheckbox
+      .filter(({ task }) => task.desc !== "")
+      .map(({ task }) => task);
+
+    tasksNormalized.length > 0
+      ? setDividedTasks(divideUpWork(team.members, tasksNormalized))
+      : setDividedTasks([]);
   };
 
   return (
@@ -60,6 +76,32 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       <h1 className="w-full text-5xl font-serif text-center font-bold ">
         Divide Up Work
       </h1>
+      {/* Controls */}
+      <header>
+        <input
+          type="checkbox"
+          checked={anyElementIsChecked}
+          onChange={() =>
+            dispatch({
+              type: "Toggle Selection All",
+            })
+          }
+          disabled={lenTasks === 0}
+        />
+
+        {anyElementIsChecked && (
+          <button
+            onClick={() => {
+              dispatch({
+                type: "Delete",
+              });
+            }}
+            className="bg-danger"
+          >
+            <TrashIcon className="fill-inherit stroke-1" />
+          </button>
+        )}
+      </header>
 
       <table className="mt-2 w-full">
         <colgroup>
@@ -69,18 +111,9 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         </colgroup>
         <thead className="border-b-2 border-b-CTA-400 border-b-double">
           <tr className="">
-            <th className="">
-              <input
-                type="checkbox"
-                checked={tasksWithCheckbox.some(({ checked }) => checked)}
-                onChange={() =>
-                  dispatch({
-                    type: "Toggle Selection All",
-                  })
-                }
-              />
+            <th className="" colSpan={2}>
+              Descripcion
             </th>
-            <th className="">Descripcion</th>
             <th className="">Weight</th>
           </tr>
         </thead>
@@ -108,7 +141,11 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         </tbody>
       </table>
 
-      <button className="text-2xl bg-CTA-400 " onClick={handleDividing}>
+      <button
+        className="text-2xl bg-CTA-400 "
+        onClick={handleDividing}
+        disabled={lenTasks === 0}
+      >
         Divide up Work
       </button>
       <section className="flex flex-wrap gap-3 justify-center my-2">

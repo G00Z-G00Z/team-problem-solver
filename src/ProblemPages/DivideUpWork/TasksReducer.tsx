@@ -12,12 +12,21 @@ const defaultTask: Task = {
 type State = { checked: boolean; task: Task }[];
 
 type Actions =
+  /**
+   * Adds a task
+   */
   | {
       type: "Add";
     }
+  /**
+   * Deletes all the tasks chekcked
+   */
   | {
       type: "Delete";
     }
+  /**
+   * Updates the task desc, and changes the weight if other are selected
+   */
   | {
       type: "Update";
       payload: {
@@ -26,14 +35,26 @@ type Actions =
         weight?: number;
       };
     }
+  /**
+   * Unchecks / checks a task
+   */
   | {
       type: "Toggle Selection";
       payload: {
         idx: number;
       };
     }
+  /**
+   * Either checks or unchecks all taks
+   */
   | {
       type: "Toggle Selection All";
+    }
+  /**
+   * Removes all empty taks
+   */
+  | {
+      type: "Clean up";
     };
 
 export function TaskReducer(state: State, action: Actions): State {
@@ -85,5 +106,8 @@ export function TaskReducer(state: State, action: Actions): State {
         ? state.map((element) => ({ ...element, checked: false }))
         : state.map((element) => ({ ...element, checked: true }));
     }
+
+    case "Clean up":
+      return state.filter(({ task }) => task.desc !== "");
   }
 }
