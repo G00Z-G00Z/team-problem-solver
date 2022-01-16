@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/team-problem-solver/static/css/main.160ff259.css",
-    "main.js": "/team-problem-solver/static/js/main.5a8c023e.js",
+    "main.js": "/team-problem-solver/static/js/main.032b2a2f.js",
     "index.html": "/team-problem-solver/index.html",
     "static/media/team.svg": "/team-problem-solver/static/media/team.985bccb10fed35a231f04d5c9fb1a5e9.svg",
     "static/media/help.svg": "/team-problem-solver/static/media/help.5e509072eea25530cf1d3b819dc852a2.svg",
@@ -13,10 +13,10 @@
     "static/media/delete.svg": "/team-problem-solver/static/media/delete.9c4c625a027a954f1e530bc26c2e373a.svg",
     "static/media/home.svg": "/team-problem-solver/static/media/home.dcc452729f52b2a8435db5d421eac14c.svg",
     "main.160ff259.css.map": "/team-problem-solver/static/css/main.160ff259.css.map",
-    "main.5a8c023e.js.map": "/team-problem-solver/static/js/main.5a8c023e.js.map"
+    "main.032b2a2f.js.map": "/team-problem-solver/static/js/main.032b2a2f.js.map"
   },
   "entrypoints": [
     "static/css/main.160ff259.css",
-    "static/js/main.5a8c023e.js"
+    "static/js/main.032b2a2f.js"
   ]
 }
