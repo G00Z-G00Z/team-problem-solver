@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useMemo } from 'react'
 import { appColors } from '../../types/AppColors'
+import { ReactComponent as SelectedIcon } from '../../assets/done.svg'
 
 interface Props {
   checked: boolean;
@@ -17,25 +18,33 @@ export const RoundedCheckbox: FC<Props> = ({
   const style = useMemo(() => {
     if (disabled)
       return {
-        backgroundColor: appColors.gray[300],
-        borderColor: "",
+        backgroundColor: appColors.gray[200],
+        border: `2px solid ${appColors.gray[300]}`,
       };
 
+    if (checked) return undefined;
+
     return {
-      backgroundColor: checked ? appColors["CTA"][300] : "",
-      borderColor: !checked ? appColors["CTA"][400] : "transparent",
+      backgroundColor: appColors.CTA[100],
+      border: `2px solid ${appColors.CTA[400]}`,
     };
   }, [disabled, checked]);
 
   return (
     <>
       <div
-        className={`h-5 w-5 
-        rounded-full border-4 border-double transition-all
-        `}
+        className="h-5 w-5 
+        rounded-md  transition-all 
+        flex justify-center items-center
+        fill-CTA-500
+        "
         style={style}
         onClick={onChange}
       >
+        {checked && (
+          <SelectedIcon className="fill-inherit stroke-1 scale-125" />
+        )}
+
         <input
           className="hidden"
           type="checkbox"
