@@ -7,6 +7,7 @@ interface Props {
   onKeyDown?: (e: { key: string }) => void;
   color?: AvailableColorNames;
   ref?: React.RefObject<HTMLInputElement>;
+  placeholder?: string;
 }
 
 export const InputWithUnderline: FC<Props> = ({
@@ -14,6 +15,7 @@ export const InputWithUnderline: FC<Props> = ({
   onChange,
   onKeyDown,
   color = "gray",
+  placeholder = "",
 }) => {
   return (
     <div
@@ -26,6 +28,7 @@ export const InputWithUnderline: FC<Props> = ({
         type="text"
         name="name"
         autoComplete="off"
+        placeholder={placeholder}
         className="
              text-base md:text-md lg:text-lg  text-center  
              bg-transparent

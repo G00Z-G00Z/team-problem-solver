@@ -29,6 +29,7 @@ export const TaskInput: FC<Props> = ({
         value={desc}
         onKeyDown={handleOnKeyDownEvent}
         color={color}
+        placeholder={"Ex. Comprar la comida"}
       />
       <TaskWeightSelector onChange={onChangeWeight} weight={weight} />
     </>
