@@ -9,6 +9,7 @@ import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
 import { ReactComponent as TrashIcon } from '../../assets/delete.svg'
 import { ReactComponent as AddIcon } from '../../assets/queue.svg'
+import { RoundedCheckbox } from '../../components/General/RoundedCheckbox'
 import { TaskElement } from './TaskElement'
 import { TaskInput } from './TaskInput'
 import { TaskInputWithCheckbox } from './TaskInputWithCheckbox'
@@ -137,6 +138,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
                 },
               },
             });
+            reset();
           }}
           className="flex justify-center items-center disabled:fill-gray-400 fill-CTA-400 transition-all hover:fill-CTA-500"
           disabled={desc === ""}
@@ -147,9 +149,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
       {/* Controls */}
       <header className="w-full max-w-lg m-auto grid grid-cols-12 justify-center items-center  h-10">
-        <input
-          className="col-span-1"
-          type="checkbox"
+        <RoundedCheckbox
           checked={anyElementIsChecked}
           onChange={() =>
             dispatch({
@@ -158,7 +158,6 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
           }
           disabled={lenTasks === 0}
         />
-
         <button
           onClick={() => {
             dispatch({

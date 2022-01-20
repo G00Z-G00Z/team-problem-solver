@@ -27,7 +27,7 @@ export const InputWithUnderline: FC<Props> = ({
         name="name"
         autoComplete="off"
         className="
-              text-xl text-center  
+             text-base md:text-md lg:text-lg  text-center  
              bg-transparent
               decoration-gray-200 p-1 transition-all focus-visible:outline-0 
               absolute top-1/2 left-1/2 transform -translate-x-1/2 

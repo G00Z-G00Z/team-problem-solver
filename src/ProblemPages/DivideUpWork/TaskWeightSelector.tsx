@@ -23,7 +23,7 @@ const weightColors: {
 }[] = [
   { name: "tiny", weight: 1, color: "gray" },
   { name: "small", weight: 2, color: "yellow" },
-  { name: "medium", weight: 3, color: "CTA" },
+  { name: "normal", weight: 3, color: "CTA" },
   { name: "big", weight: 4, color: "pink" },
   { name: "giant", weight: 5, color: "danger" },
 ];
@@ -51,7 +51,7 @@ export const TaskWeightSelector: FC<Props> = ({
         color: appColors[color][500],
       }}
       name="weight"
-      className="rounded-md text-center hover:shadow-md transition-all  py-0 text-lg"
+      className="rounded-md text-center hover:shadow-md transition-all  py-0 text-base md:text-md lg:text-lg"
     >
       {weightColors.map(({ color, weight, name }, idx) => (
         <option
