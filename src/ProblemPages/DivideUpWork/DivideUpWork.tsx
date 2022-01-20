@@ -41,16 +41,6 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     setLenTasks(tasksWithCheckbox.length);
   }, [tasksWithCheckbox]);
 
-  const handleAddingTask = (task: Task) => {
-    setDividedTasks([]);
-    dispatch({
-      type: "Add",
-      payload: {
-        task,
-      },
-    });
-  };
-
   const handleKeyDownEvent = (e: { key: string }) => {
     switch (e.key) {
       case "Enter":
@@ -84,6 +74,32 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         desc,
         weight,
       },
+    });
+  };
+
+  const handleDeleteTasks = () => {
+    dispatch({
+      type: "Delete",
+    });
+    setDividedTasks([]);
+  };
+
+  const handleAddingTask = () => {
+    dispatch({
+      type: "Add",
+      payload: {
+        task: {
+          desc,
+          weight: Number(weight),
+        },
+      },
+    });
+    reset();
+  };
+
+  const handleToggleAll = () => {
+    dispatch({
+      type: "Toggle Selection All",
     });
   };
 
@@ -128,18 +144,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
           color={team.color}
         />
         <button
-          onClick={() => {
-            dispatch({
-              type: "Add",
-              payload: {
-                task: {
-                  desc,
-                  weight: Number(weight),
-                },
-              },
-            });
-            reset();
-          }}
+          onClick={handleAddingTask}
           className="flex justify-center items-center disabled:fill-gray-400 fill-CTA-400 transition-all hover:fill-CTA-500"
           disabled={desc === ""}
         >
@@ -151,19 +156,11 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       <header className="w-full max-w-lg m-auto grid grid-cols-12 justify-center items-center  h-10">
         <RoundedCheckbox
           checked={anyElementIsChecked}
-          onChange={() =>
-            dispatch({
-              type: "Toggle Selection All",
-            })
-          }
+          onChange={handleToggleAll}
           disabled={lenTasks === 0}
         />
         <button
-          onClick={() => {
-            dispatch({
-              type: "Delete",
-            });
-          }}
+          onClick={handleDeleteTasks}
           className="bg-danger col-span-11 fill-danger-200 disabled:fill-gray-400 hover:fill-danger-300 "
           disabled={!anyElementIsChecked}
         >
@@ -177,22 +174,10 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       >
         {tasksWithCheckbox.map(({ checked, task }, idx) => {
           const handleWeightChange = (weight: string) =>
-            dispatch({
-              type: "Update",
-              payload: {
-                idx,
-                weight: Number(weight),
-              },
-            });
+            handleUpdate(idx, { weight: Number(weight) });
 
           const handleDescChange = (desc: string) =>
-            dispatch({
-              type: "Update",
-              payload: {
-                idx,
-                desc,
-              },
-            });
+            handleUpdate(idx, { desc });
 
           return (
             <TaskInputWithCheckbox
