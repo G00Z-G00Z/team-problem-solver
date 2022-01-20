@@ -1,7 +1,8 @@
 {
   "files": {
     "main.css": "/team-problem-solver/static/css/main.8d9575d2.css",
-    "main.js": "/team-problem-solver/static/js/main.597ee649.js",
+    "main.js": "/team-problem-solver/static/js/main.0e5dd0d0.js",
+    "service-worker.js": "/team-problem-solver/service-worker.js",
     "index.html": "/team-problem-solver/index.html",
     "static/media/team.svg": "/team-problem-solver/static/media/team.985bccb10fed35a231f04d5c9fb1a5e9.svg",
     "static/media/help.svg": "/team-problem-solver/static/media/help.5e509072eea25530cf1d3b819dc852a2.svg",
@@ -14,10 +15,10 @@
     "static/media/done.svg": "/team-problem-solver/static/media/done.8f80b7fb3aef39a475db081c05411d78.svg",
     "static/media/home.svg": "/team-problem-solver/static/media/home.dcc452729f52b2a8435db5d421eac14c.svg",
     "main.8d9575d2.css.map": "/team-problem-solver/static/css/main.8d9575d2.css.map",
-    "main.597ee649.js.map": "/team-problem-solver/static/js/main.597ee649.js.map"
+    "main.0e5dd0d0.js.map": "/team-problem-solver/static/js/main.0e5dd0d0.js.map"
   },
   "entrypoints": [
     "static/css/main.8d9575d2.css",
-    "static/js/main.597ee649.js"
+    "static/js/main.0e5dd0d0.js"
   ]
 }
