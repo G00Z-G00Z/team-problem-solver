@@ -28,5 +28,13 @@
       "sizes": "512x512",
       "type": "image/png"
     }
+  ],
+  "shortcuts": [
+    {
+      "name": "Create a Team",
+      "short_name": "Create Team",
+      "description": "Creates a new team",
+      "url": "/team/edit/new"
+    }
   ]
 }
