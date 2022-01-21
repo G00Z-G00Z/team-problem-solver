@@ -13,7 +13,7 @@ export const NavBar = () => {
   }
 
   return (
-    <nav className="w-full fixed bottom-0 border-b-2 z-10 border-t-solid border-t-[1px] border-t-gray-400 py-3 bg-gray-100">
+    <nav className="w-full fixed bottom-0 border-b-2 z-10 border-t-solid border-t-[1px] border-t-gray-400 py-3 bg-gray-100 pb-6 sm:pb-6 md:pb-3 lg:pb-2">
       <ul className="flex justify-evenly">
         <li>
           <NavLink className={handleActiveClass} to="/">
