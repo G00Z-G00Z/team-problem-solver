@@ -5,6 +5,7 @@
   "name": "Team Problem's Solver",
   "short_name": "TP Solver",
   "description": "An application that lets you make teams, and use several solvers to solve common issues amongst teams of people",
+  "start_url": "./index.html",
   "icons": [
     {
       "src": "./icon-192x192.png",
