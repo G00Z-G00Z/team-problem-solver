@@ -154,7 +154,7 @@ export const EditTeam = () => {
           </div>
         </div>
         {/* Color selection */}
-        <div className="my-3 flex flex-col gap-5">
+        <div className="my-3 flex flex-col gap-5 items-center">
           <h2
             style={{
               color: appColors[color][500],

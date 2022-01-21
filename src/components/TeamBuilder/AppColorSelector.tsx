@@ -29,13 +29,13 @@ export const AppColorSelector: FC<Props> = ({
   const colorValues = getAllColors();
 
   return (
-    <div className="flex flex-row flex-wrap justify-evenly">
+    <div className="flex gap-4 flex-wrap px-4 justify-items-center items-center max-w-lg ">
       {colorValues.map(([name, valueStr], idx) => {
         return (
           <button
             name="color"
             key={idx}
-            className={`h-[20px] w-[20px] rounded-full outline-offset-4
+            className={`h-[20px] w-[20px] rounded-full outline-offset-4 self-center
             ${name === value ? "outline outline-2" : ""}
             hover:outline outline-2 outline-gray-700
             `}
