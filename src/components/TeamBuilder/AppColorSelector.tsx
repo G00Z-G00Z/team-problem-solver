@@ -29,7 +29,7 @@ export const AppColorSelector: FC<Props> = ({
   const colorValues = getAllColors();
 
   return (
-    <div className="flex gap-4 flex-wrap px-4 justify-items-center items-center max-w-lg ">
+    <div className="flex gap-4 flex-wrap px-4 justify-items-center items-center justify-center max-w-lg ">
       {colorValues.map(([name, valueStr], idx) => {
         return (
           <button
