@@ -4,6 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter as Router } from 'react-router-dom'
 import './styles/index.css'
+import './styles/mobileBehaviour.css'
 
 ReactDOM.render(
   <React.StrictMode>
