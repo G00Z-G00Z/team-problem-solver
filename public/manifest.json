@@ -2,11 +2,10 @@
   "theme_color": "#11946E",
   "background_color": "#F7F7F7",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
   "name": "Team Problem's Solver",
   "short_name": "TP Solver",
   "description": "An application that lets you make teams, and use several solvers to solve common issues amongst teams of people",
+  "start_url": "./index.html",
   "icons": [
     {
       "src": "./icon-192x192.png",
