@@ -7,7 +7,7 @@ npx pwa-asset-generator \
 -m ./manifest.json  \
 -i ./index.html  \
 -type png \
--a "%PUBLIC_URL%" \
+-a "." \
 -b "#11946E" \
 cd ..
 
