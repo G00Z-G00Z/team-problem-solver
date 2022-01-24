@@ -1,25 +1,20 @@
-import React, { useEffect, useRef } from 'react'
-import { createTeamSeeds } from '../seeds/teamSeeds'
-import { db } from '../data/dexieDatabase'
-import { EditTeam } from './TeamBuilder/EditTeam'
-import { Help } from './HelpPage'
-import { Home } from './HomePage'
-import { MustHaveTeamRoutes } from '../routes/MustHaveTeamRoutes'
-import { NavBar } from './NavBar'
-import {
-  Outlet,
-  Route,
-  Routes,
-  useNavigate
-  } from 'react-router-dom'
-import { ProblemList } from '../ProblemPages/ProblemList'
-import { Profile } from './ProfilePage'
-import { SelectedTeamContext } from '../context/SelectedTeamContext'
-import { SelectTeamPage } from './SelectTeam/SelectTeamPage'
-import { Team } from '../types/interfaces'
-import { TeamStatusBar } from './TeamStatusBar'
-import { useLiveQuery } from 'dexie-react-hooks'
-import { useLocalStorage, useSessionStorage } from '../hooks/useLocalStorage'
+import React, { useEffect, useRef } from "react";
+import { createTeamSeeds } from "../seeds/teamSeeds";
+import { db } from "../data/dexieDatabase";
+import { EditTeam } from "./TeamBuilder/EditTeam";
+import { Help } from "./HelpPage";
+import { Home } from "./HomePage";
+import { MustHaveTeamRoutes } from "../routes/MustHaveTeamRoutes";
+import { NavBar } from "./NavBar";
+import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
+import { ProblemList } from "../ProblemPages/ProblemList";
+import { Profile } from "./ProfilePage";
+import { SelectedTeamContext } from "../context/SelectedTeamContext";
+import { SelectTeamPage } from "./SelectTeam/SelectTeamPage";
+import { Team } from "../types/interfaces";
+import { TeamStatusBar } from "./TeamStatusBar";
+import { useLiveQuery } from "dexie-react-hooks";
+import { useLocalStorage, useSessionStorage } from "../hooks/useLocalStorage";
 
 export default function App() {
   const teams = useLiveQuery(async () => {

@@ -1,19 +1,21 @@
-import getAvatarSVG from '../utils/avatarCreation'
-import { appColors } from '../../types/AppColors'
-import { AppColorSelector } from './AppColorSelector'
-import { AvailableColorNames } from '../../types/AppColors'
-import { db } from '../../data/dexieDatabase'
-import { editTeamateReducer } from './teamBuilderReducer'
-import { MemberBuilder } from './MemberBuilder'
-import { Team } from '../../types/interfaces'
+import getAvatarSVG from "../utils/avatarCreation";
+import { appColors } from "../../types/AppColors";
+import { AppColorSelector } from "./AppColorSelector";
+import { AvailableColorNames } from "../../types/AppColors";
+import { db } from "../../data/dexieDatabase";
+import { editTeamateReducer } from "./teamBuilderReducer";
+import { MemberBuilder } from "./MemberBuilder";
+import { SelectedTeamContext } from "../../context/SelectedTeamContext";
+import { Team } from "../../types/interfaces";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   useCallback,
+  useContext,
   useEffect,
   useReducer,
   useRef,
-  useState
-  } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+  useState,
+} from "react";
 
 export const EditTeam = () => {
   const navigate = useNavigate(),
@@ -24,9 +26,9 @@ export const EditTeam = () => {
     oldTeam = useRef<Team | null>(null),
     [color, setColor] = useState<AvailableColorNames>("gray"),
     [name, setName] = useState(""),
-    [members, dispatch] = useReducer(editTeamateReducer, {}),
-    cosa = useRef<HTMLElement | null>(null);
+    [members, dispatch] = useReducer(editTeamateReducer, {});
 
+  const { removeTeam, selectedTeam } = useContext(SelectedTeamContext);
   // Use effect que graba y carga el equipo al principio
   useEffect(() => {
     if (!isNewTeam) {
@@ -56,9 +58,10 @@ export const EditTeam = () => {
   }, []);
 
   const handleDeleting = async () => {
-    console.log("Estoy borrando el equiop con el ide de ", teamId);
-    const seBorro = await db.deleteTeam(teamId);
-    seBorro && console.log("Se pudo borrar!!");
+    await db.deleteTeam(teamId);
+
+    if (Number(teamId) === selectedTeam?.id) removeTeam();
+
     navigate("/team/select");
   };
 
