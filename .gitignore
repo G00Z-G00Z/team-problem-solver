@@ -25,3 +25,5 @@ yarn-error.log*
 *.snap
 
 public/png/*
+
+.env*
