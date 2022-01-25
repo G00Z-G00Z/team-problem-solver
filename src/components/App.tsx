@@ -48,7 +48,7 @@ export default function App() {
           <TeamStatusBar team={selectedTeam} />
         </section>
         {/* Main content */}
-        <div className="py-10 px-[10vw] md:px-[15vw]">
+        <div className="py-20 md:py-14 px-[10vw] md:px-[15vw]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/help" element={<Help />} />
