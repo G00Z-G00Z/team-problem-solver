@@ -1,13 +1,13 @@
-import getAvatarSVG from "../utils/avatarCreation";
-import { appColors } from "../../types/AppColors";
-import { AppColorSelector } from "./AppColorSelector";
-import { AvailableColorNames } from "../../types/AppColors";
-import { db } from "../../data/dexieDatabase";
-import { editTeamateReducer } from "./teamBuilderReducer";
-import { MemberBuilder } from "./MemberBuilder";
-import { SelectedTeamContext } from "../../context/SelectedTeamContext";
-import { Team } from "../../types/interfaces";
-import { useNavigate, useParams } from "react-router-dom";
+import getAvatarSVG from '../utils/avatarCreation'
+import { appColors } from '../../types/AppColors'
+import { AppColorSelector } from './AppColorSelector'
+import { AvailableColorNames } from '../../types/AppColors'
+import { db } from '../../data/dexieDatabase'
+import { editTeamateReducer } from './teamBuilderReducer'
+import { MemberBuilder } from './MemberBuilder'
+import { SelectedTeamContext } from '../../context/SelectedTeamContext'
+import { Team } from '../../types/interfaces'
+import { useNavigate, useParams } from 'react-router-dom'
 import {
   useCallback,
   useContext,
@@ -222,7 +222,7 @@ export const EditTeam = () => {
           <div className="flex flex-wrap items-center justify-evenly mt-4 gap-5">
             <button
               ref={savingButtonRef}
-              className="bg-CTA-400 text-gray-100 w-32 h-8 px-3 text-xl rounded-md disabled:opacity-75"
+              className="bg-CTA-400 text-gray-100 w-32 h-8 px-3 text-xl rounded-md disabled:opacity-75 hover:bg-CTA-500 transition-all"
               onClick={handleSaving}
               disabled={shoudlSavingBeDisabled}
             >
