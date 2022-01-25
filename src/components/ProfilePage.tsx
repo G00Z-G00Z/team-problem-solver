@@ -1,14 +1,24 @@
-import React, { useRef } from 'react'
+import React, { useContext, useRef } from 'react'
 import { db } from '../data/dexieDatabase'
+import { SelectedTeamContext } from '../context/SelectedTeamContext'
 import { useNavigate } from 'react-router-dom'
 
 export const Profile = () => {
   const deleteButton = useRef<HTMLButtonElement>(null);
 
+  const { removeTeam } = useContext(SelectedTeamContext);
+
   const handleDeleting = async () => {
     if (deleteButton.current) deleteButton.current.disabled = true;
 
-    await db.deleteAllTeams();
+    const deletions: Promise<any>[] = [
+      (async () => {
+        removeTeam();
+      })(),
+      db.deleteAllTeams(),
+    ];
+
+    await Promise.all(deletions);
 
     if (deleteButton.current) deleteButton.current.disabled = false;
   };
@@ -16,7 +26,6 @@ export const Profile = () => {
   return (
     <>
       <h1 className="text-3xl font-serif mb-2 text-center">Profile</h1>
-
       <div
         className="
 	 	p-5 
