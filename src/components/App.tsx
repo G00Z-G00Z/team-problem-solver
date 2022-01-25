@@ -1,20 +1,25 @@
-import React, { useEffect, useRef } from "react";
-import { createTeamSeeds } from "../seeds/teamSeeds";
-import { db } from "../data/dexieDatabase";
-import { EditTeam } from "./TeamBuilder/EditTeam";
-import { Help } from "./HelpPage";
-import { Home } from "./HomePage";
-import { MustHaveTeamRoutes } from "../routes/MustHaveTeamRoutes";
-import { NavBar } from "./NavBar";
-import { Outlet, Route, Routes, useNavigate } from "react-router-dom";
-import { ProblemList } from "../ProblemPages/ProblemList";
-import { Profile } from "./ProfilePage";
-import { SelectedTeamContext } from "../context/SelectedTeamContext";
-import { SelectTeamPage } from "./SelectTeam/SelectTeamPage";
-import { Team } from "../types/interfaces";
-import { TeamStatusBar } from "./TeamStatusBar";
-import { useLiveQuery } from "dexie-react-hooks";
-import { useLocalStorage, useSessionStorage } from "../hooks/useLocalStorage";
+import React, { useEffect, useRef } from 'react'
+import { createTeamSeeds } from '../seeds/teamSeeds'
+import { db } from '../data/dexieDatabase'
+import { EditTeam } from './TeamBuilder/EditTeam'
+import { Help } from './HelpPage'
+import { Home } from './HomePage'
+import { MustHaveTeamRoutes } from '../routes/MustHaveTeamRoutes'
+import { NavBar } from './NavBar'
+import {
+  Outlet,
+  Route,
+  Routes,
+  useNavigate
+  } from 'react-router-dom'
+import { ProblemList } from '../ProblemPages/ProblemList'
+import { Profile } from './ProfilePage'
+import { SelectedTeamContext } from '../context/SelectedTeamContext'
+import { SelectTeamPage } from './SelectTeam/SelectTeamPage'
+import { Team } from '../types/interfaces'
+import { TeamStatusBar } from './TeamStatusBar'
+import { useLiveQuery } from 'dexie-react-hooks'
+import { useLocalStorage, useSessionStorage } from '../hooks/useLocalStorage'
 
 export default function App() {
   const teams = useLiveQuery(async () => {
@@ -41,15 +46,6 @@ export default function App() {
         {/* Status */}
         <section className="fixed top-0 w-full z-10">
           <TeamStatusBar team={selectedTeam} />
-          {/* icon */}
-          <img
-            className="absolute w-20 h-20 top-0 left-0 
-					-translate-x-6 -translate-y-6
-					cursor-pointer"
-            src={process.env.PUBLIC_URL + "/assets/Goose-icon.png"}
-            alt="icono"
-            onClick={(e) => navigate("/")}
-          />
         </section>
         {/* Main content */}
         <div className="py-10 px-[10vw] md:px-[15vw]">
