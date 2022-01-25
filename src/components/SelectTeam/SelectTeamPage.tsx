@@ -23,7 +23,7 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="w-full text-5xl font-serif text-center font-bold ">
+      <h1 className="w-full text-3xl font-serif mb-2 text-center">
         Select a Team
       </h1>
       {/* Search bar */}
