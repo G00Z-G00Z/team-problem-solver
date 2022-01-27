@@ -31,12 +31,7 @@ export default function App() {
     Team | undefined
   >("selected-team", undefined);
 
-  const [darkmode, setDarkmode, _] = useLocalStorage<boolean>(
-    "darkmode",
-    false
-  );
-
-  const navigate = useNavigate();
+  const [darkmode, setDarkmode, _] = useLocalStorage<boolean>("darkmode", true);
 
   return (
     <SelectedTeamContext.Provider
