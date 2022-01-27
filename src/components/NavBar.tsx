@@ -10,9 +10,7 @@ export const NavBar = () => {
 
   function handleActiveClass({ isActive = false }) {
     return `${constantNavStyle} ${
-      isActive
-        ? "fill-CTA-200 dark:fill-CTA-400"
-        : "fill-gray-300 dark:fill-gray-600"
+      isActive ? "fill-CTA-400" : "fill-gray-300 dark:fill-gray-600"
     }`;
   }
 

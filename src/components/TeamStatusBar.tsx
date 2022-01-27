@@ -13,7 +13,7 @@ export const TeamStatusBar: FC<Props> = ({ team }) => {
 
   if (!team)
     return (
-      <div className="bg-gray-300 flex justify-evenly relative dark:bg-gray-700 dark:text-gray-200">
+      <div className="bg-gray-300 flex justify-evenly relative dark:bg-gray-700 dark:text-gray-200 transition-all">
         Selecciona un equipo
       </div>
     );

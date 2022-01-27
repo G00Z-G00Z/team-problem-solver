@@ -19,6 +19,7 @@ import { SelectTeamPage } from './SelectTeam/SelectTeamPage'
 import { Team } from '../types/interfaces'
 import { TeamStatusBar } from './TeamStatusBar'
 import { UiContext } from '../context/uiContext'
+import { useDarkmode } from '../hooks/useDarkmode'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { useLocalStorage, useSessionStorage } from '../hooks/useLocalStorage'
 
@@ -31,7 +32,7 @@ export default function App() {
     Team | undefined
   >("selected-team", undefined);
 
-  const [darkmode, setDarkmode, _] = useLocalStorage<boolean>("darkmode", true);
+  const [darkmode, setDarkmode] = useDarkmode();
 
   return (
     <SelectedTeamContext.Provider
@@ -47,7 +48,7 @@ export default function App() {
           setDarkmode,
         }}
       >
-        <div className="bg-gray-100 font-sans min-h-screen dark:bg-gray-900">
+        <div className="bg-gray-100 font-sans min-h-screen dark:bg-gray-900 transition-all">
           {/* Nav bar */}
           <NavBar />
           {/* Status */}
