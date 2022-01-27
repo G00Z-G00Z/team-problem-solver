@@ -130,7 +130,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
   return (
     <div className="pb-10">
-      <h1 className="w-full text-5xl font-serif text-center font-bold ">
+      <h1 className="text-gray-900 dark:text-gray-200 w-full text-5xl font-serif text-center font-bold ">
         Divide Up Work
       </h1>
 

@@ -32,7 +32,7 @@ export const Profile = () => {
 
   return (
     <div className="flex flex-col  max-w-lg mx-auto gap-4">
-      <h1 className="text-3xl font-serif mb-2 text-center dark:text-gray-200 transition-all">
+      <h1 className="text-gray-900 dark:text-gray-200 text-3xl font-serif mb-2 text-center  transition-all">
         Profile
       </h1>
 

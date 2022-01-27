@@ -8,7 +8,7 @@ import { Team } from '../types/interfaces'
 export const Home = () => {
   return (
     <>
-      <h1 className="text-2xl md:text-3xl font-serif mb-2 text-center dark:text-gray-200">
+      <h1 className="text-gray-900 dark:text-gray-200 text-2xl md:text-3xl font-serif mb-2 text-center ">
         What's Your Problem ?
       </h1>
       <section className="grid grid-cols-1 sm:grid-col-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center dark:text-gray-200">

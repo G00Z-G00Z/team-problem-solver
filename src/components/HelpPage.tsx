@@ -10,10 +10,10 @@ export const Help = () => {
 
   return (
     <div className="flex flex-col gap-2 max-w-lg mx-auto ">
-      <h1 className="text-3xl font-serif  text-center mb-2">
-        What is this app ??
+      <h1 className="text-gray-900 dark:text-gray-200 text-3xl font-serif text-center mb-2 ">
+        What is this app ?
       </h1>
-      <p className="">
+      <p className="text-gray-800">
         This app has the purpose of{" "}
         <strong className="text-CTA-500 ">solving problems</strong> that could
         happend amongs teams. For example:
