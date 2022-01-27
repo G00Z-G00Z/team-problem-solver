@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import { createTeamSeeds } from '../seeds/teamSeeds'
 import { db } from '../data/dexieDatabase'
 import { EditTeam } from './TeamBuilder/EditTeam'
@@ -18,6 +18,7 @@ import { SelectedTeamContext } from '../context/SelectedTeamContext'
 import { SelectTeamPage } from './SelectTeam/SelectTeamPage'
 import { Team } from '../types/interfaces'
 import { TeamStatusBar } from './TeamStatusBar'
+import { UiContext } from '../context/uiContext'
 import { useLiveQuery } from 'dexie-react-hooks'
 import { useLocalStorage, useSessionStorage } from '../hooks/useLocalStorage'
 
@@ -30,6 +31,11 @@ export default function App() {
     Team | undefined
   >("selected-team", undefined);
 
+  const [darkmode, setDarkmode, _] = useLocalStorage<boolean>(
+    "darkmode",
+    false
+  );
+
   const navigate = useNavigate();
 
   return (
@@ -40,47 +46,53 @@ export default function App() {
         removeTeam,
       }}
     >
-      <div className="bg-gray-100 font-sans min-h-screen">
-        {/* Nav bar */}
-        <NavBar />
-        {/* Status */}
-        <section className="fixed top-0 w-full z-10">
-          <TeamStatusBar team={selectedTeam} />
-        </section>
-        {/* Main content */}
-        <div className="py-20 md:py-14 px-[10vw] md:px-[15vw]">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/help" element={<Help />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/team" element={<Outlet />}>
-              <Route
-                path="select"
-                element={<SelectTeamPage teams={teams ?? []} />}
-              />
-              <Route path="edit" element={<Outlet />}>
-                <Route path=":teamId" element={<EditTeam />} />
-              </Route>
-            </Route>
-            {ProblemList.map((info, idx) => {
-              const { route, Component: Page } = info;
-
-              return (
+      <UiContext.Provider
+        value={{
+          darkmode: !!darkmode,
+          setDarkmode,
+        }}
+      >
+        <div className="bg-gray-100 font-sans min-h-screen dark:bg-gray-900">
+          {/* Nav bar */}
+          <NavBar />
+          {/* Status */}
+          <section className="fixed top-0 w-full z-10">
+            <TeamStatusBar team={selectedTeam} />
+          </section>
+          {/* Main content */}
+          <div className="py-20 md:py-14 px-[10vw] md:px-[15vw]">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/team" element={<Outlet />}>
                 <Route
-                  path={`/${route}`}
-                  key={idx}
-                  element={
-                    <MustHaveTeamRoutes team={selectedTeam}>
-                      {/* @ts-ignore */}
-                      <Page team={selectedTeam} />
-                    </MustHaveTeamRoutes>
-                  }
+                  path="select"
+                  element={<SelectTeamPage teams={teams ?? []} />}
                 />
-              );
-            })}
-          </Routes>
+                <Route path="edit" element={<Outlet />}>
+                  <Route path=":teamId" element={<EditTeam />} />
+                </Route>
+              </Route>
+              {ProblemList.map((info, idx) => {
+                const { route, Component: Page } = info;
+                return (
+                  <Route
+                    path={`/${route}`}
+                    key={idx}
+                    element={
+                      <MustHaveTeamRoutes team={selectedTeam}>
+                        {/* @ts-ignore */}
+                        <Page team={selectedTeam} />
+                      </MustHaveTeamRoutes>
+                    }
+                  />
+                );
+              })}
+            </Routes>
+          </div>
         </div>
-      </div>
+      </UiContext.Provider>
     </SelectedTeamContext.Provider>
   );
 }
