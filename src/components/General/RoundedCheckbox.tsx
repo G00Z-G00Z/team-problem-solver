@@ -1,6 +1,12 @@
-import React, { FC, useCallback, useMemo } from 'react'
+import React, {
+  FC,
+  useCallback,
+  useContext,
+  useMemo
+  } from 'react'
 import { appColors } from '../../types/AppColors'
 import { ReactComponent as SelectedIcon } from '../../assets/done.svg'
+import { UiContext } from '../../context/uiContext'
 
 interface Props {
   checked: boolean;
@@ -15,17 +21,19 @@ export const RoundedCheckbox: FC<Props> = ({
   onChange,
   disabled = false,
 }) => {
+  const { darkmode } = useContext(UiContext);
+
   const style = useMemo(() => {
     if (disabled)
       return {
-        backgroundColor: appColors.gray[200],
+        backgroundColor: darkmode ? appColors.gray[100] : appColors.gray[200],
         border: `2px solid ${appColors.gray[300]}`,
       };
 
     if (checked) return undefined;
 
     return {
-      backgroundColor: appColors.CTA[100],
+      backgroundColor: darkmode ? appColors.CTA[100] : appColors.CTA[100],
       border: `2px solid ${appColors.CTA[400]}`,
     };
   }, [disabled, checked]);
@@ -37,6 +45,7 @@ export const RoundedCheckbox: FC<Props> = ({
         rounded-md  transition-all 
         flex justify-center items-center
         fill-CTA-500
+        dark:fill-CTA-400  
         "
         style={style}
         onClick={onChange}
