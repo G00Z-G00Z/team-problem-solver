@@ -8,10 +8,10 @@ import { Team } from '../types/interfaces'
 export const Home = () => {
   return (
     <>
-      <h1 className="text-3xl font-serif mb-2 text-center">
+      <h1 className="text-2xl md:text-3xl font-serif mb-2 text-center dark:text-gray-200">
         What's Your Problem ?
       </h1>
-      <section className="grid grid-cols-1 sm:grid-col-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center">
+      <section className="grid grid-cols-1 sm:grid-col-1 md:grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-4 justify-center items-center dark:text-gray-200">
         {ProblemList.map(({ route, imageUrl, description, name }, idx) => (
           <Link
             key={idx}
@@ -20,7 +20,9 @@ export const Home = () => {
           >
             <img src={imageUrl} alt={`${description}`} />
 
-            <p className="text-center font-bold text-CTA-400">{name}</p>
+            <p className="text-center font-bold text-CTA-400 dark:text-CTA-300">
+              {name}
+            </p>
           </Link>
         ))}
       </section>
