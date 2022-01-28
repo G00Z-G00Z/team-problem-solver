@@ -94,7 +94,7 @@ export const Profile = () => {
           <button
             className="text-gray-100 bg-danger-300 h-8 px-3 text-xl rounded-md hover:bg-danger-400 transition-all shadow-md disabled:bg-gray-500
             dark:bg-danger-200
-            transition-all"
+            "
             onClick={handleDeleting}
           >
             Delete All Teams
