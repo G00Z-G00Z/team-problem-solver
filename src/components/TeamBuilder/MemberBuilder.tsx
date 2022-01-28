@@ -44,7 +44,9 @@ export const MemberBuilder: FC<Props> = ({
       <input
         type="text"
         name="name"
-        className="text-xl bg-transparent text-center  decoration-gray-200 w-full p-1 transition-all focus-visible:outline-0"
+        className="text-xl bg-transparent text-center  decoration-gray-200 
+        dark:text-gray-200
+        w-full p-1 transition-all focus-visible:outline-0"
         onChange={(e) => onChange(e.target.value, "name")}
         value={name}
       />

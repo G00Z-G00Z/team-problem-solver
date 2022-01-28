@@ -38,7 +38,8 @@ export const InputWithUnderline: FC<Props> = ({
               decoration-gray-200 p-1 transition-all focus-visible:outline-0 
               absolute top-1/2 left-1/2 transform -translate-x-1/2 
               -translate-y-1/2
-              w-fit"
+              w-fit
+              dark:text-gray-200"
         onChange={(e) => onChange(e.target.value)}
         value={value}
         onKeyDown={onKeyDown}
