@@ -4,6 +4,7 @@ import { AppColorSelector } from './AppColorSelector'
 import { AvailableColorNames } from '../../types/AppColors'
 import { db } from '../../data/dexieDatabase'
 import { editTeamateReducer } from './teamBuilderReducer'
+import { InputWithUnderline } from '../General/InputWithUnderline'
 import { MemberBuilder } from './MemberBuilder'
 import { SelectedTeamContext } from '../../context/SelectedTeamContext'
 import { Team } from '../../types/interfaces'
@@ -137,29 +138,13 @@ export const EditTeam = () => {
             className="relative group hover:border-0   h-10 
           w-full max-w-md"
           >
-            <input
-              type="text"
-              name="name"
-              className="
-              text-xl text-center  
-             bg-transparent
-              decoration-gray-200 p-1 transition-all focus-visible:outline-0 
-              absolute top-1/2 left-1/2 transform -translate-x-1/2 
-              -translate-y-1/2
-              w-fit"
-              onChange={(e) => setName(e.target.value)}
+            <InputWithUnderline
+              onChange={(v) => setName(v)}
               value={name}
+              color={color}
+              placeholder="Ex. My BFFs"
             />
 
-            {/* underline active*/}
-            <div
-              style={{
-                backgroundColor: darkmode
-                  ? appColors[color][300]
-                  : appColors[color][300],
-              }}
-              className="absolute w-0 group-hover:w-full h-[2px]  bottom-0 left-0 transition-all rounded-sm "
-            ></div>
             <div className="absolute group-hover:w-0 w-full h-[2px] bg-gray-200 bottom-0 left-0  "></div>
           </div>
         </div>
