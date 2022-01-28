@@ -1,4 +1,5 @@
-import React, { FC, useCallback } from 'react'
+import React, { FC, useCallback, useContext } from 'react'
+import { UiContext } from '../../context/uiContext'
 import {
   appColors,
   AvailableColorIntensities,
@@ -13,15 +14,24 @@ interface Props {
 
 export const AppColorSelector: FC<Props> = ({
   value,
-  intensity = 300,
+  intensity = undefined,
   onClick,
 }) => {
+  const { darkmode } = useContext(UiContext);
+
+  intensity = intensity ?? darkmode ? 200 : (300 as AvailableColorIntensities);
+
   // Function to gell all colors intensities
   const getAllColors = useCallback(() => {
     const values: [AvailableColorNames, string][] = [];
     for (const colorName in appColors) {
       //@ts-ignore
-      values.push([colorName, appColors[colorName][intensity]]);
+      values.push([
+        //@ts-ignore
+        colorName,
+        //@ts-ignore
+        appColors[colorName][intensity],
+      ]);
     }
     return values;
   }, [intensity]);
