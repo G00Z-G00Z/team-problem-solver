@@ -1,10 +1,6 @@
-import React, {
-  FC,
-  useEffect,
-  useRef,
-  useState
-  } from 'react'
 import { appColors, AvailableColorNames } from '../../types/AppColors'
+import { FC, useContext } from 'react'
+import { UiContext } from '../../context/uiContext'
 
 interface Props {
   weight: number | string;
@@ -32,6 +28,7 @@ export const TaskWeightSelector: FC<Props> = ({
   weight: taskWeigth,
   onChange,
 }) => {
+  const { darkmode } = useContext(UiContext);
   if (!isInRange(Number(taskWeigth)))
     onChange(String(Number(taskWeigth) > maxWeight ? maxWeight : minWeight));
 
@@ -45,9 +42,9 @@ export const TaskWeightSelector: FC<Props> = ({
         onChange(e.target.value);
       }}
       style={{
-        background: appColors[color][200],
-        borderColor: appColors[color][400],
-        outlineColor: appColors[color][400],
+        background: darkmode ? appColors[color][300] : appColors[color][200],
+        borderColor: darkmode ? appColors[color][200] : appColors[color][400],
+        outlineColor: darkmode ? appColors[color][200] : appColors[color][400],
         color: appColors[color][500],
       }}
       name="weight"
@@ -57,8 +54,10 @@ export const TaskWeightSelector: FC<Props> = ({
         <option
           key={idx}
           style={{
-            backgroundColor: appColors[color][200],
-            color: appColors[color][500],
+            backgroundColor: darkmode
+              ? appColors[color][200]
+              : appColors[color][200],
+            color: darkmode ? appColors[color][500] : appColors[color][500],
           }}
           value={weight}
         >
