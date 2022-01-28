@@ -1,5 +1,6 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import { appColors, AvailableColorNames } from '../../types/AppColors'
+import { UiContext } from '../../context/uiContext'
 
 interface Props {
   value: string;
@@ -17,6 +18,8 @@ export const InputWithUnderline: FC<Props> = ({
   color = "gray",
   placeholder = "",
 }) => {
+  const { darkmode } = useContext(UiContext);
+
   return (
     <div
       className="relative group 
@@ -44,7 +47,9 @@ export const InputWithUnderline: FC<Props> = ({
       {/* underline active*/}
       <div
         style={{
-          backgroundColor: appColors[color][300],
+          backgroundColor: darkmode
+            ? appColors[color][200]
+            : appColors[color][300],
         }}
         className="absolute w-0 group-hover:w-full h-[2px]  bottom-0 left-0 transition-all rounded-sm "
       ></div>
