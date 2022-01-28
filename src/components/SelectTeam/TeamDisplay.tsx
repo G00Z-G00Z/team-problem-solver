@@ -10,6 +10,7 @@ import { getSpecificAppColor } from '../../utils/getSpecificAppColor'
 import { ReactComponent as EyeIcon } from '../../assets/eye.svg'
 import { SelectedTeamContext } from '../../context/SelectedTeamContext'
 import { Team } from '../../types/interfaces'
+import { UiContext } from '../../context/uiContext'
 import { useNavigate } from 'react-router-dom'
 
 // todo falta poner cuantos integrantes tiene el equipo
@@ -17,18 +18,13 @@ interface Props {
   team: Team;
 }
 export const TeamDisplay: FC<Props> = ({ team }) => {
-  const { setTeam, selectedTeam } = useContext(SelectedTeamContext);
+  const { setTeam } = useContext(SelectedTeamContext);
 
-  const selectedTeamId = selectedTeam?.id;
+  const { darkmode } = useContext(UiContext);
 
   const { color, members, name, id } = team;
 
   const navigate = useNavigate();
-
-  // html refs
-  const HTMLteamContainer = useRef<HTMLDivElement>(null);
-  const HTMLteamNameH1 = useRef<HTMLElement>(null);
-  const HTMLeyeIcon = useRef<SVGSVGElement>(null);
 
   if (!id) return <></>;
 
@@ -41,7 +37,7 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
       <div
         className="border-dashed hover:border-solid transition-all ease-in border-2 grid grid-cols-4 grid-rows-2 pb-2 cursor-pointer"
         style={{
-          borderColor: appColors[color][400],
+          borderColor: darkmode ? appColors[color][200] : appColors[color][400],
         }}
         onClick={(e) => {
           db.markTeamAsUsedNow(team.id ?? 1);
@@ -53,7 +49,9 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
           className="mb-2 flex flex-row px-4 py-2 col-span-full "
           style={{
             color: appColors[color][500],
-            backgroundColor: appColors[color][100],
+            backgroundColor: darkmode
+              ? appColors[color][200]
+              : appColors[color][100],
           }}
         >
           <h1
@@ -80,7 +78,7 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
             />
           </button>
         </header>
-        <p className="truncate px-4 col-span-3 text-gray-700 text-sm">
+        <p className="truncate px-4 col-span-3 text-gray-700 text-sm dark:text-gray-400">
           {members.map(({ name }) => name).join(", ")}
         </p>
       </div>
