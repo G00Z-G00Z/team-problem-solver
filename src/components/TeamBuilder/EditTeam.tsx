@@ -127,7 +127,7 @@ export const EditTeam = () => {
         <div className="my-3 flex flex-col gap-2 justify-center items-center">
           <h2
             style={{
-              color: darkmode ? appColors[color][200] : appColors[color][500],
+              color: darkmode ? appColors[color][100] : appColors[color][500],
             }}
             className="font-serif font-bold text-2xl text-center"
           >
@@ -152,7 +152,7 @@ export const EditTeam = () => {
         <div className="my-3 flex flex-col gap-5 items-center">
           <h2
             style={{
-              color: darkmode ? appColors[color][200] : appColors[color][500],
+              color: darkmode ? appColors[color][100] : appColors[color][500],
             }}
             className="font-serif font-bold text-2xl text-center"
           >
@@ -165,7 +165,7 @@ export const EditTeam = () => {
         <div className="my-2 flex flex-col items-center px-5">
           <h2
             style={{
-              color: darkmode ? appColors[color][200] : appColors[color][500],
+              color: darkmode ? appColors[color][100] : appColors[color][500],
             }}
             className="font-serif font-bold text-2xl "
           >
