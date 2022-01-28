@@ -36,17 +36,28 @@ export const SelectTeamPage: FC<Props> = React.memo(({ teams }) => {
           className="text-CTA-500 
 					border-2 border-CTA-500 
 					bg-CTA-100 w-full rounded-lg my-2 px-8 py-1 text-lg
-					placeholder:italic placeholder:text-CTA-300"
+					placeholder:italic placeholder:text-CTA-300
+          
+          dark:bg-CTA-400
+          dark:text-CTA-100
+          dark:placeholder:text-CTA-200
+          "
         />
         <div className="absolute top-4 left-2">
-          <SearchLogo className="stroke-CTA-500 stroke-0 fill-CTA-500" />
+          <SearchLogo className="stroke-CTA-500 stroke-0 fill-CTA-500 dark:fill-CTA-200 dark:stroke-CTA-200" />
         </div>
       </div>
 
       <section className="max-w-screen-md  w-full">
         {/* Add new team btn */}
         <button
-          className="text-gray-800 border-dashed border-2 border-gray-800 p-8 bg-gray-200 w-full text-2xl font-bold hover:bg-gray-300 focus:bg-red-50 hover:border-solid transition-all ease-in"
+          className="text-gray-800 border-dashed border-2 border-gray-800 p-8 bg-gray-200 w-full text-2xl font-bold hover:bg-gray-300 focus:bg-red-50 hover:border-solid transition-all ease-in
+          
+          dark:border-gray-200
+          dark:bg-gray-800
+          dark:text-gray-200
+          
+          "
           onClick={(e) => handleNavigation()}
         >
           Add new team
