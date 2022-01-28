@@ -39,7 +39,7 @@ export const Profile = () => {
       {/* View Options*/}
       <div
         className="
-          border-2 border-CTA-400 dark:border-CTA-200 border-dashed 
+          border-2 border-CTA-400 dark:border-CTA-100 border-dashed 
           flex justify-center items-center flex-col
           transition-all
           "
@@ -71,7 +71,7 @@ export const Profile = () => {
         className="
           border-2 border-danger-400 border-dashed 
           flex justify-center items-center flex-col
-          dark:border-danger-200
+          dark:border-danger-100
           transition-all"
       >
         <h2

@@ -37,7 +37,7 @@ export const TeamDisplay: FC<Props> = ({ team }) => {
       <div
         className="border-dashed hover:border-solid transition-all ease-in border-2 grid grid-cols-4 grid-rows-2 pb-2 cursor-pointer"
         style={{
-          borderColor: darkmode ? appColors[color][200] : appColors[color][400],
+          borderColor: darkmode ? appColors[color][100] : appColors[color][400],
         }}
         onClick={(e) => {
           db.markTeamAsUsedNow(team.id ?? 1);

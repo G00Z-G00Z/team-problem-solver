@@ -7,6 +7,7 @@ import { editTeamateReducer } from './teamBuilderReducer'
 import { MemberBuilder } from './MemberBuilder'
 import { SelectedTeamContext } from '../../context/SelectedTeamContext'
 import { Team } from '../../types/interfaces'
+import { UiContext } from '../../context/uiContext'
 import { useNavigate, useParams } from 'react-router-dom'
 import {
   useCallback,
@@ -47,6 +48,8 @@ export const EditTeam = () => {
       });
     }
   }, []);
+
+  const { darkmode } = useContext(UiContext);
 
   const handleChangingColor = (newColor: AvailableColorNames) =>
     setColor(newColor);
@@ -98,7 +101,7 @@ export const EditTeam = () => {
       <div
         className="border-dashed border-2 pb-2 max-w-screen-md w-[80vw] lg:w-[50vw]"
         style={{
-          borderColor: appColors[color][400],
+          borderColor: darkmode ? appColors[color][100] : appColors[color][400],
         }}
       >
         {/* Title */}
@@ -106,7 +109,9 @@ export const EditTeam = () => {
           className="mb-2 "
           style={{
             color: appColors[color][500],
-            backgroundColor: appColors[color][100],
+            backgroundColor: darkmode
+              ? appColors[color][200]
+              : appColors[color][100],
           }}
         >
           <input
@@ -121,7 +126,7 @@ export const EditTeam = () => {
         <div className="my-3 flex flex-col gap-2 justify-center items-center">
           <h2
             style={{
-              color: appColors[color][500],
+              color: darkmode ? appColors[color][500] : appColors[color][500],
             }}
             className="font-serif font-bold text-2xl text-center"
           >
@@ -149,7 +154,9 @@ export const EditTeam = () => {
             {/* underline active*/}
             <div
               style={{
-                backgroundColor: appColors[color][300],
+                backgroundColor: darkmode
+                  ? appColors[color][300]
+                  : appColors[color][300],
               }}
               className="absolute w-0 group-hover:w-full h-[2px]  bottom-0 left-0 transition-all rounded-sm "
             ></div>
@@ -160,7 +167,7 @@ export const EditTeam = () => {
         <div className="my-3 flex flex-col gap-5 items-center">
           <h2
             style={{
-              color: appColors[color][500],
+              color: darkmode ? appColors[color][500] : appColors[color][500],
             }}
             className="font-serif font-bold text-2xl text-center"
           >
@@ -173,7 +180,7 @@ export const EditTeam = () => {
         <div className="my-2 flex flex-col items-center px-5">
           <h2
             style={{
-              color: appColors[color][500],
+              color: darkmode ? appColors[color][500] : appColors[color][500],
             }}
             className="font-serif font-bold text-2xl "
           >
@@ -212,7 +219,9 @@ export const EditTeam = () => {
           <button
             className=" text-gray-100 rounded-md px-3 text-xl"
             style={{
-              backgroundColor: appColors[color][300],
+              backgroundColor: darkmode
+                ? appColors[color][300]
+                : appColors[color][300],
             }}
             onClick={handleAdding}
           >
