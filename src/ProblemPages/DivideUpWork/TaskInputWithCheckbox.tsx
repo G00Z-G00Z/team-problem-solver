@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 import { RoundedCheckbox } from '../../components/General/RoundedCheckbox'
 import { Task } from '../../problem-algorithms/divideUpWork'
-import { TaskInput } from './TaskInput'
 import { TaskWeightSelector } from './TaskWeightSelector'
 
 interface Props {
@@ -44,7 +43,7 @@ export const TaskInputWithCheckbox: FC<Props> = ({
         onChange={(e) => handleDescChange(e.target.value)}
         onKeyDown={handleOnKeyDownEvent}
         autoComplete="off"
-        className="break-words bg-transparent"
+        className="break-words bg-transparent text-gray-800 dark:text-gray-200"
         value={task.desc}
       />
       <TaskWeightSelector onChange={handleWeightChange} weight={task.weight} />
