@@ -14,6 +14,7 @@ import { TaskElement } from './TaskElement'
 import { TaskInput } from './TaskInput'
 import { TaskInputWithCheckbox } from './TaskInputWithCheckbox'
 import { TaskReducer } from './TasksReducer'
+import { useSessionStorage } from '../../hooks/useLocalStorage'
 import {
   divideUpWork,
   MemberWithJobs,
@@ -21,9 +22,33 @@ import {
 } from "../../problem-algorithms/divideUpWork";
 
 export const DivideUpWork: ProblemPage = ({ team }) => {
+  // Remebers the jobs
+  const [dividedTasks, setDividedTasks] = useSessionStorage<MemberWithJobs[]>(
+    "Divide_work",
+    []
+  );
+
+  // Puts the jobs in the app if they where
+  useEffect(() => {
+    if (dividedTasks) {
+      dividedTasks.forEach(({ jobs }) => {
+        jobs.forEach((job) => {
+          dispatch({
+            type: "Add",
+            payload: {
+              task: job,
+            },
+          });
+        });
+      });
+    }
+
+    return () => {};
+  }, []);
+
   const [tasksWithCheckbox, dispatch] = useReducer(TaskReducer, []);
 
-  const [dividedTasks, setDividedTasks] = useState<MemberWithJobs[]>([]);
+  // const [dividedTasks, setDividedTasks] = useState<MemberWithJobs[]>([]);
 
   const [anyElementIsChecked, setAnyElementIsChecked] = useState(
     tasksWithCheckbox.some(({ checked }) => checked)
@@ -203,7 +228,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       </div>
       <section className="flex flex-wrap gap-3 justify-center my-2">
         {lenTasks !== 0 &&
-          dividedTasks.map((member, idx) => (
+          dividedTasks?.map((member, idx) => (
             <MemberWithJobsDisplay key={idx} {...member} color={team.color} />
           ))}
       </section>
