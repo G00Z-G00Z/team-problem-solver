@@ -23,25 +23,27 @@ import {
 
 export const DivideUpWork: ProblemPage = ({ team }) => {
   // Remebers the jobs
-  const [dividedTasks, setDividedTasks] = useSessionStorage<MemberWithJobs[]>(
-    "Divide_work",
-    []
-  );
+  const [dividedTasksSession, setDividedTaksSession] = useSessionStorage<{
+    lastTeamId: number;
+    memberWithJobs: MemberWithJobs[];
+  }>("Divide_work", {
+    lastTeamId: team?.id ?? 1,
+    memberWithJobs: [],
+  });
 
-  // Puts the jobs in the app if they where
+  // Puts the jobs in the app if the team id is the same as it was
   useEffect(() => {
-    if (dividedTasks) {
-      dividedTasks.forEach(({ jobs }) => {
-        jobs.forEach((job) => {
+    if (dividedTasksSession && team?.id === dividedTasksSession?.lastTeamId)
+      for (const { jobs } of dividedTasksSession.memberWithJobs)
+        for (const job of jobs)
           dispatch({
             type: "Add",
             payload: {
               task: job,
             },
           });
-        });
-      });
-    }
+    else
+      setDividedTaksSession({ lastTeamId: team?.id ?? 1, memberWithJobs: [] });
 
     return () => {};
   }, []);
@@ -106,7 +108,8 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     dispatch({
       type: "Delete",
     });
-    setDividedTasks([]);
+    //@ts-ignore
+    setDividedTaksSession({ ...dividedTasksSession, memberWithJobs: [] });
   };
 
   const handleAddingTask = () => {
@@ -149,8 +152,13 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     console.log(tasksNormalized);
 
     tasksNormalized.length > 0
-      ? setDividedTasks(divideUpWork(team.members, tasksNormalized))
-      : setDividedTasks([]);
+      ? //@ts-ignore
+        setDividedTaksSession((c) => ({
+          ...c,
+          memberWithJobs: divideUpWork(team.members, tasksNormalized),
+        }))
+      : //@ts-ignore
+        setDividedTaksSession((c) => ({ ...c, memberWithJobs: [] }));
   };
 
   return (
@@ -228,7 +236,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       </div>
       <section className="flex flex-wrap gap-3 justify-center my-2">
         {lenTasks !== 0 &&
-          dividedTasks?.map((member, idx) => (
+          dividedTasksSession?.memberWithJobs.map((member, idx) => (
             <MemberWithJobsDisplay key={idx} {...member} color={team.color} />
           ))}
       </section>
