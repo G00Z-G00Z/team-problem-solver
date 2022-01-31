@@ -11,7 +11,11 @@ function useStorage<T>(
   key: string,
   defaultValue: T,
   storageObject: Storage
-): [T | undefined, (v: T) => void, () => void] {
+): [
+  T | undefined,
+  React.Dispatch<React.SetStateAction<T | undefined>>,
+  () => void
+] {
   const [value, setValue] = useState<T | undefined>(() => {
     const jsonValue = storageObject.getItem(key);
     if (jsonValue !== null) return JSON.parse(jsonValue) as T;
