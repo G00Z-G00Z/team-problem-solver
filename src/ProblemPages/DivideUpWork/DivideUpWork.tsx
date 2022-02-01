@@ -31,6 +31,23 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     memberWithJobs: [],
   });
 
+  // Has a state with all the jobs
+  const [tasksWithCheckbox, dispatch] = useReducer(TaskReducer, []);
+
+  // Check if all the tasks have different weights
+  const [areAllTaskTheSameWeight, setAreAllTaskTheSameWeight] = useState(true);
+
+  const [anyElementIsChecked, setAnyElementIsChecked] = useState(
+    tasksWithCheckbox.some(({ checked }) => checked)
+  );
+
+  const { desc, onChange, reset, weight } = useForm({
+    desc: "",
+    weight: "2",
+  });
+
+  const [lenTasks, setLenTasks] = useState(0);
+
   // Puts the jobs in the app if the team id is the same as it was
   useEffect(() => {
     if (dividedTasksSession && team?.id === dividedTasksSession?.lastTeamId)
@@ -48,40 +65,21 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     return () => {};
   }, []);
 
-  const [tasksWithCheckbox, dispatch] = useReducer(TaskReducer, []);
-
-  // Check if all the tasks have different weights
-  const [areAllTaskTheSameWeight, setAreAllTaskTheSameWeight] = useState(true);
-
+  // Changes in tasksWithCheckbox
   useEffect(() => {
-    if (tasksWithCheckbox.length === 0) setAreAllTaskTheSameWeight(true);
-    else {
-      // Checks if all task weight are the same
-      const firstItemWeight = tasksWithCheckbox[0].task.weight;
-      setAreAllTaskTheSameWeight(
-        tasksWithCheckbox.every(({ task }) => task.weight === firstItemWeight)
-      );
-    }
-
-    return () => {};
-  }, [tasksWithCheckbox]);
-
-  const [anyElementIsChecked, setAnyElementIsChecked] = useState(
-    tasksWithCheckbox.some(({ checked }) => checked)
-  );
-
-  const { desc, onChange, reset, weight } = useForm({
-    desc: "",
-    weight: "2",
-  });
-
-  const [lenTasks, setLenTasks] = useState(0);
-
-  useEffect(() => {
-    setAnyElementIsChecked(tasksWithCheckbox.some(({ checked }) => checked));
+    // length of all tasks
     setLenTasks(tasksWithCheckbox.length);
+
+    // Check if all task are checked
+    setAnyElementIsChecked(tasksWithCheckbox.some(({ checked }) => checked));
+    // check if all task have the same weight
+    const firstTaskWeight = tasksWithCheckbox[0]?.task?.weight;
+    setAreAllTaskTheSameWeight(
+      tasksWithCheckbox.every(({ task }) => task.weight === firstTaskWeight)
+    );
   }, [tasksWithCheckbox]);
 
+  // Handle functions
   const handleKeyDownEvent = (e: { key: string }) => {
     switch (e.key) {
       case "Enter":
