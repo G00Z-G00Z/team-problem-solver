@@ -4,8 +4,11 @@ import { MemberWithJobs } from '../../problem-algorithms/divideUpWork'
 import { UiContext } from '../../context/uiContext'
 
 export const MemberWithJobsDisplay: FC<
-  MemberWithJobs & { color: AvailableColorNames }
-> = ({ member, jobs, workload, color }) => {
+  MemberWithJobs & {
+    color: AvailableColorNames;
+    allTasksHaveTheSameWeight: boolean;
+  }
+> = ({ member, jobs, workload, color, allTasksHaveTheSameWeight }) => {
   const { darkmode } = useContext(UiContext);
 
   return (
@@ -38,7 +41,9 @@ export const MemberWithJobsDisplay: FC<
               <ul>
                 {jobs.map((job, idx) => (
                   <li key={idx} className="">
-                    {job.desc} : {job.weight}{" "}
+                    {allTasksHaveTheSameWeight
+                      ? `${job.desc}`
+                      : `${job.desc}: ${job.weight}`}
                   </li>
                 ))}
               </ul>

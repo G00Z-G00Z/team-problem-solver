@@ -50,7 +50,21 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
   const [tasksWithCheckbox, dispatch] = useReducer(TaskReducer, []);
 
-  // const [dividedTasks, setDividedTasks] = useState<MemberWithJobs[]>([]);
+  // Check if all the tasks have different weights
+  const [areAllTaskTheSameWeight, setAreAllTaskTheSameWeight] = useState(true);
+
+  useEffect(() => {
+    if (tasksWithCheckbox.length === 0) setAreAllTaskTheSameWeight(true);
+    else {
+      // Checks if all task weight are the same
+      const firstItemWeight = tasksWithCheckbox[0].task.weight;
+      setAreAllTaskTheSameWeight(
+        tasksWithCheckbox.every(({ task }) => task.weight === firstItemWeight)
+      );
+    }
+
+    return () => {};
+  }, [tasksWithCheckbox]);
 
   const [anyElementIsChecked, setAnyElementIsChecked] = useState(
     tasksWithCheckbox.some(({ checked }) => checked)
@@ -237,7 +251,12 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       <section className="flex flex-wrap gap-3 justify-center my-2">
         {lenTasks !== 0 &&
           dividedTasksSession?.memberWithJobs.map((member, idx) => (
-            <MemberWithJobsDisplay key={idx} {...member} color={team.color} />
+            <MemberWithJobsDisplay
+              key={idx}
+              {...member}
+              color={team.color}
+              allTasksHaveTheSameWeight={areAllTaskTheSameWeight}
+            />
           ))}
       </section>
     </div>
