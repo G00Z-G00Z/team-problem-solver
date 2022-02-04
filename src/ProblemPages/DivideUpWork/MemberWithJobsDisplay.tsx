@@ -42,10 +42,10 @@ export const MemberWithJobsDisplay: FC<
       >
         {member.name}
       </h2>
-      <div className="p-4 text-gray-800 dark:text-gray-200 flex flex-col justify-between align-middle flex-1">
+      <div className="p-4 text-gray-800 dark:text-gray-200 flex flex-col justify-between align-middle flex-1 ">
         {jobs.length > 0 ? (
           <>
-            <div className="flex flex-col h-full justify-between ">
+            <div className="flex flex-col h-full justify-between gap-2 ">
               <div>
                 <b>Tasks: </b>
                 <ul>
@@ -77,12 +77,21 @@ export const MemberWithJobsDisplay: FC<
                   ))}
                 </ul>
               </div>
-              {!allTasksHaveTheSameWeight && (
+              {
                 <p className="border-t-2 border-t-solid dark:border-t-gray-800 border-t-gray-200  py-2  grid grid-cols-[70%_30%] justify-items-start items-center gap-1">
-                  <b>Total Workload: </b>
-                  <span>{Number(workload)}pts</span>
+                  {allTasksHaveTheSameWeight ? (
+                    <>
+                      <b>Number of Tasks:</b>
+                      <span>{jobs.length}</span>
+                    </>
+                  ) : (
+                    <>
+                      <b>Total Workload: </b>
+                      <span>{workload}pts</span>
+                    </>
+                  )}
                 </p>
-              )}
+              }
             </div>
           </>
         ) : (
