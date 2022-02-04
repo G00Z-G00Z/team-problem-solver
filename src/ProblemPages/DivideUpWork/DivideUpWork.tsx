@@ -256,7 +256,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
       <div className="w-full flex justify-center items-center">
         <button
-          className="bg-CTA-400 text-gray-100  h-8 px-3 text-xl rounded-md disabled:opacity-75 hover:bg-CTA-500 "
+          className="bg-CTA-400 text-gray-100  h-8 px-3 text-xl rounded-md disabled:opacity-75 hover:bg-CTA-500 disabled:hover:bg-CTA-400  "
           onClick={handleDividing}
           disabled={lenTasks === 0}
         >
