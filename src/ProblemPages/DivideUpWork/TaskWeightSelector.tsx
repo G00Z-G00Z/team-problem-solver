@@ -30,9 +30,9 @@ export const TaskWeightSelector: FC<Props> = ({
         onChange(e.target.value);
       }}
       style={{
-        background: darkmode ? appColors[color][300] : appColors[color][200],
-        borderColor: darkmode ? appColors[color][200] : appColors[color][400],
-        outlineColor: darkmode ? appColors[color][200] : appColors[color][400],
+        background: darkmode ? appColors[color][200] : appColors[color][100],
+        borderColor: darkmode ? appColors[color][500] : appColors[color][400],
+        outlineColor: darkmode ? appColors[color][500] : appColors[color][400],
         color: appColors[color][500],
       }}
       name="weight"

@@ -13,11 +13,11 @@ export interface JobWeight {
  * This is the list of weights in the divide up work app
  */
 export const weightColors: JobWeight[] = [
-  { name: "tiny", weight: 1, color: "gray" },
-  { name: "small", weight: 2, color: "yellow" },
-  { name: "normal", weight: 3, color: "CTA" },
-  { name: "big", weight: 4, color: "pink" },
-  { name: "giant", weight: 5, color: "danger" },
+  { name: "tiny", weight: 1, color: "teal" },
+  { name: "small", weight: 2, color: "CTA" },
+  { name: "normal", weight: 3, color: "yellow" },
+  { name: "big", weight: 4, color: "danger" },
+  { name: "giant", weight: 5, color: "purple" },
 ];
 
 /**

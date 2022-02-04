@@ -50,10 +50,20 @@ export const MemberWithJobsDisplay: FC<
                           <span
                             className="rounded-full px-2 "
                             style={{
-                              backgroundColor:
-                                appColors[
-                                  hashMapWeightData[job.weight].color
-                                ][200],
+                              background: darkmode
+                                ? appColors[
+                                    hashMapWeightData[job.weight].color
+                                  ][200]
+                                : appColors[
+                                    hashMapWeightData[job.weight].color
+                                  ][100],
+                              borderColor: darkmode
+                                ? appColors[
+                                    hashMapWeightData[job.weight].color
+                                  ][500]
+                                : appColors[
+                                    hashMapWeightData[job.weight].color
+                                  ][400],
                               color:
                                 appColors[
                                   hashMapWeightData[job.weight].color

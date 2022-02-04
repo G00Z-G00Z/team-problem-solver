@@ -1,7 +1,8 @@
-import React, { FC } from 'react'
+import React, { FC, useContext } from 'react'
 import ReactModal from 'react-modal'
 import { appColors } from '../../types/AppColors'
 import { hashMapWeightData, weightColors } from './interfaces'
+import { UiContext } from '../../context/uiContext'
 
 interface Props {
   isOpen: boolean;
@@ -14,6 +15,8 @@ export const InstructionModal: FC<Props> = ({
   closeModal,
   openModal,
 }) => {
+  const { darkmode } = useContext(UiContext);
+
   return (
     <ReactModal
       isOpen={isOpen}
@@ -48,8 +51,12 @@ export const InstructionModal: FC<Props> = ({
             <span
               className="rounded-full px-2 "
               style={{
-                backgroundColor:
-                  appColors[hashMapWeightData[weight].color][200],
+                background: darkmode
+                  ? appColors[hashMapWeightData[weight].color][200]
+                  : appColors[hashMapWeightData[weight].color][100],
+                borderColor: darkmode
+                  ? appColors[hashMapWeightData[weight].color][500]
+                  : appColors[hashMapWeightData[weight].color][400],
                 color: appColors[hashMapWeightData[weight].color][500],
               }}
             >
