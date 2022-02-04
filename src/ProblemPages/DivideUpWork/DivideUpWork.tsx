@@ -11,6 +11,7 @@ import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
 import { ReactComponent as TrashIcon } from '../../assets/delete.svg'
 import { ReactComponent as AddIcon } from '../../assets/queue.svg'
+import { ReactComponent as HelpIcon } from '../../assets/help_outline.svg'
 import { RoundedCheckbox } from '../../components/General/RoundedCheckbox'
 import { TaskElement } from './TaskElement'
 import { TaskInput } from './TaskInput'
@@ -180,12 +181,16 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
   return (
     <div className="pb-10">
-      <h1 className="text-gray-900 dark:text-gray-200 w-full text-5xl font-serif text-center font-bold ">
+      <h1 className="text-gray-900 dark:text-gray-200 w-full text-5xl font-serif text-center font-bold relative">
         Divide Up Work
+        <button
+          className=" fill-gray-700 dark:fill-gray-400 absolute"
+          onClick={openInstructionModal}
+        >
+          <HelpIcon className="fill-inherit stroke-1" />
+        </button>
       </h1>
-      <button className="bg-CTA-300" onClick={openInstructionModal}>
-        Prende el modal
-      </button>
+
       <InstructionModal
         isOpen={isInstructionModalOpen}
         openModal={openInstructionModal}
@@ -251,7 +256,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
       <div className="w-full flex justify-center items-center">
         <button
-          className="bg-CTA-400 text-gray-100  h-8 px-3 text-xl rounded-md disabled:opacity-75"
+          className="bg-CTA-400 text-gray-100  h-8 px-3 text-xl rounded-md disabled:opacity-75 hover:bg-CTA-500 "
           onClick={handleDividing}
           disabled={lenTasks === 0}
         >
