@@ -4,6 +4,7 @@ import React, {
   useReducer,
   useState
   } from 'react'
+import ReactModal from 'react-modal'
 import useForm from '../../hooks/useForm'
 import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
@@ -14,6 +15,7 @@ import { TaskElement } from './TaskElement'
 import { TaskInput } from './TaskInput'
 import { TaskInputWithCheckbox } from './TaskInputWithCheckbox'
 import { TaskReducer } from './TasksReducer'
+import { useModal } from '../../hooks/useModal'
 import { useSessionStorage } from '../../hooks/useLocalStorage'
 import {
   divideUpWork,
@@ -21,6 +23,7 @@ import {
   Task,
 } from "../../problem-algorithms/divideUpWork";
 
+ReactModal.setAppElement("#root");
 export const DivideUpWork: ProblemPage = ({ team }) => {
   // Remebers the jobs
   const [dividedTasksSession, setDividedTaksSession] = useSessionStorage<{
@@ -30,6 +33,9 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
     lastTeamId: team?.id ?? 1,
     memberWithJobs: [],
   });
+
+  const [isInstructionModalOpen, openInstructionModal, closeInstructionModal] =
+    useModal();
 
   // Has a state with all the jobs
   const [tasksWithCheckbox, dispatch] = useReducer(TaskReducer, []);
@@ -176,7 +182,20 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       <h1 className="text-gray-900 dark:text-gray-200 w-full text-5xl font-serif text-center font-bold ">
         Divide Up Work
       </h1>
-
+      <button className="bg-CTA-300" onClick={openInstructionModal}>
+        Prende el modal
+      </button>
+      <ReactModal
+        isOpen={isInstructionModalOpen}
+        onRequestClose={closeInstructionModal}
+        shouldCloseOnOverlayClick={true}
+        shouldCloseOnEsc={true}
+        aria={{
+          describedby: "Description of how 'Divide Work' works",
+        }}
+      >
+        <button onClick={closeInstructionModal}>Close</button>
+      </ReactModal>
       <div className="m-auto max-w-lg grid grid-cols-1 md:grid-cols-[70%_20%_10%] justify-center items-center gap-4 p-4">
         <TaskInput
           onChangeDesc={(w) => onChange(w, "desc")}
