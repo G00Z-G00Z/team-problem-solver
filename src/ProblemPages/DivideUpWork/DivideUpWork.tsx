@@ -161,8 +161,6 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       .filter(({ task }) => task.desc !== "")
       .map(({ task }) => task);
 
-    console.log(tasksNormalized);
-
     tasksNormalized.length > 0
       ? //@ts-ignore
         setDividedTaksSession((c) => ({

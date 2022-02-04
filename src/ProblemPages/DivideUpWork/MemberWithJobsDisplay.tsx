@@ -1,7 +1,17 @@
 import React, { FC, useContext } from 'react'
 import { appColors, AvailableColorNames } from '../../types/AppColors'
-import { MemberWithJobs } from '../../problem-algorithms/divideUpWork'
+import { JobWeight, weightColors } from './TaskWeightSelector'
+import { MemberWithJobs, Task } from '../../problem-algorithms/divideUpWork'
 import { UiContext } from '../../context/uiContext'
+
+const hashMapWeightData: {
+  [key: number]: JobWeight;
+} = Object.assign(
+  {},
+  ...weightColors.map((val) => ({
+    [val.weight]: val,
+  }))
+);
 
 export const MemberWithJobsDisplay: FC<
   MemberWithJobs & {
@@ -11,12 +21,15 @@ export const MemberWithJobsDisplay: FC<
 > = ({ member, jobs, workload, color, allTasksHaveTheSameWeight }) => {
   const { darkmode } = useContext(UiContext);
 
+  // Sortea los trabajos de mayor a menor
+  jobs.sort((a, b) => b.weight - a.weight);
+
   return (
     <div
       style={{
         borderColor: darkmode ? appColors[color][100] : appColors[color][500],
       }}
-      className="w-full border-2 border-dashed  max-w-sm"
+      className="w-full border-2 border-dashed max-w-sm flex flex-col"
     >
       <h2
         style={{
@@ -29,29 +42,52 @@ export const MemberWithJobsDisplay: FC<
       >
         {member.name}
       </h2>
-      <div className="p-4 text-gray-800 dark:text-gray-200">
+      <div className="p-4 text-gray-800 dark:text-gray-200 flex flex-col justify-between align-middle flex-1">
         {jobs.length > 0 ? (
           <>
-            <p>
-              <b>Workload: </b>
-              <span>{Number(workload)}</span>
-            </p>
-            <div>
-              <b>Tasks: </b>
-              <ul>
-                {jobs.map((job, idx) => (
-                  <li key={idx} className="">
-                    {allTasksHaveTheSameWeight
-                      ? `${job.desc}`
-                      : `${job.desc}: ${job.weight}`}
-                  </li>
-                ))}
-              </ul>
+            <div className="flex flex-col h-full justify-between ">
+              <div>
+                <b>Tasks: </b>
+                <ul>
+                  {jobs.map((job, idx) => (
+                    <li key={idx} className="">
+                      {allTasksHaveTheSameWeight ? (
+                        `${job.desc}`
+                      ) : (
+                        <div className="w-full p-2 grid grid-cols-[70%_30%] justify-items-start items-center gap-1">
+                          <span className="break-words w-full">{job.desc}</span>
+                          <span
+                            className="rounded-full px-2 "
+                            style={{
+                              backgroundColor:
+                                appColors[
+                                  hashMapWeightData[job.weight].color
+                                ][200],
+                              color:
+                                appColors[
+                                  hashMapWeightData[job.weight].color
+                                ][500],
+                            }}
+                          >
+                            {hashMapWeightData[job.weight].name}
+                          </span>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {!allTasksHaveTheSameWeight && (
+                <p className="border-t-2 border-t-solid dark:border-t-gray-800 border-t-gray-200  py-2  grid grid-cols-[70%_30%] justify-items-start items-center gap-1">
+                  <b>Total Workload: </b>
+                  <span>{Number(workload)}pts</span>
+                </p>
+              )}
             </div>
           </>
         ) : (
           <div className="w-full text-center text-gray-800 dark:text-gray-200">
-            ¡Felicidades! No te tocó nada!
+            Lucky!! You have nothing assigned!
           </div>
         )}
       </div>

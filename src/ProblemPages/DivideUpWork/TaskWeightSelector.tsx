@@ -12,11 +12,13 @@ const minWeight = 1;
 
 const isInRange = (n: number) => minWeight <= n && n < maxWeight + 1;
 
-const weightColors: {
+export interface JobWeight {
   name: string;
   weight: number;
   color: AvailableColorNames;
-}[] = [
+}
+
+export const weightColors: JobWeight[] = [
   { name: "tiny", weight: 1, color: "gray" },
   { name: "small", weight: 2, color: "yellow" },
   { name: "normal", weight: 3, color: "CTA" },
@@ -54,10 +56,8 @@ export const TaskWeightSelector: FC<Props> = ({
         <option
           key={idx}
           style={{
-            backgroundColor: darkmode
-              ? appColors[color][200]
-              : appColors[color][200],
-            color: darkmode ? appColors[color][500] : appColors[color][500],
+            backgroundColor: appColors[color][200],
+            color: appColors[color][500],
           }}
           value={weight}
         >
