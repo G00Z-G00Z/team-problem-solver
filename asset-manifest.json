@@ -1,11 +1,12 @@
 {
   "files": {
-    "main.css": "/team-problem-solver/static/css/main.29047142.css",
-    "main.js": "/team-problem-solver/static/js/main.5cef31f0.js",
+    "main.css": "/team-problem-solver/static/css/main.f6142186.css",
+    "main.js": "/team-problem-solver/static/js/main.ab0843a4.js",
     "service-worker.js": "/team-problem-solver/service-worker.js",
     "index.html": "/team-problem-solver/index.html",
     "static/media/team.svg": "/team-problem-solver/static/media/team.985bccb10fed35a231f04d5c9fb1a5e9.svg",
     "static/media/help.svg": "/team-problem-solver/static/media/help.5e509072eea25530cf1d3b819dc852a2.svg",
+    "static/media/help_outline.svg": "/team-problem-solver/static/media/help_outline.e1abcd81b18ea7c795bcb7b1dc4eca5b.svg",
     "static/media/account.svg": "/team-problem-solver/static/media/account.443f214b30c379a6d6ed8d125499e094.svg",
     "static/media/eye.svg": "/team-problem-solver/static/media/eye.68a329feea256a4ce439c15847fde7ce.svg",
     "static/media/search.svg": "/team-problem-solver/static/media/search.97a55f75e8f20974e34bda873b5559fd.svg",
@@ -14,11 +15,11 @@
     "static/media/delete.svg": "/team-problem-solver/static/media/delete.9c4c625a027a954f1e530bc26c2e373a.svg",
     "static/media/done.svg": "/team-problem-solver/static/media/done.8f80b7fb3aef39a475db081c05411d78.svg",
     "static/media/home.svg": "/team-problem-solver/static/media/home.dcc452729f52b2a8435db5d421eac14c.svg",
-    "main.29047142.css.map": "/team-problem-solver/static/css/main.29047142.css.map",
-    "main.5cef31f0.js.map": "/team-problem-solver/static/js/main.5cef31f0.js.map"
+    "main.f6142186.css.map": "/team-problem-solver/static/css/main.f6142186.css.map",
+    "main.ab0843a4.js.map": "/team-problem-solver/static/js/main.ab0843a4.js.map"
   },
   "entrypoints": [
-    "static/css/main.29047142.css",
-    "static/js/main.5cef31f0.js"
+    "static/css/main.f6142186.css",
+    "static/js/main.ab0843a4.js"
   ]
 }
