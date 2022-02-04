@@ -1,30 +1,16 @@
 import { appColors, AvailableColorNames } from '../../types/AppColors'
 import { FC, useContext } from 'react'
 import { UiContext } from '../../context/uiContext'
-
-interface Props {
-  weight: number | string;
-  onChange: (newWeight: string) => void;
-}
+import { weightColors } from './interfaces'
 
 const maxWeight = 5;
 const minWeight = 1;
 
 const isInRange = (n: number) => minWeight <= n && n < maxWeight + 1;
-
-export interface JobWeight {
-  name: string;
-  weight: number;
-  color: AvailableColorNames;
+interface Props {
+  weight: number | string;
+  onChange: (newWeight: string) => void;
 }
-
-export const weightColors: JobWeight[] = [
-  { name: "tiny", weight: 1, color: "gray" },
-  { name: "small", weight: 2, color: "yellow" },
-  { name: "normal", weight: 3, color: "CTA" },
-  { name: "big", weight: 4, color: "pink" },
-  { name: "giant", weight: 5, color: "danger" },
-];
 
 export const TaskWeightSelector: FC<Props> = ({
   weight: taskWeigth,

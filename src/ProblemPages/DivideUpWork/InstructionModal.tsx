@@ -1,8 +1,7 @@
 import React, { FC } from 'react'
 import ReactModal from 'react-modal'
 import { appColors } from '../../types/AppColors'
-import { hashMapWeightData } from './MemberWithJobsDisplay'
-import { weightColors } from './TaskWeightSelector'
+import { hashMapWeightData, weightColors } from './interfaces'
 
 interface Props {
   isOpen: boolean;

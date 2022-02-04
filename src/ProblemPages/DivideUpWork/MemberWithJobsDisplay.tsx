@@ -1,17 +1,8 @@
 import React, { FC, useContext } from 'react'
 import { appColors, AvailableColorNames } from '../../types/AppColors'
-import { JobWeight, weightColors } from './TaskWeightSelector'
+import { hashMapWeightData } from './interfaces'
 import { MemberWithJobs, Task } from '../../problem-algorithms/divideUpWork'
 import { UiContext } from '../../context/uiContext'
-
-export const hashMapWeightData: {
-  [key: number]: JobWeight;
-} = Object.assign(
-  {},
-  ...weightColors.map((val) => ({
-    [val.weight]: val,
-  }))
-);
 
 export const MemberWithJobsDisplay: FC<
   MemberWithJobs & {
