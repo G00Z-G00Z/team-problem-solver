@@ -4,7 +4,7 @@ import { JobWeight, weightColors } from './TaskWeightSelector'
 import { MemberWithJobs, Task } from '../../problem-algorithms/divideUpWork'
 import { UiContext } from '../../context/uiContext'
 
-const hashMapWeightData: {
+export const hashMapWeightData: {
   [key: number]: JobWeight;
 } = Object.assign(
   {},

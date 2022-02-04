@@ -6,6 +6,7 @@ import React, {
   } from 'react'
 import ReactModal from 'react-modal'
 import useForm from '../../hooks/useForm'
+import { InstructionModal } from './InstructionModal'
 import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
 import { ReactComponent as TrashIcon } from '../../assets/delete.svg'
@@ -185,17 +186,11 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
       <button className="bg-CTA-300" onClick={openInstructionModal}>
         Prende el modal
       </button>
-      <ReactModal
+      <InstructionModal
         isOpen={isInstructionModalOpen}
-        onRequestClose={closeInstructionModal}
-        shouldCloseOnOverlayClick={true}
-        shouldCloseOnEsc={true}
-        aria={{
-          describedby: "Description of how 'Divide Work' works",
-        }}
-      >
-        <button onClick={closeInstructionModal}>Close</button>
-      </ReactModal>
+        openModal={openInstructionModal}
+        closeModal={closeInstructionModal}
+      />
       <div className="m-auto max-w-lg grid grid-cols-1 md:grid-cols-[70%_20%_10%] justify-center items-center gap-4 p-4">
         <TaskInput
           onChangeDesc={(w) => onChange(w, "desc")}
