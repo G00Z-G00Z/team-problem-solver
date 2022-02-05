@@ -36,12 +36,11 @@ export const InstructionModal: FC<Props> = ({
         shadow-lg text-base
         transition-all
         overflow-y-auto
+        outline-none
         `}
       style={{
         overlay: {
-          backgroundColor: darkmode
-            ? "hsla(0, 0%, 20.2%, .5)"
-            : "hsla(0, 0%, 90.2%, .5)",
+          backgroundColor: "",
           backdropFilter: "blur(2px)",
           zIndex: 20,
           WebkitBackdropFilter: "blur(2px)",
