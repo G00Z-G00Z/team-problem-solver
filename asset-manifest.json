@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/team-problem-solver/static/css/main.81e16576.css",
-    "main.js": "/team-problem-solver/static/js/main.a2758171.js",
+    "main.css": "/team-problem-solver/static/css/main.fba3e74b.css",
+    "main.js": "/team-problem-solver/static/js/main.349a5030.js",
     "service-worker.js": "/team-problem-solver/service-worker.js",
     "index.html": "/team-problem-solver/index.html",
     "static/media/team.svg": "/team-problem-solver/static/media/team.985bccb10fed35a231f04d5c9fb1a5e9.svg",
@@ -15,11 +15,11 @@
     "static/media/delete.svg": "/team-problem-solver/static/media/delete.9c4c625a027a954f1e530bc26c2e373a.svg",
     "static/media/done.svg": "/team-problem-solver/static/media/done.8f80b7fb3aef39a475db081c05411d78.svg",
     "static/media/home.svg": "/team-problem-solver/static/media/home.dcc452729f52b2a8435db5d421eac14c.svg",
-    "main.81e16576.css.map": "/team-problem-solver/static/css/main.81e16576.css.map",
-    "main.a2758171.js.map": "/team-problem-solver/static/js/main.a2758171.js.map"
+    "main.fba3e74b.css.map": "/team-problem-solver/static/css/main.fba3e74b.css.map",
+    "main.349a5030.js.map": "/team-problem-solver/static/js/main.349a5030.js.map"
   },
   "entrypoints": [
-    "static/css/main.81e16576.css",
-    "static/js/main.a2758171.js"
+    "static/css/main.fba3e74b.css",
+    "static/js/main.349a5030.js"
   ]
 }
