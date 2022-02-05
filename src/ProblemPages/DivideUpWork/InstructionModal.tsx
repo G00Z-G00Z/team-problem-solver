@@ -28,7 +28,8 @@ export const InstructionModal: FC<Props> = ({
         describedby: "Description of how 'Divide Work' works",
       }}
       className={`w-4/5 lg:w-2/3 h-2/3 max-w-lg mx-auto px-5 py-4
-        bg-gray-100 dark:bg-gray-800 top-1/2 -translate-y-1/2 
+      bg-gray-100
+         dark:bg-gray-800 top-1/2 -translate-y-1/2 
         text-gray-800 dark:text-gray-200 
         flex flex-col gap-4
         relative rounded-lg 
@@ -38,9 +39,12 @@ export const InstructionModal: FC<Props> = ({
         `}
       style={{
         overlay: {
-          backgroundColor: "",
+          backgroundColor: darkmode
+            ? "hsla(0, 0%, 20.2%, .5)"
+            : "hsla(0, 0%, 90.2%, .5)",
           backdropFilter: "blur(2px)",
           zIndex: 20,
+          WebkitBackdropFilter: "blur(2px)",
         },
       }}
     >

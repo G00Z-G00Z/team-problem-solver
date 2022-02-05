@@ -1,9 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useReducer,
-  useState
-  } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import ReactModal from 'react-modal'
 import useForm from '../../hooks/useForm'
 import { InstructionModal } from './InstructionModal'
@@ -13,7 +8,6 @@ import { ReactComponent as TrashIcon } from '../../assets/delete.svg'
 import { ReactComponent as AddIcon } from '../../assets/queue.svg'
 import { ReactComponent as HelpIcon } from '../../assets/help_outline.svg'
 import { RoundedCheckbox } from '../../components/General/RoundedCheckbox'
-import { TaskElement } from './TaskElement'
 import { TaskInput } from './TaskInput'
 import { TaskInputWithCheckbox } from './TaskInputWithCheckbox'
 import { TaskReducer } from './TasksReducer'
