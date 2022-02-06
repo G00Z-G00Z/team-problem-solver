@@ -5,6 +5,19 @@ import { UiContext } from '../../context/uiContext'
 
 // Check the documentation on how to put it:
 // https://reactcommunity.org/react-modal/
+
+/**
+ * For using the modal:
+ *
+ * <Modal
+ * ...
+ * contentElement=(props, children) => (
+ * <div {...props}>{children}
+ *  HERE YOU PUT WHAREVER YOU WANT
+ * </div>
+ * )
+ * />
+ */
 interface Props {
   isOpen: boolean;
   closeModal: () => void;
