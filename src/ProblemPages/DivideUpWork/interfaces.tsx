@@ -15,9 +15,9 @@ export interface JobWeight {
 export const weightColors: JobWeight[] = [
   { name: "tiny", weight: 1, color: "teal" },
   { name: "small", weight: 2, color: "CTA" },
-  { name: "normal", weight: 3, color: "yellow" },
-  { name: "big", weight: 4, color: "danger" },
-  { name: "giant", weight: 5, color: "purple" },
+  { name: "normal", weight: 4, color: "yellow" },
+  { name: "big", weight: 6, color: "danger" },
+  { name: "giant", weight: 8, color: "purple" },
 ];
 
 /**
