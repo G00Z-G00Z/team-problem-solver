@@ -45,7 +45,7 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
 
   const { desc, onChange, reset, weight } = useForm({
     desc: "",
-    weight: "2",
+    weight: "4",
   });
 
   const [lenTasks, setLenTasks] = useState(0);
