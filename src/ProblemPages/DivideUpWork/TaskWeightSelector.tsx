@@ -1,12 +1,14 @@
-import { appColors, AvailableColorNames } from '../../types/AppColors'
+import { appColors } from '../../types/AppColors'
 import { FC, useContext } from 'react'
+import { hashMapWeightData, weightColors } from './interfaces'
 import { UiContext } from '../../context/uiContext'
-import { weightColors } from './interfaces'
 
-const maxWeight = 5;
-const minWeight = 1;
+const allWeights = weightColors.map(({ weight }) => weight);
 
-const isInRange = (n: number) => minWeight <= n && n < maxWeight + 1;
+const maxWeight = Math.max(...allWeights);
+const minWeight = Math.min(...allWeights);
+
+const isValidWeight = (n: number) => !!hashMapWeightData[n];
 interface Props {
   weight: number | string;
   onChange: (newWeight: string) => void;
@@ -17,7 +19,7 @@ export const TaskWeightSelector: FC<Props> = ({
   onChange,
 }) => {
   const { darkmode } = useContext(UiContext);
-  if (!isInRange(Number(taskWeigth)))
+  if (!isValidWeight(Number(taskWeigth)))
     onChange(String(Number(taskWeigth) > maxWeight ? maxWeight : minWeight));
 
   const color =

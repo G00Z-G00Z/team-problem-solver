@@ -1,6 +1,7 @@
 import React, { useEffect, useReducer, useState } from 'react'
 import ReactModal from 'react-modal'
 import useForm from '../../hooks/useForm'
+import { hashMapWeightData, weightColors } from './interfaces'
 import { InstructionModal } from './InstructionModal'
 import { MemberWithJobsDisplay } from './MemberWithJobsDisplay'
 import { ProblemPage } from '../interface'
@@ -98,12 +99,42 @@ export const DivideUpWork: ProblemPage = ({ team }) => {
         reset();
         return;
 
-      case "ArrowUp":
-        onChange(String(Number(weight) + 1), "weight");
+      case "ArrowUp": {
+        const currIdx = weightColors.findIndex(
+          (data) => data.weight.toString() === weight
+        );
+
+        if (currIdx === -1) {
+          onChange(String(weightColors[0].weight), "weight");
+          return;
+        }
+
+        onChange(
+          String(
+            weightColors[currIdx + 1]?.weight ?? weightColors[currIdx]?.weight
+          ),
+          "weight"
+        );
         return;
-      case "ArrowDown":
-        onChange(String(Number(weight) - 1), "weight");
+      }
+      case "ArrowDown": {
+        const currIdx = weightColors.findIndex(
+          (data) => data.weight.toString() === weight
+        );
+
+        if (currIdx === -1) {
+          onChange(String(weightColors[0].weight), "weight");
+          return;
+        }
+
+        onChange(
+          String(
+            weightColors[currIdx - 1]?.weight ?? weightColors[currIdx]?.weight
+          ),
+          "weight"
+        );
         return;
+      }
     }
   };
 
