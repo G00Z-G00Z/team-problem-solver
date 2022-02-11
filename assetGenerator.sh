@@ -8,6 +8,6 @@ npx pwa-asset-generator \
 -i ./index.html  \
 -type png \
 -a "." \
--b "#11946E" \
+-b "#333333" \
 cd ..
 
