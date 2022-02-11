@@ -1,10 +1,12 @@
-import { CacheFirst, CacheOnly } from "workbox-strategies";
-import { clientsClaim } from "workbox-core";
-import { createHandlerBoundToURL, precacheAndRoute } from "workbox-precaching";
-import { ExpirationPlugin } from "workbox-expiration";
-import { registerRoute } from "workbox-routing";
+import { CacheFirst, CacheOnly } from 'workbox-strategies'
+import { clientsClaim } from 'workbox-core'
+import { createHandlerBoundToURL, precacheAndRoute } from 'workbox-precaching'
+import { ExpirationPlugin } from 'workbox-expiration'
+import { registerRoute } from 'workbox-routing'
 /// <reference lib="webworker" />
 /* eslint-disable no-restricted-globals */
+
+const version = 1; // for forcing changes
 
 declare const self: ServiceWorkerGlobalScope;
 
